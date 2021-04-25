@@ -1,0 +1,9 @@
+[submodule "VortexEngine/thirdParty/spdlog"]
+	path = VortexEngine/thirdParty/spdlog
+	url = https://github.com/gabime/spdlog
+[submodule "VortexEngine/thirdParty/GLFW"]
+	path = VortexEngine/thirdParty/GLFW
+	url = https://github.com/TheCherno/glfw
+[submodule "VortexEngine/thirdParty/Entt"]
+	path = VortexEngine/thirdParty/Entt
+	url = https://github.com/skypjack/entt
