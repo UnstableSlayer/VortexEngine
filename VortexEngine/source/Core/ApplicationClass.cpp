@@ -1,5 +1,5 @@
+#include <vpch.h>
 #include "ApplicationClass.h"
-#include <stdio.h>
 
 namespace Vortex
 {
@@ -15,6 +15,6 @@ namespace Vortex
 
 	void ApplicationClass::OnStart()
 	{
-		while (true) { printf("YES\n"); }
+		while (true);
 	}
 }
