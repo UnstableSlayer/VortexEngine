@@ -1,5 +1,6 @@
 workspace "Vortex"
 	platforms { "x86", "x64" }
+
 	configurations
 	{
 		"Debug",
@@ -8,6 +9,11 @@ workspace "Vortex"
 	}
 
 outputDir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+
+IncludeDir = {}
+IncludeDir["GLFW"] = "VortexEngine/thirdParty/GLFW/include"
+
+include "VortexEngine/thirdParty/GLFW"
 
 project "VortexEngine"
 	location "VortexEngine"
@@ -28,7 +34,15 @@ project "VortexEngine"
 
 	includedirs
 	{
-		"%{prj.name}/thirdParty/spdlog/include"
+		"%{prj.name}/source",
+		"%{prj.name}/thirdParty/spdlog/include",
+		"%{IncludeDir.GLFW}"
+	}
+	
+	links
+	{
+		"GLFW",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"

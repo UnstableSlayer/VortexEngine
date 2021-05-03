@@ -4,7 +4,6 @@
 #include <spdlog\spdlog.h>
 #include <spdlog\sinks\stdout_color_sinks.h>
 
-
 namespace Vortex
 {
 	class VORTEX_API Logger

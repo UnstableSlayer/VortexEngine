@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GLFW", "VortexEngine\thirdParty\GLFW\GLFW.vcxproj", "{154B857C-0182-860D-AA6E-6C109684020F}"
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameProject", "GameProject\GameProject.vcxproj", "{96B3495F-0269-C254-8B5D-BC2BF711B958}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VortexEngine", "VortexEngine\VortexEngine.vcxproj", "{C3C9E826-AF2C-78CB-58B2-B08144F4434E}"
@@ -15,6 +17,18 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{154B857C-0182-860D-AA6E-6C109684020F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{154B857C-0182-860D-AA6E-6C109684020F}.Debug|Win32.Build.0 = Debug|Win32
+		{154B857C-0182-860D-AA6E-6C109684020F}.Debug|x64.ActiveCfg = Debug|x64
+		{154B857C-0182-860D-AA6E-6C109684020F}.Debug|x64.Build.0 = Debug|x64
+		{154B857C-0182-860D-AA6E-6C109684020F}.Dist|Win32.ActiveCfg = Dist|Win32
+		{154B857C-0182-860D-AA6E-6C109684020F}.Dist|Win32.Build.0 = Dist|Win32
+		{154B857C-0182-860D-AA6E-6C109684020F}.Dist|x64.ActiveCfg = Dist|x64
+		{154B857C-0182-860D-AA6E-6C109684020F}.Dist|x64.Build.0 = Dist|x64
+		{154B857C-0182-860D-AA6E-6C109684020F}.Release|Win32.ActiveCfg = Release|Win32
+		{154B857C-0182-860D-AA6E-6C109684020F}.Release|Win32.Build.0 = Release|Win32
+		{154B857C-0182-860D-AA6E-6C109684020F}.Release|x64.ActiveCfg = Release|x64
+		{154B857C-0182-860D-AA6E-6C109684020F}.Release|x64.Build.0 = Release|x64
 		{96B3495F-0269-C254-8B5D-BC2BF711B958}.Debug|Win32.ActiveCfg = Debug|Win32
 		{96B3495F-0269-C254-8B5D-BC2BF711B958}.Debug|Win32.Build.0 = Debug|Win32
 		{96B3495F-0269-C254-8B5D-BC2BF711B958}.Debug|x64.ActiveCfg = Debug|x64

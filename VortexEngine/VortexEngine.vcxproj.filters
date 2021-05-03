@@ -4,8 +4,14 @@
     <Filter Include="Core">
       <UniqueIdentifier>{2EB4837C-1AEB-840D-C3D7-6A10AFED000F}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Events">
-      <UniqueIdentifier>{3A8963B1-262B-8E87-0FE6-A1DBFB2615D8}</UniqueIdentifier>
+    <Filter Include="Core\Events">
+      <UniqueIdentifier>{52201B74-BED5-9369-47CA-8D40B37E8A6D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platforms">
+      <UniqueIdentifier>{DDACA145-4917-56BC-9255-0762FEFE3311}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platforms\Windows">
+      <UniqueIdentifier>{17E40808-83FA-069E-CC71-92BF38C7D725}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -18,26 +24,32 @@
     <ClInclude Include="source\Core\EntryPoint.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="source\Core\Events\Event.h">
+      <Filter>Core\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Core\Events\KeyCodes.h">
+      <Filter>Core\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Core\Events\KeyEvent.h">
+      <Filter>Core\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Core\Events\MouseCodes.h">
+      <Filter>Core\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Core\Events\MouseEvents.h">
+      <Filter>Core\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Core\Events\WindowEvents.h">
+      <Filter>Core\Events</Filter>
+    </ClInclude>
     <ClInclude Include="source\Core\Logger.h">
       <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="source\Events\Event.h">
-      <Filter>Events</Filter>
+    <ClInclude Include="source\Core\Window.h">
+      <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="source\Events\KeyCodes.h">
-      <Filter>Events</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Events\KeyEvent.h">
-      <Filter>Events</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Events\MouseCodes.h">
-      <Filter>Events</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Events\MouseEvents.h">
-      <Filter>Events</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Events\WindowEvents.h">
-      <Filter>Events</Filter>
+    <ClInclude Include="source\Platforms\Windows\WindowsWindow.h">
+      <Filter>Platforms\Windows</Filter>
     </ClInclude>
     <ClInclude Include="source\vpch.h" />
   </ItemGroup>
@@ -47,6 +59,9 @@
     </ClCompile>
     <ClCompile Include="source\Core\Logger.cpp">
       <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Platforms\Windows\WindowsWindow.cpp">
+      <Filter>Platforms\Windows</Filter>
     </ClCompile>
     <ClCompile Include="source\vpch.cpp" />
   </ItemGroup>

@@ -5,7 +5,7 @@ namespace Vortex
 {
 	ApplicationClass::ApplicationClass()
 	{
-
+		m_Window = std::unique_ptr<Window>(Window::Create());
 	}
 
 	ApplicationClass::~ApplicationClass()
@@ -15,6 +15,9 @@ namespace Vortex
 
 	void ApplicationClass::OnStart()
 	{
-		while (true);
+		while (m_Running)
+		{
+			m_Window->OnUpdate();
+		}
 	}
 }
