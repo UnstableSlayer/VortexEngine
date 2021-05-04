@@ -42,6 +42,12 @@
     <ClInclude Include="source\Core\Events\WindowEvents.h">
       <Filter>Core\Events</Filter>
     </ClInclude>
+    <ClInclude Include="source\Core\Layer.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Core\LayerStack.h">
+      <Filter>Core</Filter>
+    </ClInclude>
     <ClInclude Include="source\Core\Logger.h">
       <Filter>Core</Filter>
     </ClInclude>
@@ -55,6 +61,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Core\ApplicationClass.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Core\Layer.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Core\LayerStack.cpp">
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="source\Core\Logger.cpp">

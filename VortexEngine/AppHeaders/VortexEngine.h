@@ -2,6 +2,7 @@
 //for use in game application
 
 #include "..\source\Core\ApplicationClass.h"
+#include "..\source\Core\Layer.h"
 #include "..\source\Core\Logger.h"
 
 //----Entry Point----

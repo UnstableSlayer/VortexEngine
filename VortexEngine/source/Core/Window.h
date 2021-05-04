@@ -1,6 +1,4 @@
 #pragma once
-#include "../vpch.h"
-
 #include "Core.h"
 #include "Events/Event.h"
 
@@ -12,7 +10,7 @@ namespace Vortex
 		unsigned int width;
 		unsigned int height;
 
-		WindowProperties(const std::string& Title = "Example Window",
+		WindowProperties(const std::string& Title = "VortexEngine Example Window",
 						 unsigned int Width = 320,
 						 unsigned int Height = 240)
 			: title(Title), width(Width), height(Height) {}

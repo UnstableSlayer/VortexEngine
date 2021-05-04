@@ -12,8 +12,10 @@ outputDir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
 IncludeDir["GLFW"] = "VortexEngine/thirdParty/GLFW/include"
+IncludeDir["Glad"] = "VortexEngine/thirdParty/Glad/include"
 
 include "VortexEngine/thirdParty/GLFW"
+include "VortexEngine/thirdParty/Glad"
 
 project "VortexEngine"
 	location "VortexEngine"
@@ -36,12 +38,14 @@ project "VortexEngine"
 	{
 		"%{prj.name}/source",
 		"%{prj.name}/thirdParty/spdlog/include",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}"
 	}
 	
 	links
 	{
 		"GLFW",
+		"Glad",
 		"opengl32.lib"
 	}
 
@@ -53,7 +57,8 @@ project "VortexEngine"
 		defines
 		{
 			"VE_PLATFORM_WINDOWS",
-			"VE_BUILD_DLL"
+			"VE_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
 		}
 
 		postbuildcommands
@@ -63,19 +68,18 @@ project "VortexEngine"
 
 	filter "configurations:Debug"
 		defines "VE_DEBUG"
+		buildoptions "/MDd"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "VE_RELEASE"
+		buildoptions "/MD"
 		optimize "On"
 
 	filter "configurations:Dist"
 		defines "VE_DIST"
+		buildoptions "/MD"
 		symbols "On"
-
-	filter{ "system:windows", "configurations:Release" }
-		buildoptions "/MT"
-
 
 	project "GameProject"
 		location "GameProject"
@@ -114,14 +118,17 @@ project "VortexEngine"
 
 		filter "configurations:Debug"
 			defines "VE_DEBUG"
+			buildoptions "/MDd"
 			symbols "On"
 
 		filter "configurations:Release"
 			defines "VE_RELEASE"
+			buildoptions "/MD"
 			optimize "On"
 
 		filter "configurations:Dist"
 			defines "VE_DIST"
+			buildoptions "/MD"
 			symbols "On"
 
 		filter{ "system:windows", "configurations:Release" }
