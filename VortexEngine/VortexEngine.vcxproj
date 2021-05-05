@@ -140,7 +140,7 @@
       <PrecompiledHeaderFile>vpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>VE_PLATFORM_WINDOWS;VE_BUILD_DLL;GLFW_INCLUDE_NONE;VE_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\GLFW\include;thirdParty\Glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\GLFW\include;thirdParty\Glad\include;thirdParty\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -163,7 +163,7 @@
       <PrecompiledHeaderFile>vpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>VE_PLATFORM_WINDOWS;VE_BUILD_DLL;GLFW_INCLUDE_NONE;VE_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\GLFW\include;thirdParty\Glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\GLFW\include;thirdParty\Glad\include;thirdParty\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -186,7 +186,7 @@
       <PrecompiledHeaderFile>vpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>VE_PLATFORM_WINDOWS;VE_BUILD_DLL;GLFW_INCLUDE_NONE;VE_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\GLFW\include;thirdParty\Glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\GLFW\include;thirdParty\Glad\include;thirdParty\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -213,7 +213,7 @@
       <PrecompiledHeaderFile>vpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>VE_PLATFORM_WINDOWS;VE_BUILD_DLL;GLFW_INCLUDE_NONE;VE_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\GLFW\include;thirdParty\Glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\GLFW\include;thirdParty\Glad\include;thirdParty\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -240,7 +240,7 @@
       <PrecompiledHeaderFile>vpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>VE_PLATFORM_WINDOWS;VE_BUILD_DLL;GLFW_INCLUDE_NONE;VE_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\GLFW\include;thirdParty\Glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\GLFW\include;thirdParty\Glad\include;thirdParty\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -263,7 +263,7 @@
       <PrecompiledHeaderFile>vpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>VE_PLATFORM_WINDOWS;VE_BUILD_DLL;GLFW_INCLUDE_NONE;VE_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\GLFW\include;thirdParty\Glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\GLFW\include;thirdParty\Glad\include;thirdParty\imgui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -294,6 +294,8 @@
     <ClInclude Include="source\Core\LayerStack.h" />
     <ClInclude Include="source\Core\Logger.h" />
     <ClInclude Include="source\Core\Window.h" />
+    <ClInclude Include="source\ImGui\ImGuiLayer.h" />
+    <ClInclude Include="source\Platforms\OpenGL\imgui_impl_opengl3.h" />
     <ClInclude Include="source\Platforms\Windows\WindowsWindow.h" />
     <ClInclude Include="source\vpch.h" />
   </ItemGroup>
@@ -302,6 +304,8 @@
     <ClCompile Include="source\Core\Layer.cpp" />
     <ClCompile Include="source\Core\LayerStack.cpp" />
     <ClCompile Include="source\Core\Logger.cpp" />
+    <ClCompile Include="source\ImGui\ImGuiLayer.cpp" />
+    <ClCompile Include="source\Platforms\OpenGL\imgui_impl_opengl3.cpp" />
     <ClCompile Include="source\Platforms\Windows\WindowsWindow.cpp" />
     <ClCompile Include="source\vpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
@@ -313,6 +317,9 @@
     </ProjectReference>
     <ProjectReference Include="thirdParty\Glad\Glad.vcxproj">
       <Project>{BDD6857C-A90D-870D-52FA-6C103E10030F}</Project>
+    </ProjectReference>
+    <ProjectReference Include="thirdParty\imgui\ImGui.vcxproj">
+      <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

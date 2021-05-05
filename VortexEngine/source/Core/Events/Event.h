@@ -7,7 +7,7 @@ namespace Vortex
 	{
 		None = 0,
 		WindowClose, WindowResize, WindowFocus, WindowLastFocus, WindowMoved,
-		KeyPressed, KeyReleased,
+		KeyPressed, KeyReleased, KeyTyped,
 		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled,
 		AppTick, AppUpdate, AppRender
 	};

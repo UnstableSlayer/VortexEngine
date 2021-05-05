@@ -2,16 +2,20 @@
 
 #include "ApplicationClass.h"
 #include "Logger.h"
+
 #include <GLFW/glfw3.h>
+#include <glad/glad.h>
 
 namespace Vortex
 {
-	#define BIND_EVENT(x) std::bind(&ApplicationClass::x, this, std::placeholders::_1)
+	ApplicationClass* ApplicationClass::s_Instance = nullptr;
 
 	ApplicationClass::ApplicationClass()
 	{
+		s_Instance = this;
+
 		m_Window = std::unique_ptr<Window>(Window::Create());
-		m_Window->SetEventCallback(BIND_EVENT(OnEvent));
+		m_Window->SetEventCallback(VORTEX_BIND_EVENT(ApplicationClass::OnEvent));
 	}
 
 	ApplicationClass::~ApplicationClass()
@@ -24,19 +28,19 @@ namespace Vortex
 		while (m_Running)
 		{
 			m_Window->OnUpdate();
-			
+
+			glClearColor(1.f, 0.f, 0.5f, 1.f);
+			glClear(GL_COLOR_BUFFER_BIT);
+
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
-
-			//glClearColor(1.f, 0.f, 0.5f, 1.f);
-			//glClear(GL_COLOR_BUFFER_BIT);
 		}
 	}
 
 	void ApplicationClass::OnEvent(Event& event)
 	{
 		EventDispatcher dispatcher(event);
-		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT(OnWindowClose));
+		dispatcher.Dispatch<WindowCloseEvent>(VORTEX_BIND_EVENT(ApplicationClass::OnWindowClose));
 
 		for (auto i = m_LayerStack.end(); i != m_LayerStack.begin();)
 		{

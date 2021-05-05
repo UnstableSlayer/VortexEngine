@@ -26,6 +26,7 @@ public :
 	GameApplication()
 	{
 		PushLayer(new ExampleLayer());
+		PushOverlay(new Vortex::ImGuiLayer());
 	}
 
 	~GameApplication()

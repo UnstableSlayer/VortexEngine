@@ -15,3 +15,5 @@
 #ifdef VORTEX_ENABLE_ASSERTS
 	#define VORTEX_ASSERT(x, ...) { if(!(x)) { VORTEX_CORE_ERROR("Assertion failed {0}", __VA_ARGS__); __debugbreak(); } }
 #endif
+
+#define VORTEX_BIND_EVENT(x) std::bind(&x, this, std::placeholders::_1)
