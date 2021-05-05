@@ -14,6 +14,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "VortexEngine/thirdParty/GLFW/include"
 IncludeDir["Glad"] = "VortexEngine/thirdParty/Glad/include"
 IncludeDir["ImGui"] = "VortexEngine/thirdParty/imgui"
+IncludeDir["Glm"] = "VortexEngine/thirdParty/glm"
 
 include "VortexEngine/thirdParty/GLFW"
 include "VortexEngine/thirdParty/Glad"
@@ -42,7 +43,8 @@ project "VortexEngine"
 		"%{prj.name}/thirdParty/spdlog/include",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.ImGui}"
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.Glm}"
 	}
 	
 	links

@@ -48,6 +48,9 @@
     <ClInclude Include="source\Core\Events\WindowEvents.h">
       <Filter>Core\Events</Filter>
     </ClInclude>
+    <ClInclude Include="source\Core\Input.h">
+      <Filter>Core</Filter>
+    </ClInclude>
     <ClInclude Include="source\Core\Layer.h">
       <Filter>Core</Filter>
     </ClInclude>
@@ -70,6 +73,7 @@
       <Filter>Platforms\Windows</Filter>
     </ClInclude>
     <ClInclude Include="source\vpch.h" />
+    <ClInclude Include="source\Platforms\Windows\WindowsInput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Core\ApplicationClass.cpp">
@@ -94,5 +98,6 @@
       <Filter>Platforms\Windows</Filter>
     </ClCompile>
     <ClCompile Include="source\vpch.cpp" />
+    <ClCompile Include="source\Platforms\Windows\WindowsInput.cpp" />
   </ItemGroup>
 </Project>

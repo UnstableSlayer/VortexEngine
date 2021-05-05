@@ -3,6 +3,7 @@
 #include <sstream>
 
 #include <VortexEngine.h>
+#include <chrono>
 
 class ExampleLayer : public Vortex::Layer
 {
@@ -11,12 +12,12 @@ public:
 
 	void OnUpdate() override
 	{
-		VORTEX_APP_INFO("ExampleLayer::Update");
+		//VORTEX_APP_INFO("ExampleLayer::Update");
 	}
 
 	void OnEvent(Vortex::Event& event) override
 	{
-		VORTEX_APP_TRACE("{0}", event.ToString());
+		//VORTEX_APP_TRACE("{0}", event.ToString());
 	}
 };
 
@@ -27,6 +28,8 @@ public :
 	{
 		PushLayer(new ExampleLayer());
 		PushOverlay(new Vortex::ImGuiLayer());
+
+		GetWindow().SetVSync(false);
 	}
 
 	~GameApplication()

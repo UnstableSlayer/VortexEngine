@@ -10,3 +10,6 @@
 [submodule "VortexEngine/thirdParty/imgui"]
 	path = VortexEngine/thirdParty/imgui
 	url = https://github.com/TheCherno/imgui
+[submodule "VortexEngine/thirdParty/glm"]
+	path = VortexEngine/thirdParty/glm
+	url = https://github.com/g-truc/glm
