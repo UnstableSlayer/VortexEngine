@@ -69,11 +69,13 @@
     <ClInclude Include="source\Platforms\OpenGL\imgui_impl_opengl3.h">
       <Filter>Platforms\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="source\Platforms\Windows\WindowsInput.h">
+      <Filter>Platforms\Windows</Filter>
+    </ClInclude>
     <ClInclude Include="source\Platforms\Windows\WindowsWindow.h">
       <Filter>Platforms\Windows</Filter>
     </ClInclude>
     <ClInclude Include="source\vpch.h" />
-    <ClInclude Include="source\Platforms\Windows\WindowsInput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Core\ApplicationClass.cpp">
@@ -94,10 +96,12 @@
     <ClCompile Include="source\Platforms\OpenGL\imgui_impl_opengl3.cpp">
       <Filter>Platforms\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="source\Platforms\Windows\WindowsInput.cpp">
+      <Filter>Platforms\Windows</Filter>
+    </ClCompile>
     <ClCompile Include="source\Platforms\Windows\WindowsWindow.cpp">
       <Filter>Platforms\Windows</Filter>
     </ClCompile>
     <ClCompile Include="source\vpch.cpp" />
-    <ClCompile Include="source\Platforms\Windows\WindowsInput.cpp" />
   </ItemGroup>
 </Project>

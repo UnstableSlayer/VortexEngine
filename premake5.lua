@@ -22,8 +22,10 @@ include "VortexEngine/thirdParty/imgui"
 
 project "VortexEngine"
 	location "VortexEngine"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputDir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputDir .. "/%{prj.name}")
@@ -56,41 +58,37 @@ project "VortexEngine"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines
 		{
 			"VE_PLATFORM_WINDOWS",
 			"VE_BUILD_DLL",
-			"GLFW_INCLUDE_NONE"
-		}
-
-		postbuildcommands
-		{
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputDir .. "/GameProject")
+			"GLFW_INCLUDE_NONE",
+			"_CRT_SECURE_NO_WARNINGS"
 		}
 
 	filter "configurations:Debug"
 		defines "VE_DEBUG"
-		buildoptions "/MDd"
-		symbols "On"
+		runtime "Debug"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "VE_RELEASE"
-		buildoptions "/MD"
-		optimize "On"
+		runtime "Release"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "VE_DIST"
-		buildoptions "/MD"
-		symbols "On"
+		runtime "Release"
+		optimize "on"
 
 	project "GameProject"
 		location "GameProject"
 		kind "ConsoleApp"
 		language "C++"
+		cppdialect "C++17"
+		staticruntime "on"
 
 		targetdir ("bin/" .. outputDir .. "/%{prj.name}")
 		objdir ("bin-int/" .. outputDir .. "/%{prj.name}")
@@ -113,8 +111,6 @@ project "VortexEngine"
 		}
 
 		filter "system:windows"
-			cppdialect "C++17"
-			staticruntime "On"
 			systemversion "latest"
 
 			defines
@@ -124,18 +120,15 @@ project "VortexEngine"
 
 		filter "configurations:Debug"
 			defines "VE_DEBUG"
-			buildoptions "/MDd"
-			symbols "On"
+			runtime "Debug"
+			symbols "on"
 
 		filter "configurations:Release"
 			defines "VE_RELEASE"
-			buildoptions "/MD"
-			optimize "On"
+			runtime "Release"
+			optimize "on"
 
 		filter "configurations:Dist"
 			defines "VE_DIST"
-			buildoptions "/MD"
-			symbols "On"
-
-		filter{ "system:windows", "configurations:Release" }
-			buildoptions "/MT"
+			runtime "Release"
+			symbols "on"
