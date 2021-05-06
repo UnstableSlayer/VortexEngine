@@ -1,5 +1,7 @@
 #pragma once
 #include "Core/Window.h"
+#include "Core/Renderer/GraphicsContext.h"
+
 #include <GLFW/glfw3.h>
 
 namespace Vortex
@@ -30,6 +32,7 @@ namespace Vortex
 
 	private:
 		GLFWwindow* m_Window;
+		GraphicsContext* m_Context;
 
 		struct WindowData
 		{

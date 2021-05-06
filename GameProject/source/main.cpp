@@ -19,6 +19,13 @@ public:
 	{
 		//VORTEX_APP_TRACE("{0}", event.ToString());
 	}
+
+	virtual void OnImGuiRender() override
+	{
+		ImGui::Begin("Hello");
+		ImGui::Text("Hello World!");
+		ImGui::End();
+	}
 };
 
 class GameApplication : public Vortex::ApplicationClass
@@ -27,8 +34,6 @@ public :
 	GameApplication()
 	{
 		PushLayer(new ExampleLayer());
-		PushOverlay(new Vortex::ImGuiLayer());
-
 		GetWindow().SetVSync(false);
 	}
 

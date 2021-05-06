@@ -3,6 +3,7 @@
 #include "Window.h"
 #include "LayerStack.h"
 #include "Events/WindowEvents.h"
+#include "../ImGui/ImGuiLayer.h"
 
 namespace Vortex
 {
@@ -25,8 +26,11 @@ namespace Vortex
 		bool OnWindowClose(WindowCloseEvent& event);
 
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		LayerStack m_LayerStack;
 		bool m_Running = true;
+
+		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
 
 	private:
 		static ApplicationClass* s_Instance;

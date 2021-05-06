@@ -266,6 +266,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="source\Core\ApplicationClass.h" />
+    <ClInclude Include="source\Core\Assert.h" />
     <ClInclude Include="source\Core\Core.h" />
     <ClInclude Include="source\Core\EntryPoint.h" />
     <ClInclude Include="source\Core\Events\Event.h" />
@@ -278,9 +279,12 @@
     <ClInclude Include="source\Core\Layer.h" />
     <ClInclude Include="source\Core\LayerStack.h" />
     <ClInclude Include="source\Core\Logger.h" />
+    <ClInclude Include="source\Core\Renderer\GraphicsContext.h" />
+    <ClInclude Include="source\Core\Renderer\Shader.h" />
     <ClInclude Include="source\Core\Window.h" />
     <ClInclude Include="source\ImGui\ImGuiLayer.h" />
-    <ClInclude Include="source\Platforms\OpenGL\imgui_impl_opengl3.h" />
+    <ClInclude Include="source\Platforms\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="source\Platforms\OpenGL\OpenGLShader.h" />
     <ClInclude Include="source\Platforms\Windows\WindowsInput.h" />
     <ClInclude Include="source\Platforms\Windows\WindowsWindow.h" />
     <ClInclude Include="source\vpch.h" />
@@ -290,8 +294,10 @@
     <ClCompile Include="source\Core\Layer.cpp" />
     <ClCompile Include="source\Core\LayerStack.cpp" />
     <ClCompile Include="source\Core\Logger.cpp" />
+    <ClCompile Include="source\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="source\ImGui\ImGuiLayer.cpp" />
-    <ClCompile Include="source\Platforms\OpenGL\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="source\Platforms\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="source\Platforms\OpenGL\OpenGLShader.cpp" />
     <ClCompile Include="source\Platforms\Windows\WindowsInput.cpp" />
     <ClCompile Include="source\Platforms\Windows\WindowsWindow.cpp" />
     <ClCompile Include="source\vpch.cpp">

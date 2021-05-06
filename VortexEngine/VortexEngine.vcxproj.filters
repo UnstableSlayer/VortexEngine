@@ -7,6 +7,9 @@
     <Filter Include="Core\Events">
       <UniqueIdentifier>{52201B74-BED5-9369-47CA-8D40B37E8A6D}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Renderer">
+      <UniqueIdentifier>{948B5FDE-004C-DB14-C986-2492350620F1}</UniqueIdentifier>
+    </Filter>
     <Filter Include="ImGui">
       <UniqueIdentifier>{C0FF640D-2C14-8DBE-F595-301E616989EF}</UniqueIdentifier>
     </Filter>
@@ -60,13 +63,16 @@
     <ClInclude Include="source\Core\Logger.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="source\Core\Renderer\GraphicsContext.h">
+      <Filter>Core\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="source\Core\Window.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="source\ImGui\ImGuiLayer.h">
       <Filter>ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="source\Platforms\OpenGL\imgui_impl_opengl3.h">
+    <ClInclude Include="source\Platforms\OpenGL\OpenGLContext.h">
       <Filter>Platforms\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="source\Platforms\Windows\WindowsInput.h">
@@ -76,6 +82,9 @@
       <Filter>Platforms\Windows</Filter>
     </ClInclude>
     <ClInclude Include="source\vpch.h" />
+    <ClInclude Include="source\Core\Renderer\Shader.h" />
+    <ClInclude Include="source\Platforms\OpenGL\OpenGLShader.h" />
+    <ClInclude Include="source\Core\Assert.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Core\ApplicationClass.cpp">
@@ -90,10 +99,13 @@
     <ClCompile Include="source\Core\Logger.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="source\ImGui\ImGuiBuild.cpp">
+      <Filter>ImGui</Filter>
+    </ClCompile>
     <ClCompile Include="source\ImGui\ImGuiLayer.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="source\Platforms\OpenGL\imgui_impl_opengl3.cpp">
+    <ClCompile Include="source\Platforms\OpenGL\OpenGLContext.cpp">
       <Filter>Platforms\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="source\Platforms\Windows\WindowsInput.cpp">
@@ -103,5 +115,6 @@
       <Filter>Platforms\Windows</Filter>
     </ClCompile>
     <ClCompile Include="source\vpch.cpp" />
+    <ClCompile Include="source\Platforms\OpenGL\OpenGLShader.cpp" />
   </ItemGroup>
 </Project>

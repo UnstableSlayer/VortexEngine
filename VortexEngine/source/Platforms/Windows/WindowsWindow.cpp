@@ -6,7 +6,7 @@
 #include "Core/Events/MouseEvents.h"
 #include "Core/Events/KeyEvent.h"
 
-#include <glad/glad.h>
+#include "Platforms/OpenGL/OpenGLContext.h"
 
 namespace Vortex
 {
@@ -48,8 +48,9 @@ namespace Vortex
 		}
 
 		m_Window = glfwCreateWindow((int)properties.width, (int)properties.height, m_Data.title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(m_Window);
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		m_Context = new OpenGLContext(m_Window);
+		m_Context->Init();
+
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 
@@ -149,7 +150,7 @@ namespace Vortex
 	void WindowsWindow::OnUpdate()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(m_Window);
+		m_Context->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)
