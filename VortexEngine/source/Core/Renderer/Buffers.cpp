@@ -10,8 +10,8 @@ namespace Vortex
     {
         switch (Renderer::GetAPI())
         {
-            case RendererAPI::None: VORTEX_ASSERT(false, "No API Selected!"); return nullptr;
-            case RendererAPI::OpenGL: return new OpenGLVertexBuffer(verticies, size);
+            case RendererAPI::API::None: VORTEX_ASSERT(false, "No API Selected!"); return nullptr;
+            case RendererAPI::API::OpenGL: return new OpenGLVertexBuffer(verticies, size);
         }
 
         VORTEX_ASSERT(false, "Unknown Renderer API!");
@@ -22,8 +22,8 @@ namespace Vortex
     {
         switch (Renderer::GetAPI())
         {
-            case RendererAPI::None: VORTEX_ASSERT(false, "No API Selected!"); return nullptr;
-            case RendererAPI::OpenGL: return new OpenGLIndexBuffer(indices, count);
+            case RendererAPI::API::None: VORTEX_ASSERT(false, "No API Selected!"); return nullptr;
+            case RendererAPI::API::OpenGL: return new OpenGLIndexBuffer(indices, count);
         }
 
         VORTEX_ASSERT(false, "Unknown Renderer API!");
@@ -34,8 +34,8 @@ namespace Vortex
     {
         switch (Renderer::GetAPI())
         {
-            case RendererAPI::None: VORTEX_ASSERT(false, "No API Selected!"); return nullptr;
-            case RendererAPI::OpenGL: return new OpenGLVertexArray();
+            case RendererAPI::API::None: VORTEX_ASSERT(false, "No API Selected!"); return nullptr;
+            case RendererAPI::API::OpenGL: return new OpenGLVertexArray();
         }
 
         VORTEX_ASSERT(false, "Unknown Renderer API!");

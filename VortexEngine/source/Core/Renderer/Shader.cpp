@@ -14,11 +14,11 @@ namespace Vortex
 	{
 		switch (Renderer::GetAPI())
 		{
-		case RendererAPI::None:
+		case RendererAPI::API::None:
 			VORTEX_ASSERT(false, "No API Selected!");
 			return nullptr;
 
-		case RendererAPI::OpenGL:
+		case RendererAPI::API::OpenGL:
 			return new OpenGLShader(vertexShaderLoc, fragmentShaderLoc);
 		}
 

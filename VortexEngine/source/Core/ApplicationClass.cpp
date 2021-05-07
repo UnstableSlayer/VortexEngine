@@ -5,30 +5,11 @@
 #include "Core/Input.h"
 #include "Core/Logger.h"
 
-#include <GLFW/glfw3.h>
-#include <glad/glad.h>
+#include "Renderer/Renderer.h"
 
 namespace Vortex
 {
 	ApplicationClass* ApplicationClass::s_Instance = nullptr;
-
-	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
-	{
-		switch (type)
-		{
-		case ShaderDataType::Int:			return GL_INT;
-		case ShaderDataType::Vec2i:			return GL_INT;
-		case ShaderDataType::Vec3i:			return GL_INT;
-		case ShaderDataType::Vec4i:			return GL_INT;
-		case ShaderDataType::Float:			return GL_FLOAT;
-		case ShaderDataType::Vec2f:			return GL_FLOAT;
-		case ShaderDataType::Vec3f:			return GL_FLOAT;
-		case ShaderDataType::Vec4f:			return GL_FLOAT;
-		case ShaderDataType::Mat3:			return GL_FLOAT;
-		case ShaderDataType::Mat4:			return GL_FLOAT;
-		case ShaderDataType::Bool:			return GL_BOOL;
-		}
-	}
 
 	ApplicationClass::ApplicationClass()
 	{
@@ -77,24 +58,14 @@ namespace Vortex
 	{
 		while (m_Running)
 		{
-			glClearColor(0.0f, 0.0f, 0.1f, 1.f);
-			glClear(GL_COLOR_BUFFER_BIT);
+			RenderCommand::Clear({0.5f, 0.2f, 0.1f, 1.f});
+
+			Renderer::BeginScene();
 
 			m_Shader->Bind();
-			m_VertexArray->Bind();
+			Renderer::Submit(m_VertexArray);
 
-			glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
-
-			GLenum result = glGetError();
-			switch (result)
-			{
-				case GL_INVALID_ENUM:						VORTEX_CORE_ERROR("INVALID ENUM - ({0})", result);						break;
-				case GL_INVALID_FRAMEBUFFER_OPERATION:		VORTEX_CORE_ERROR("INVALID FRAMEBUFFER OPERATION - ({0})", result);		break;
-				case GL_INVALID_OPERATION:					VORTEX_CORE_ERROR("INVALID OPERATION - ({0})", result);					break;
-				case GL_INVALID_INDEX:						VORTEX_CORE_ERROR("INVALID INDEX - ({0})", result);						break;
-				case GL_INVALID_VALUE:						VORTEX_CORE_ERROR("INVALID VALUE - ({0})", result);						break;
-			}
-
+			Renderer::EndScene();
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();

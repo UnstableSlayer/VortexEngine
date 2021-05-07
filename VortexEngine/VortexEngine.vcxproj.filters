@@ -27,6 +27,9 @@
     <ClInclude Include="source\Core\ApplicationClass.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="source\Core\Assert.h">
+      <Filter>Core</Filter>
+    </ClInclude>
     <ClInclude Include="source\Core\Core.h">
       <Filter>Core</Filter>
     </ClInclude>
@@ -63,7 +66,22 @@
     <ClInclude Include="source\Core\Logger.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="source\Core\Renderer\Buffers.h">
+      <Filter>Core\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="source\Core\Renderer\GraphicsContext.h">
+      <Filter>Core\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Core\Renderer\RenderCommand.h">
+      <Filter>Core\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Core\Renderer\Renderer.h">
+      <Filter>Core\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Core\Renderer\RendererAPI.h">
+      <Filter>Core\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Core\Renderer\Shader.h">
       <Filter>Core\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="source\Core\Window.h">
@@ -72,7 +90,16 @@
     <ClInclude Include="source\ImGui\ImGuiLayer.h">
       <Filter>ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="source\Platforms\OpenGL\OpenGLBuffers.h">
+      <Filter>Platforms\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="source\Platforms\OpenGL\OpenGLContext.h">
+      <Filter>Platforms\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Platforms\OpenGL\OpenGLRendererAPI.h">
+      <Filter>Platforms\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Platforms\OpenGL\OpenGLShader.h">
       <Filter>Platforms\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="source\Platforms\Windows\WindowsInput.h">
@@ -82,12 +109,6 @@
       <Filter>Platforms\Windows</Filter>
     </ClInclude>
     <ClInclude Include="source\vpch.h" />
-    <ClInclude Include="source\Core\Renderer\Shader.h" />
-    <ClInclude Include="source\Platforms\OpenGL\OpenGLShader.h" />
-    <ClInclude Include="source\Core\Assert.h" />
-    <ClInclude Include="source\Core\Renderer\Buffers.h" />
-    <ClInclude Include="source\Platforms\OpenGL\OpenGLBuffers.h" />
-    <ClInclude Include="source\Core\Renderer\Renderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Core\ApplicationClass.cpp">
@@ -102,13 +123,37 @@
     <ClCompile Include="source\Core\Logger.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="source\Core\Renderer\Buffers.cpp">
+      <Filter>Core\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Core\Renderer\RenderCommand.cpp">
+      <Filter>Core\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Core\Renderer\Renderer.cpp">
+      <Filter>Core\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Core\Renderer\RendererAPI.cpp">
+      <Filter>Core\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Core\Renderer\Shader.cpp">
+      <Filter>Core\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="source\ImGui\ImGuiBuild.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
     <ClCompile Include="source\ImGui\ImGuiLayer.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="source\Platforms\OpenGL\OpenGLBuffers.cpp">
+      <Filter>Platforms\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="source\Platforms\OpenGL\OpenGLContext.cpp">
+      <Filter>Platforms\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Platforms\OpenGL\OpenGLRendererAPI.cpp">
+      <Filter>Platforms\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Platforms\OpenGL\OpenGLShader.cpp">
       <Filter>Platforms\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="source\Platforms\Windows\WindowsInput.cpp">
@@ -118,10 +163,5 @@
       <Filter>Platforms\Windows</Filter>
     </ClCompile>
     <ClCompile Include="source\vpch.cpp" />
-    <ClCompile Include="source\Platforms\OpenGL\OpenGLShader.cpp" />
-    <ClCompile Include="source\Platforms\OpenGL\OpenGLBuffers.cpp" />
-    <ClCompile Include="source\Core\Renderer\Renderer.cpp" />
-    <ClCompile Include="source\Core\Renderer\Buffers.cpp" />
-    <ClCompile Include="source\Core\Renderer\Shader.cpp" />
   </ItemGroup>
 </Project>
