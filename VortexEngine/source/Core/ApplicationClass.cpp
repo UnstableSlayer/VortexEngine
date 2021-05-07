@@ -1,17 +1,34 @@
 #include "vpch.h"
 
 #include "ApplicationClass.h"
-#include "Logger.h"
+
+#include "Core/Input.h"
+#include "Core/Logger.h"
 
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
-#include "../Platforms/OpenGL/OpenGLShader.h"
-#include "Input.h"
 
 namespace Vortex
 {
 	ApplicationClass* ApplicationClass::s_Instance = nullptr;
-	OpenGLShader* testShader = nullptr;
+
+	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
+	{
+		switch (type)
+		{
+		case ShaderDataType::Int:			return GL_INT;
+		case ShaderDataType::Vec2i:			return GL_INT;
+		case ShaderDataType::Vec3i:			return GL_INT;
+		case ShaderDataType::Vec4i:			return GL_INT;
+		case ShaderDataType::Float:			return GL_FLOAT;
+		case ShaderDataType::Vec2f:			return GL_FLOAT;
+		case ShaderDataType::Vec3f:			return GL_FLOAT;
+		case ShaderDataType::Vec4f:			return GL_FLOAT;
+		case ShaderDataType::Mat3:			return GL_FLOAT;
+		case ShaderDataType::Mat4:			return GL_FLOAT;
+		case ShaderDataType::Bool:			return GL_BOOL;
+		}
+	}
 
 	ApplicationClass::ApplicationClass()
 	{
@@ -23,33 +40,32 @@ namespace Vortex
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 
-		glGenVertexArrays(1, &m_VertexArray);
-		glBindVertexArray(m_VertexArray);
-
-		glGenBuffers(1, &m_VertexBuffer);
-		glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
-		
-		float verticies[3 * 3] =
+		m_VertexArray.reset(VertexArray::Create());
+	
+		float verticies[3 * 6] =
 		{
-			-0.5f, -0.5f, 0.f,
-			0.5f, -0.5f, 0.f,
-			0.f, 0.5f, 0.f
+			-0.5f, -0.5f,  0.0f,	1.0f, 0.0f, 0.0f,
+			0.5f,  -0.5f,  0.0f,	0.6f, 0.0f, 0.0f,
+			0.0f,   0.5f,  0.0f,	0.2f, 0.0f, 0.0f
 		};
 
-		glBufferData(GL_ARRAY_BUFFER, sizeof(verticies), verticies, GL_STATIC_DRAW);
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
+		std::shared_ptr<VertexBuffer> vertexBuffer;
+		vertexBuffer.reset(VertexBuffer::Create(verticies, sizeof(verticies)));
 
-		glGenBuffers(1, &m_IndexBuffer);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
+		vertexBuffer->SetLayout(
+			{
+				{ ShaderDataType::Vec3f, "aPos" },
+				{ ShaderDataType::Vec3f, "aColor" } 
+			});
+		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
-		float indecies[3] = {
-			0, 1, 2
-		};
+		uint32_t indices[3] = { 0, 1, 2 };
 
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indecies), indecies, GL_STATIC_DRAW);
-		testShader = new OpenGLShader("D:\\Dev\\source\\repos\\VortexEngine\\Shaders\\vertex.txt", "D:\\Dev\\source\\repos\\VortexEngine\\Shaders\\fragment.txt");
-		glUseProgram(testShader->ID);
+		std::shared_ptr<IndexBuffer> indexBuffer;
+		indexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		m_VertexArray->SetIndexBuffer(indexBuffer);
+
+		m_Shader.reset(Shader::Create("D:\\Dev\\source\\repos\\VortexEngine\\Shaders\\vertex.txt", "D:\\Dev\\source\\repos\\VortexEngine\\Shaders\\fragment.txt"));
 	}
 
 	ApplicationClass::~ApplicationClass()
@@ -61,16 +77,23 @@ namespace Vortex
 	{
 		while (m_Running)
 		{
-			m_Window->OnUpdate();
-
-			glClearColor(0.2f, 0.3f, 0.8f, 1.f);
+			glClearColor(0.0f, 0.0f, 0.1f, 1.f);
 			glClear(GL_COLOR_BUFFER_BIT);
 
-			glUseProgram(testShader->ID);
-			//glUniform4f(1, 0.9f, 1.0f, 0.0f, 1.0f);
+			m_Shader->Bind();
+			m_VertexArray->Bind();
 
-			glBindVertexArray(m_VertexArray);
-			glDrawArrays(GL_TRIANGLES, 0, 3);
+			glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+
+			GLenum result = glGetError();
+			switch (result)
+			{
+				case GL_INVALID_ENUM:						VORTEX_CORE_ERROR("INVALID ENUM - ({0})", result);						break;
+				case GL_INVALID_FRAMEBUFFER_OPERATION:		VORTEX_CORE_ERROR("INVALID FRAMEBUFFER OPERATION - ({0})", result);		break;
+				case GL_INVALID_OPERATION:					VORTEX_CORE_ERROR("INVALID OPERATION - ({0})", result);					break;
+				case GL_INVALID_INDEX:						VORTEX_CORE_ERROR("INVALID INDEX - ({0})", result);						break;
+				case GL_INVALID_VALUE:						VORTEX_CORE_ERROR("INVALID VALUE - ({0})", result);						break;
+			}
 
 
 			for (Layer* layer : m_LayerStack)
@@ -80,6 +103,8 @@ namespace Vortex
 			for (Layer* layer : m_LayerStack)
 				layer->OnImGuiRender();
 			m_ImGuiLayer->End();
+
+			m_Window->OnUpdate();
 		}
 	}
 

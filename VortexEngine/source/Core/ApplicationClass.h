@@ -1,9 +1,15 @@
 #pragma once
 #include "Core.h"
+
 #include "Window.h"
 #include "LayerStack.h"
+#include "Events/Event.h"
 #include "Events/WindowEvents.h"
+
 #include "../ImGui/ImGuiLayer.h"
+
+#include "Renderer/Shader.h"
+#include "Renderer/Buffers.h"
 
 namespace Vortex
 {
@@ -30,7 +36,8 @@ namespace Vortex
 		LayerStack m_LayerStack;
 		bool m_Running = true;
 
-		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+		std::shared_ptr<Shader> m_Shader;
+		std::shared_ptr<VertexArray> m_VertexArray;
 
 	private:
 		static ApplicationClass* s_Instance;

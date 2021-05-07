@@ -85,6 +85,9 @@
     <ClInclude Include="source\Core\Renderer\Shader.h" />
     <ClInclude Include="source\Platforms\OpenGL\OpenGLShader.h" />
     <ClInclude Include="source\Core\Assert.h" />
+    <ClInclude Include="source\Core\Renderer\Buffers.h" />
+    <ClInclude Include="source\Platforms\OpenGL\OpenGLBuffers.h" />
+    <ClInclude Include="source\Core\Renderer\Renderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Core\ApplicationClass.cpp">
@@ -116,5 +119,9 @@
     </ClCompile>
     <ClCompile Include="source\vpch.cpp" />
     <ClCompile Include="source\Platforms\OpenGL\OpenGLShader.cpp" />
+    <ClCompile Include="source\Platforms\OpenGL\OpenGLBuffers.cpp" />
+    <ClCompile Include="source\Core\Renderer\Renderer.cpp" />
+    <ClCompile Include="source\Core\Renderer\Buffers.cpp" />
+    <ClCompile Include="source\Core\Renderer\Shader.cpp" />
   </ItemGroup>
 </Project>
