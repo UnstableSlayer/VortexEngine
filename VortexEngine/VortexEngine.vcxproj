@@ -281,6 +281,7 @@
     <ClInclude Include="source\Core\Logger.h" />
     <ClInclude Include="source\Core\Renderer\Buffers.h" />
     <ClInclude Include="source\Core\Renderer\GraphicsContext.h" />
+    <ClInclude Include="source\Core\Renderer\OrthographicCamera.h" />
     <ClInclude Include="source\Core\Renderer\RenderCommand.h" />
     <ClInclude Include="source\Core\Renderer\Renderer.h" />
     <ClInclude Include="source\Core\Renderer\RendererAPI.h" />
@@ -301,6 +302,7 @@
     <ClCompile Include="source\Core\LayerStack.cpp" />
     <ClCompile Include="source\Core\Logger.cpp" />
     <ClCompile Include="source\Core\Renderer\Buffers.cpp" />
+    <ClCompile Include="source\Core\Renderer\OrthographicCamera.cpp" />
     <ClCompile Include="source\Core\Renderer\RenderCommand.cpp" />
     <ClCompile Include="source\Core\Renderer\Renderer.cpp" />
     <ClCompile Include="source\Core\Renderer\RendererAPI.cpp" />

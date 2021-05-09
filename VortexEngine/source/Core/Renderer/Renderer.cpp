@@ -3,7 +3,7 @@
 
 namespace Vortex
 {
-	void Renderer::BeginScene()
+	void Renderer::BeginScene(OrthographicCamera& camera)
 	{
 	}
 	void Renderer::EndScene()

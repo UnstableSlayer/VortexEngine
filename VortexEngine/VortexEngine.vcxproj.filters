@@ -72,6 +72,9 @@
     <ClInclude Include="source\Core\Renderer\GraphicsContext.h">
       <Filter>Core\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="source\Core\Renderer\OrthographicCamera.h">
+      <Filter>Core\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="source\Core\Renderer\RenderCommand.h">
       <Filter>Core\Renderer</Filter>
     </ClInclude>
@@ -124,6 +127,9 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="source\Core\Renderer\Buffers.cpp">
+      <Filter>Core\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Core\Renderer\OrthographicCamera.cpp">
       <Filter>Core\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="source\Core\Renderer\RenderCommand.cpp">

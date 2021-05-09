@@ -2,11 +2,10 @@
 #include "Shader.h"
 
 #include "Renderer.h"
-
-#include "Core/Logger.h"
-#include "Core/Assert.h"
-
 #include "Platforms/OpenGL/OpenGLShader.h"
+
+#include <string>
+#include <fstream>
 
 namespace Vortex
 {

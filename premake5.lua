@@ -102,6 +102,7 @@ project "VortexEngine"
 		includedirs
 		{
 			"VortexEngine/thirdParty/spdlog/include",
+			"VortexEngine/thirdParty/glm",
 			"VortexEngine/AppHeaders"
 		}
 

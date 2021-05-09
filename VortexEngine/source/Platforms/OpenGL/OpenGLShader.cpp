@@ -2,6 +2,7 @@
 #include "OpenGLShader.h"
 
 #include <glad/glad.h>
+#include <glm/gtc/type_ptr.hpp>
 
 namespace Vortex
 {
@@ -111,5 +112,9 @@ namespace Vortex
 	void OpenGLShader::UnBind() const
 	{
 		glUseProgram(0);
+	}
+	void OpenGLShader::SetUniformMat4(const std::string& name, const glm::mat4& matrix)
+	{
+		glUniformMatrix4fv(glGetUniformLocation(m_ID, name.c_str()), 1, GL_FALSE, glm::value_ptr(matrix));
 	}
 }

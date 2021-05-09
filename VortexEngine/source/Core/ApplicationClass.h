@@ -10,6 +10,7 @@
 
 #include "Renderer/Shader.h"
 #include "Renderer/Buffers.h"
+#include "Renderer/OrthographicCamera.h"
 
 namespace Vortex
 {
@@ -19,17 +20,18 @@ namespace Vortex
 		ApplicationClass();
 		~ApplicationClass();
 
-		void OnStart();
-		void OnEvent(Event& event);
+		virtual void OnStart();
+		virtual void OnEvent(Event& event);
 
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);
 
 		inline static ApplicationClass& Get() { return *s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
+		
+		virtual bool OnWindowClose(WindowCloseEvent& event);
 
-	private:
-		bool OnWindowClose(WindowCloseEvent& event);
+	protected:
 
 		std::unique_ptr<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
@@ -38,6 +40,8 @@ namespace Vortex
 
 		std::shared_ptr<Shader> m_Shader;
 		std::shared_ptr<VertexArray> m_VertexArray;
+
+		OrthographicCamera m_Camera;
 
 	private:
 		static ApplicationClass* s_Instance;
