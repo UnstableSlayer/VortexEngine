@@ -1,13 +1,17 @@
 #include "vpch.h"
-#include "OrthographicCamera.h"
+#include "Camera.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace Vortex
 {
+	//glm::perspective(2.0f, 1.0f, 0.1f, 100.0f)
+	//glm::ortho(left, right, bottom, top, -1.f, 10.f)
+
 	OrthographicCamera::OrthographicCamera(float left, float right, float bottom, float top)
 		: m_ProjectionMatrix(glm::ortho(left, right, bottom, top, -1.f, 10.f)), m_ViewMatrix(glm::mat4(1.0f))
 	{
+		RecalculateViewMatrix();
 	}
 
 	void OrthographicCamera::RecalculateViewMatrix()

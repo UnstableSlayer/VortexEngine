@@ -12,14 +12,23 @@
 #include "..\thirdParty\imgui\imgui.h"
 #include "..\source\ImGui\ImGuiLayer.h"
 
+//---Scene---------------------------------
+#include "..\thirdParty\Entt\include\entt\entt.hpp"
+#include "..\source\Core\Envirovnemt\Object.h"
+#include "..\source\Core\Envirovnemt\Scene.h"
+#include "..\source\Core\Envirovnemt\Components.h"
+
 //----Rendering----------------------------
 #include "..\source\Core\Renderer\Renderer.h"
 #include "..\source\Core\Renderer\RenderCommand.h"
 
 #include "..\source\Core\Renderer\Buffers.h"
 #include "..\source\Core\Renderer\Shader.h"
+#include "..\source\Core\Renderer\Texture.h"
 
-#include "..\source\Core\Renderer\OrthographicCamera.h"
+#include "..\source\Core\Renderer\Camera.h"
+
+#include "..\source\Core\Time.h"
 //-------------------------------------------
 
 

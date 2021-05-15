@@ -51,7 +51,13 @@ namespace Vortex
 
 		void ReadShaderFiles(const std::string& vertexShaderLoc, const std::string& fragmentShaderLoc);
 
-		virtual void SetUniformMat4(const std::string& name, const glm::mat4& matrix) = 0;
+		virtual void SetUniformInt(const std::string& name, int value) = 0;
+		virtual void SetUniformVec1(const std::string& name, float value) = 0;
+		virtual void SetUniformVec2(const std::string& name, const glm::vec2& value) = 0;
+		virtual void SetUniformVec3(const std::string& name, const glm::vec3& value) = 0;
+		virtual void SetUniformVec4(const std::string& name, const glm::vec4& value) = 0;
+		virtual void SetUniformMat3(const std::string& name, const glm::mat3& value) = 0;
+		virtual void SetUniformMat4(const std::string& name, const glm::mat4& value) = 0;
 	public:
 		unsigned int m_ID;
 

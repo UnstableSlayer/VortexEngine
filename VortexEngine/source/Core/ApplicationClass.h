@@ -10,7 +10,9 @@
 
 #include "Renderer/Shader.h"
 #include "Renderer/Buffers.h"
-#include "Renderer/OrthographicCamera.h"
+#include "Renderer/Camera.h"
+
+#include "Time.h"
 
 namespace Vortex
 {
@@ -20,7 +22,9 @@ namespace Vortex
 		ApplicationClass();
 		~ApplicationClass();
 
-		virtual void OnStart();
+		void OnCreate();
+		virtual void OnStart() = 0;
+		virtual void OnUpdate() = 0;
 		virtual void OnEvent(Event& event);
 
 		void PushLayer(Layer* layer);
@@ -30,6 +34,7 @@ namespace Vortex
 		inline Window& GetWindow() { return *m_Window; }
 		
 		virtual bool OnWindowClose(WindowCloseEvent& event);
+		virtual bool OnWindowResize(WindowResizeEvent& event);
 
 	protected:
 
@@ -37,11 +42,9 @@ namespace Vortex
 		ImGuiLayer* m_ImGuiLayer;
 		LayerStack m_LayerStack;
 		bool m_Running = true;
+		bool m_Minimized = false;
 
-		std::shared_ptr<Shader> m_Shader;
-		std::shared_ptr<VertexArray> m_VertexArray;
-
-		OrthographicCamera m_Camera;
+	    Scope<Time> m_Time;
 
 	private:
 		static ApplicationClass* s_Instance;

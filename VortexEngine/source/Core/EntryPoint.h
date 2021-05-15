@@ -9,7 +9,7 @@ int main(int argc, char** argv)
 	Vortex::Logger::Init();
 
 	auto app = Vortex::CreateApplication();
-	app->OnStart();
+	app->OnCreate();
 	delete app;
 }
 

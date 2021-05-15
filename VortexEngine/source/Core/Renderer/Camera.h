@@ -4,6 +4,12 @@
 
 namespace Vortex
 {
+	enum class CameraTypes
+	{
+		Orthographical = 0,
+		Perspective
+	};
+
 	class OrthographicCamera
 	{
 	public:

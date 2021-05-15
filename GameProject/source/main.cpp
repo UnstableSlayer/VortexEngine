@@ -1,80 +1,63 @@
 #include <string>
 #include <functional>
 #include <sstream>
+#include <iostream>
 
 #include <VortexEngine.h>
 #include <chrono>
 
-class ExampleLayer : public Vortex::Layer
-{
-public:
-	ExampleLayer() : Layer("Example") {}
-
-	void OnUpdate() override
-	{
-		//VORTEX_APP_INFO("ExampleLayer::Update");
-	}
-
-	void OnEvent(Vortex::Event& event) override
-	{
-		//VORTEX_APP_TRACE("{0}", event.ToString());
-	}
-
-	virtual void OnImGuiRender() override
-	{
-		//ImGui::Begin("Hello");
-		//ImGui::Text("Hello World!");
-		//ImGui::End();
-	}
-};
-
 class GameApplication : public Vortex::ApplicationClass
 {
-public :
-	GameApplication()
+public:
+	GameApplication() : m_Camera(-1.6f, 1.6f, -0.9f, 0.9f)
 	{
 		m_Camera = Vortex::OrthographicCamera(-1.6f, 1.6f, -0.9f, 0.9f);
 
 		m_Window = std::unique_ptr<Vortex::Window>(Vortex::Window::Create(Vortex::WindowProperties("Vortex Engine Example Window", 1366, 768)));
 		m_Window->SetEventCallback(VORTEX_BIND_EVENT(ApplicationClass::OnEvent));
-
-		PushLayer(new ExampleLayer());
+		m_Window->SetVSync(false);
 
 		m_ImGuiLayer = new Vortex::ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 
 		m_VertexArray.reset(Vortex::VertexArray::Create());
 
-		float verticies[(3 + 4) * 4] =
+		Vortex::Ref<Vortex::VertexBuffer> vertexBuffer;
+
+		float triangleVerticies[(3 + 2) * 4] =
 		{
-			-0.5f,  -0.5f,  0.5f,	1.0f, 0.0f, 0.0f, 1.0f, // Front Left		0
-			 0.5f,  -0.5f,  0.5f,	0.6f, 0.4f, 0.8f, 1.0f, // Front Right	1
-			 0.0f,   0.5f,  0.0f,	0.2f, 0.8f, 0.5f, 1.0f, // Top			2
-			 0.0f,  -0.5f,  -0.5f,	1.0f, 0.0f, 0.0f, 1.0f // Back Middle	3
+			-0.5f,  -0.5f,  0.0f,	0.0f, 0.0f,		//-0.5f,  -0.5f,  1.0f,	0.0f, 0.0f, 0.0f, 0.1f, // Bottom Left		0
+			 0.5f,  -0.5f,  0.0f,	1.0f, 0.0f,		// 0.5f,  -0.5f,  1.0f,	1.0f, 0.0f, 0.8f, 0.1f, // Bottom Right		1
+			 0.5f,   0.5f,  0.0f,	1.0f, 1.0f,		// 0.5f,   0.5f,  1.0f,	1.0f, 1.0f, 0.5f, 0.1f, // Top   Right		2
+			-0.5f,   0.5f,  0.0f,	0.0f, 1.0f		//-0.5f,   0.5f,  1.0f,	0.0f, 1.0f, 0.0f, 0.1f  // Top   Left		3
 		};
 
-		std::shared_ptr<Vortex::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(Vortex::VertexBuffer::Create(verticies, sizeof(verticies)));
-
+		vertexBuffer.reset(Vortex::VertexBuffer::Create(triangleVerticies, sizeof(triangleVerticies)));
 		vertexBuffer->SetLayout(
 			{
-				{ Vortex::ShaderDataType::Vec3f, "aPos" },
-				{ Vortex::ShaderDataType::Vec4f, "aColor" }
-			});
+				{ Vortex::ShaderDataType::Vec3f, "aPos"},
+				{ Vortex::ShaderDataType::Vec2f, "aTexCoord"}
+			}
+		);
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
-		uint32_t indices[3 * 4] = {
+		Vortex::Ref<Vortex::IndexBuffer> indexBuffer;
+		uint32_t indices[3 * 2] = {
 			0, 1, 2,
-			1, 3, 2,
-			0, 3, 2,
-			3, 1, 0
+			0, 3, 2
 		};
-
-		std::shared_ptr<Vortex::IndexBuffer> indexBuffer;
 		indexBuffer.reset(Vortex::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
-		m_Shader.reset(Vortex::Shader::Create("D:\\Dev\\source\\repos\\VortexEngine\\Shaders\\vertex.txt", "D:\\Dev\\source\\repos\\VortexEngine\\Shaders\\fragment.txt"));
+		m_Shader.reset(Vortex::Shader::Create(".\\Shaders\\textureVertex.txt", ".\\Shaders\\textureFragment.txt"));
+		m_Shader->SetUniformInt("u_Texture", 0);
+
+		m_Texture = Vortex::Texture2D::Create(".\\Textures\\testTexture.png");
+
+		Vortex::Object sprite = m_Registry.CreateObject();
+		Vortex::TransformComponent& transform = sprite.AddComponent<Vortex::TransformComponent>();
+		transform.SetPosition(glm::vec3(0.f, 0.5f, 0.f));
+
 	}
 
 	~GameApplication()
@@ -82,50 +65,71 @@ public :
 		
 	}
 
-	virtual void OnStart() override
+	virtual void OnUpdate() override 
 	{
-		glm::vec3 position = glm::vec3(0.f);
-		glm::vec3 rotation = glm::vec3(0.f);
-		m_Window->SetVSync(true);
-		VORTEX_CORE_CRITICAL("VSync: {0}", m_Window->IsVSync());
+		static glm::vec3 position = glm::vec3(0.f);
+		static glm::vec3 rotation = glm::vec3(0.f);
+		static float scale = 1.f;
+		//VORTEX_CORE_CRITICAL("VSync: {0}", m_Window->IsVSync());
+		static auto& transform = m_Registry[0]->GetComponent<Vortex::TransformComponent>();
 
-		while (m_Running)
 		{
+			VORTEX_APP_INFO("DeltaTime: {0}", m_Time->GetDeltaTime() * 1000);
+			float scaleSpeed = (transform.m_Scale.x / 2.f) * m_Time->GetDeltaTime();
+
+			if (Vortex::Input::IsKeyPressed(Vortex::Key::S)) scale -= scaleSpeed;
+			if (Vortex::Input::IsKeyPressed(Vortex::Key::W)) scale += scaleSpeed;
+			if (Vortex::Input::IsKeyPressed(Vortex::Key::A)) position.x -= 2.f * m_Time->GetDeltaTime();
+			if (Vortex::Input::IsKeyPressed(Vortex::Key::D)) position.x += 2.f * m_Time->GetDeltaTime();
+			if (Vortex::Input::IsKeyPressed(Vortex::Key::Q)) position.y -= 2.f * m_Time->GetDeltaTime();
+			if (Vortex::Input::IsKeyPressed(Vortex::Key::E)) position.y += 2.f * m_Time->GetDeltaTime();
+			
+			if (Vortex::Input::IsKeyPressed(Vortex::Key::Up)) rotation.x += 60.f * m_Time->GetDeltaTime();
+			if (Vortex::Input::IsKeyPressed(Vortex::Key::Down)) rotation.x -= 60.f * m_Time->GetDeltaTime();
+			if (Vortex::Input::IsKeyPressed(Vortex::Key::Left)) rotation.y += 60.f * m_Time->GetDeltaTime();
+			if (Vortex::Input::IsKeyPressed(Vortex::Key::Right)) rotation.y -= 60.f * m_Time->GetDeltaTime();
+
+
 			Vortex::RenderCommand::Clear({ 0.1f, 0.1f, 0.1f, 1.f });
 
 			Vortex::Renderer::BeginScene(m_Camera);
 
-			if (Vortex::Input::IsKeyPressed(Vortex::Key::W)) position.z += 0.05f;
-			if (Vortex::Input::IsKeyPressed(Vortex::Key::S)) position.z -= 0.05f;
-			if (Vortex::Input::IsKeyPressed(Vortex::Key::A)) position.x -= 0.05f;
-			if (Vortex::Input::IsKeyPressed(Vortex::Key::D)) position.x += 0.05f;
-			if (Vortex::Input::IsKeyPressed(Vortex::Key::Q)) position.y -= 0.05f;
-			if (Vortex::Input::IsKeyPressed(Vortex::Key::E)) position.y += 0.05f;
 
-			rotation = glm::vec3(Vortex::Input::GetMouseY(), -Vortex::Input::GetMouseX(), 0.f);
-
-			//rotation.y += 0.01f;
-			m_Camera.SetPosition(position);// * glm::normalize(rotation));
-			m_Camera.SetRotation(rotation);
-
-			m_Shader->Bind();
+			m_Texture->Bind(0);
 			m_Shader->SetUniformMat4("u_viewProj", m_Camera.GetViewProjectionMatrix());
 
-			Vortex::Renderer::Submit(m_VertexArray);
+			transform.SetPosition(position);
+			transform.SetRotation(rotation);
+			transform.SetScale(glm::vec3(scale));
+			Vortex::Renderer::Submit(m_VertexArray, m_Shader, transform.GetTransformMatrix());
 
 			Vortex::Renderer::EndScene();
-
-			for (Vortex::Layer* layer : m_LayerStack)
-				layer->OnUpdate();
 
 			m_ImGuiLayer->Begin();
 			for (Vortex::Layer* layer : m_LayerStack)
 				layer->OnImGuiRender();
 			m_ImGuiLayer->End();
-
 			m_Window->OnUpdate();
 		}
 	}
+
+	virtual void OnStart() override
+	{
+
+	}
+
+private:
+	Vortex::Scene m_Registry;
+
+	Vortex::Ref<Vortex::Texture2D> m_Texture;
+	Vortex::Ref<Vortex::Texture2D> m_Texture1;
+
+	Vortex::Ref<Vortex::Shader> m_Shader;
+	Vortex::Ref<Vortex::VertexArray> m_VertexArray;
+
+	Vortex::OrthographicCamera m_Camera;
+
+	std::vector<Vortex::ProfileResult> m_ProfileResults;
 };
 
 

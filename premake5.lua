@@ -15,6 +15,8 @@ IncludeDir["GLFW"] = "VortexEngine/thirdParty/GLFW/include"
 IncludeDir["Glad"] = "VortexEngine/thirdParty/Glad/include"
 IncludeDir["ImGui"] = "VortexEngine/thirdParty/imgui"
 IncludeDir["Glm"] = "VortexEngine/thirdParty/glm"
+IncludeDir["stb_image"] = "VortexEngine/thirdParty/stb_image"
+IncludeDir["EnTT"] = "VortexEngine/thirdParty/Entt/include"
 
 include "VortexEngine/thirdParty/GLFW"
 include "VortexEngine/thirdParty/Glad"
@@ -36,7 +38,11 @@ project "VortexEngine"
 	files
 	{
 		"%{prj.name}/source/**.h",
-		"%{prj.name}/source/**.cpp"
+		"%{prj.name}/source/**.cpp",
+		"%{prj.name}/thirdParty/glm/glm/**.hpp",
+		"%{prj.name}/thirdParty/glm/glm/**.inl",
+		"%{prj.name}/thirdParty/stb_image/**.h",
+		"%{prj.name}/thirdParty/stb_image/**.cpp"
 	}
 
 	includedirs
@@ -46,7 +52,9 @@ project "VortexEngine"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.Glm}"
+		"%{IncludeDir.Glm}",
+		"%{IncludeDir.EnTT}",
+		"%{IncludeDir.stb_image}"
 	}
 	
 	links
@@ -102,8 +110,9 @@ project "VortexEngine"
 		includedirs
 		{
 			"VortexEngine/thirdParty/spdlog/include",
-			"VortexEngine/thirdParty/glm",
-			"VortexEngine/AppHeaders"
+			"VortexEngine/AppHeaders",
+			"%{IncludeDir.Glm}",
+			"%{IncludeDir.EnTT}"
 		}
 
 		links 
@@ -132,4 +141,4 @@ project "VortexEngine"
 		filter "configurations:Dist"
 			defines "VE_DIST"
 			runtime "Release"
-			symbols "on"
+			optimize "on"

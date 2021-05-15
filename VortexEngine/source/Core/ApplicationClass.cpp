@@ -9,13 +9,14 @@
 
 namespace Vortex
 {
+
 	ApplicationClass* ApplicationClass::s_Instance = nullptr;
 
-	ApplicationClass::ApplicationClass() : m_Camera(-1.f, 1.f, -1.f, 1.f)
+	ApplicationClass::ApplicationClass()
 	{
 		s_Instance = this;
 
-		
+		m_Time.reset(new Time());
 	}
 
 	ApplicationClass::~ApplicationClass()
@@ -23,15 +24,29 @@ namespace Vortex
 
 	}
 
-	void ApplicationClass::OnStart()
+	void ApplicationClass::OnCreate()
 	{
-		
+		OnStart();
+		Renderer::Init();
+
+		while (m_Running)
+		{
+			Timer timer = Timer("DeltaTime", [&](ProfileResult profileReport) {m_Time->Init(profileReport.Time / 1000000); });
+			OnUpdate();
+
+			if (!m_Minimized)
+			{
+				for (Vortex::Layer* layer : m_LayerStack)
+					layer->OnUpdate();
+			}
+		}
 	}
 
 	void ApplicationClass::OnEvent(Event& event)
 	{
 		EventDispatcher dispatcher(event);
 		dispatcher.Dispatch<WindowCloseEvent>(VORTEX_BIND_EVENT(ApplicationClass::OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(VORTEX_BIND_EVENT(ApplicationClass::OnWindowResize));
 
 		for (auto i = m_LayerStack.end(); i != m_LayerStack.begin();)
 		{
@@ -56,5 +71,19 @@ namespace Vortex
 	{
 		m_Running = false;
 		return true;
+	}
+
+	bool ApplicationClass::OnWindowResize(WindowResizeEvent& event)
+	{
+		if (event.GetWidth() == 0 || event.GetHeight() == 0)
+		{
+			m_Minimized = true;
+			return false;
+		}
+		m_Minimized = false;
+
+		Renderer::OnWindowResize(event.GetWidth(), event.GetHeight());
+
+		return false;
 	}
 }

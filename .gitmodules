@@ -4,9 +4,6 @@
 [submodule "VortexEngine/thirdParty/GLFW"]
 	path = VortexEngine/thirdParty/GLFW
 	url = https://github.com/TheCherno/glfw
-[submodule "VortexEngine/thirdParty/Entt"]
-	path = VortexEngine/thirdParty/Entt
-	url = https://github.com/skypjack/entt
 [submodule "VortexEngine/thirdParty/imgui"]
 	path = VortexEngine/thirdParty/imgui
 	url = https://github.com/TheCherno/imgui

@@ -113,8 +113,34 @@ namespace Vortex
 	{
 		glUseProgram(0);
 	}
-	void OpenGLShader::SetUniformMat4(const std::string& name, const glm::mat4& matrix)
+
+	void OpenGLShader::SetUniformInt(const std::string& name, int value)
 	{
-		glUniformMatrix4fv(glGetUniformLocation(m_ID, name.c_str()), 1, GL_FALSE, glm::value_ptr(matrix));
+		GLint loc = glGetUniformLocation(m_ID, name.c_str());
+		glUniform1i(loc, value);
+	}
+	void OpenGLShader::SetUniformVec1(const std::string& name, float value)
+	{
+		glUniform1f(glGetUniformLocation(m_ID, name.c_str()), value);
+	}
+	void OpenGLShader::SetUniformVec2(const std::string& name, const glm::vec2& value)
+	{
+		glUniform2f(glGetUniformLocation(m_ID, name.c_str()), value.x, value.y);
+	}
+	void OpenGLShader::SetUniformVec3(const std::string& name, const glm::vec3& value)
+	{
+		glUniform3f(glGetUniformLocation(m_ID, name.c_str()), value.x, value.y, value.z);
+	}
+	void OpenGLShader::SetUniformVec4(const std::string& name, const glm::vec4& value)
+	{
+		glUniform4f(glGetUniformLocation(m_ID, name.c_str()), value.x, value.y, value.z, value.w);
+	}
+	void OpenGLShader::SetUniformMat3(const std::string& name, const glm::mat3& value)
+	{
+		glUniformMatrix3fv(glGetUniformLocation(m_ID, name.c_str()), 1, GL_FALSE, glm::value_ptr(value));
+	}
+	void OpenGLShader::SetUniformMat4(const std::string& name, const glm::mat4& value)
+	{
+		glUniformMatrix4fv(glGetUniformLocation(m_ID, name.c_str()), 1, GL_FALSE, glm::value_ptr(value));
 	}
 }
