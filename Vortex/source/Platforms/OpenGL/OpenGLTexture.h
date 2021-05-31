@@ -1,0 +1,26 @@
+#pragma once
+#include "Core\Renderer\Texture.h"
+
+namespace Vortex
+{
+	class OpenGLTexture : public Texture2D
+	{
+	public:
+		OpenGLTexture(const std::string& path);
+		OpenGLTexture(const uint32_t width, const uint32_t height);
+		virtual ~OpenGLTexture();
+
+		virtual uint32_t GetWidth() const override { return m_Width; }
+		virtual uint32_t GetHeight() const override { return m_Height; }
+
+		virtual void Bind(uint32_t slot = 0) const override;
+		virtual void SetData(void* data, uint32_t size) override;
+
+	private:
+		std::string m_Path;
+		uint32_t m_Width, m_Height;
+		uint32_t m_ID;
+
+		unsigned int m_InternalFormat, m_DataFormat;
+	};
+}
