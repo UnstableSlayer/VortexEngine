@@ -2,45 +2,60 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "Core/Renderer/Texture.h"
+
 namespace Vortex
 {
+	struct TagComponent
+	{
+	public:
+		TagComponent(const char* tag) : m_Tag(tag) {}
+		TagComponent(const TagComponent&) = default;
+
+	public:
+		const char* m_Tag;
+	};
+
 	struct TransformComponent
 	{
 	public:
-		TransformComponent() = default;
+		TransformComponent() { Reset(); }
 		TransformComponent(const TransformComponent&) = default;
 		
 		void Move(glm::vec3 delta)
 		{
-			m_TransformMatrix = glm::translate(m_TransformMatrix, delta);
-			m_Position += delta;
+			SetPosition(m_Position + delta);
 		}
 
 		void Rotate(glm::vec3 delta)
 		{
-			m_Rotation += delta;
-
-			Update();
+			SetRotation(m_Rotation + delta);
 		}
 
 		void Scale(glm::vec3 delta)
 		{
-			SetScale(m_Scale - delta);
+			SetScale(m_Scale + delta);
 		}
 
 		void SetPosition(glm::vec3 position)
 		{
-			Move(position - m_Position);
+			if (position == m_Position) return;
+
+			m_TransformMatrix = glm::translate(m_TransformMatrix, position - m_Position);
+			m_Position = position;
 		}
 
 		void SetRotation(glm::vec3 rotation)
 		{
-			Rotate(rotation - m_Rotation);
+			if (rotation == m_Rotation) return;
+
+			m_Rotation = rotation;
+			Update();
 		}
 
 		void SetScale(glm::vec3 scale)
 		{
-			if (scale.x < 0 || scale.y < 0 || scale.z < 0) return;
+			if (scale == m_Scale) return;
 
 			m_Scale = scale;
 			Update();
@@ -73,16 +88,28 @@ namespace Vortex
 		}
 
 	private:
-		glm::vec3 m_Position = glm::vec3(0.f);
-		glm::vec3 m_Rotation = glm::vec3(0.f);
-		glm::vec3 m_Scale = glm::vec3(1.f);
+		glm::vec3 m_Position;
+		glm::vec3 m_Rotation;
+		glm::vec3 m_Scale;
 
-		glm::mat4 m_TransformMatrix = glm::mat4(1.0f);
+		glm::mat4 m_TransformMatrix;
 	};
 
-	struct RendererComponent
+	struct SpriteComponent
 	{
+	public:
+		SpriteComponent() = default;
+		SpriteComponent(const SpriteComponent&) = default;
 
+		SpriteComponent(Ref<Texture2D> sprite, glm::vec2 textureTiling = glm::vec2(1.f), glm::vec4 tint = glm::vec4(1.f))
+			: m_Sprite(sprite), m_TextureTiling(textureTiling), m_Tint(tint) {}
+
+	public:
+		Ref<Texture2D> m_Sprite;
+		glm::vec2 m_TextureTiling = glm::vec2(1.f);
+		glm::vec4 m_Tint = glm::vec4(1.f);
+
+		bool IsVisible = true;
 	};
 
 	struct CameraComponent

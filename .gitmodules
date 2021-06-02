@@ -1,12 +1,12 @@
 [submodule "VortexEngine/thirdParty/spdlog"]
-	path = VortexEngine/thirdParty/spdlog
+	path = Vortex/thirdParty/spdlog
 	url = https://github.com/gabime/spdlog
 [submodule "VortexEngine/thirdParty/GLFW"]
-	path = VortexEngine/thirdParty/GLFW
+	path = Vortex/thirdParty/GLFW
 	url = https://github.com/TheCherno/glfw
 [submodule "VortexEngine/thirdParty/imgui"]
-	path = VortexEngine/thirdParty/imgui
+	path = Vortex/thirdParty/imgui
 	url = https://github.com/TheCherno/imgui
 [submodule "VortexEngine/thirdParty/glm"]
-	path = VortexEngine/thirdParty/glm
+	path = Vortex/thirdParty/glm
 	url = https://github.com/g-truc/glm

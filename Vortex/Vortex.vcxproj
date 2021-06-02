@@ -276,7 +276,7 @@
     <ClInclude Include="source\Core\ApplicationClass.h" />
     <ClInclude Include="source\Core\Assert.h" />
     <ClInclude Include="source\Core\Core.h" />
-    <ClInclude Include="source\Core\EntryPoint.h" />
+    <ClInclude Include="source\EntryPoint.h" />
     <ClInclude Include="source\Core\Envirovnemt\Components.h" />
     <ClInclude Include="source\Core\Envirovnemt\Object.h" />
     <ClInclude Include="source\Core\Envirovnemt\Scene.h" />

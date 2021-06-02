@@ -9,7 +9,7 @@
 
 namespace Vortex
 {
-	OpenGLTexture::OpenGLTexture(const std::string& path)
+	OpenGLTexture2D::OpenGLTexture2D(const std::string& path)
 		: m_Path(path)
 	{
 		int width, height, channels;
@@ -20,12 +20,13 @@ namespace Vortex
 		m_Height = height;
 
 		GLenum texFormat = 0, dataFormat = 0;
+		
 		if (channels == 3)
 		{
 			texFormat = GL_RGB8;
 			dataFormat = GL_RGB;
 		}
-		else if (channels == 4)
+		else if(channels == 4)
 		{
 			texFormat = GL_RGBA8;
 			dataFormat = GL_RGBA;
@@ -47,7 +48,7 @@ namespace Vortex
 		stbi_image_free(data);
 	}
 
-	OpenGLTexture::OpenGLTexture(const uint32_t width, const uint32_t height) : m_Width(width), m_Height(height)
+	OpenGLTexture2D::OpenGLTexture2D(const uint32_t width, const uint32_t height) : m_Width(width), m_Height(height)
 	{
 		m_InternalFormat = GL_RGBA8;
 		m_DataFormat = GL_RGBA;
@@ -62,20 +63,27 @@ namespace Vortex
 		glTextureParameteri(m_ID, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	}
 
-	OpenGLTexture::~OpenGLTexture()
+	OpenGLTexture2D::~OpenGLTexture2D()
 	{
 		glDeleteTextures(1, &m_ID);
 	}
 
-	void OpenGLTexture::Bind(uint32_t slot) const
+	void OpenGLTexture2D::Bind(uint32_t slot) const
 	{
 		glBindTextureUnit(slot, m_ID);
 	}
 
-	void OpenGLTexture::SetData(void* data, uint32_t size)
+	void OpenGLTexture2D::SetData(void* data, uint32_t size)
 	{
 		uint32_t bpp = m_DataFormat == GL_RGBA ? 4 : 3;
 		VORTEX_ASSERT(size == m_Width * m_Height * bpp, "Data must be entire texture!");
 		glTextureSubImage2D(m_ID, 0, 0, 0, m_Width, m_Height, m_DataFormat, GL_UNSIGNED_BYTE, data);
+	}
+	unsigned int* OpenGLTexture2D::GetData()
+	{
+		unsigned int* buffer = nullptr;
+		glGetTextureSubImage(m_ID, 0, 0, 0, 0, GetWidth(), GetHeight(), 0, m_DataFormat, GL_UNSIGNED_INT, GetWidth() * GetHeight() * sizeof(unsigned int), buffer);
+
+		return buffer;
 	}
 }

@@ -119,6 +119,11 @@ namespace Vortex
 		GLint loc = glGetUniformLocation(m_ID, name.c_str());
 		glUniform1i(loc, value);
 	}
+	void OpenGLShader::SetUniformIntArray(const std::string& name, int* value, uint32_t count)
+	{
+		GLint loc = glGetUniformLocation(m_ID, name.c_str());
+		glUniform1iv(loc, count, value);
+	}
 	void OpenGLShader::SetUniformVec1(const std::string& name, float value)
 	{
 		glUniform1f(glGetUniformLocation(m_ID, name.c_str()), value);

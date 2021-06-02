@@ -15,7 +15,7 @@ namespace Vortex
 		template<typename... T>
 		bool HasComponent()
 		{
-			return m_Registry->all_of<T>((entt::entity)m_ID);
+			return m_Registry->all_of<T...>((entt::entity)m_ID);
 		}
 
 		template<typename T>
@@ -46,7 +46,6 @@ namespace Vortex
 		operator bool() const { return m_ID != entt::null; }
 
 	public:
-		const char* m_Tag;
 		uint32_t m_ID = entt::null;
 
 	private:

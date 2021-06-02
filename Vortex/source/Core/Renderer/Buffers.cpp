@@ -6,6 +6,18 @@
 
 namespace Vortex
 {
+    Ref<VertexBuffer> VertexBuffer::Create(uint32_t size)
+    {
+        switch (Renderer::GetAPI())
+        {
+        case RendererAPI::API::None: VORTEX_ASSERT(false, "No API Selected!"); return nullptr;
+        case RendererAPI::API::OpenGL: return Ref<OpenGLVertexBuffer>(new OpenGLVertexBuffer(size));
+        }
+
+        VORTEX_ASSERT(false, "Unknown Renderer API!");
+        return nullptr;
+    }
+
     Ref<VertexBuffer> VertexBuffer::Create(float* verticies, uint32_t size)
     {
         switch (Renderer::GetAPI())

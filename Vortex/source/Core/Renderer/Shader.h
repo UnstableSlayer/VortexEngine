@@ -50,6 +50,7 @@ namespace Vortex
 		static Ref<Shader> Create(const std::string& shaderLoc);
 
 		virtual void SetUniformInt(const std::string& name, int value) = 0;
+		virtual void SetUniformIntArray(const std::string& name, int* value, uint32_t count) = 0;
 		virtual void SetUniformVec1(const std::string& name, float value) = 0;
 		virtual void SetUniformVec2(const std::string& name, const glm::vec2& value) = 0;
 		virtual void SetUniformVec3(const std::string& name, const glm::vec3& value) = 0;

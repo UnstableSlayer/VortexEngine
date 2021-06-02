@@ -49,10 +49,6 @@ namespace Vortex
 			return std::make_unique<Object>(Object((uint32_t) * (m_Registry.data() + i), &m_Registry));
 		}
 
-	public:
-
-
-
 	private:
 		entt::registry m_Registry;
 

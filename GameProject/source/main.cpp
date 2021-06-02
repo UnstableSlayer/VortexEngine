@@ -1,4 +1,5 @@
 #include "ExampleLayer.h"
+#include "EntryPoint.h"
 
 class GameApplication : public Vortex::ApplicationClass
 {

@@ -15,6 +15,7 @@ namespace Vortex
 		virtual void UnBind() const override;
 
 		virtual void SetUniformInt(const std::string& name, int value) override;
+		virtual void SetUniformIntArray(const std::string& name, int* value, uint32_t count) override;
 		virtual void SetUniformVec1(const std::string& name, float value) override;
 		virtual void SetUniformVec2(const std::string& name, const glm::vec2& value) override;
 		virtual void SetUniformVec3(const std::string& name, const glm::vec3& value) override;
