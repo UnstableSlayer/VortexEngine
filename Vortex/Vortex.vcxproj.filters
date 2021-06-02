@@ -63,7 +63,7 @@
     <ClInclude Include="source\Core\Core.h">
       <Filter>source\Core</Filter>
     </ClInclude>
-    <ClInclude Include="source\EntryPoint.h">
+    <ClInclude Include="source\Core\EntryPoint.h">
       <Filter>source\Core</Filter>
     </ClInclude>
     <ClInclude Include="source\Core\Envirovnemt\Components.h">
