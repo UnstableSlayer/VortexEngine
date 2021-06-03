@@ -1,6 +1,7 @@
 #pragma once
 #include "Camera.h"
 #include "Texture.h"
+#include "SubTexture2D.h"
 #include "../Envirovnemt/Components.h"
 
 namespace Vortex
@@ -17,10 +18,12 @@ namespace Vortex
 
 		static void DrawQuad(TransformComponent& transform, const glm::vec4& color);
 		static void DrawQuad(TransformComponent& transform, const Ref<Texture2D>& texture, const glm::vec2& textureScale = glm::vec2(1.f), const glm::vec4& tint = glm::vec4(1.f));
-		static void DrawFromSpriteSheet(TransformComponent& transform, const Texture2D& spriteSheet, const glm::vec2 spriteSize, const glm::vec2 spriteCoord, const glm::vec4& tint = glm::vec4(1.f));
+		static void DrawSubQuad(TransformComponent& transform, const Ref<SubTexture2D>& spriteAtlas, const glm::vec4& tint = glm::vec4(1.f));
 	
 	private:
 		static void FlushAndReset();
+
+		static void AppendSingleVertexData(const glm::vec3& position, const glm::vec4& color, const glm::vec2& texCoord, const glm::vec2& texTiling, const float& textureIndex);
 
 
 

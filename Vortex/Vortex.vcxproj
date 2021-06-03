@@ -276,7 +276,6 @@
     <ClInclude Include="source\Core\ApplicationClass.h" />
     <ClInclude Include="source\Core\Assert.h" />
     <ClInclude Include="source\Core\Core.h" />
-    <ClInclude Include="source\Core\EntryPoint.h" />
     <ClInclude Include="source\Core\Envirovnemt\Components.h" />
     <ClInclude Include="source\Core\Envirovnemt\Object.h" />
     <ClInclude Include="source\Core\Envirovnemt\Scene.h" />
@@ -298,9 +297,12 @@
     <ClInclude Include="source\Core\Renderer\Renderer2D.h" />
     <ClInclude Include="source\Core\Renderer\RendererAPI.h" />
     <ClInclude Include="source\Core\Renderer\Shader.h" />
+    <ClInclude Include="source\Core\Renderer\SubTexture2D.h" />
     <ClInclude Include="source\Core\Renderer\Texture.h" />
+    <ClInclude Include="source\Core\RNG.h" />
     <ClInclude Include="source\Core\Time.h" />
     <ClInclude Include="source\Core\Window.h" />
+    <ClInclude Include="source\EntryPoint.h" />
     <ClInclude Include="source\ImGui\ImGuiLayer.h" />
     <ClInclude Include="source\Platforms\OpenGL\OpenGLBuffers.h" />
     <ClInclude Include="source\Platforms\OpenGL\OpenGLContext.h" />
@@ -738,6 +740,7 @@
     <ClCompile Include="source\Core\Renderer\Renderer2D.cpp" />
     <ClCompile Include="source\Core\Renderer\RendererAPI.cpp" />
     <ClCompile Include="source\Core\Renderer\Shader.cpp" />
+    <ClCompile Include="source\Core\Renderer\SubTexture2D.cpp" />
     <ClCompile Include="source\Core\Renderer\Texture.cpp" />
     <ClCompile Include="source\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="source\ImGui\ImGuiLayer.cpp" />

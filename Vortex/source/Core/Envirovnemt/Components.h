@@ -3,6 +3,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "Core/Renderer/Texture.h"
+#include "Core/Renderer/SubTexture2D.h"
 
 namespace Vortex
 {
@@ -41,8 +42,8 @@ namespace Vortex
 		{
 			if (position == m_Position) return;
 
-			m_TransformMatrix = glm::translate(m_TransformMatrix, position - m_Position);
 			m_Position = position;
+			b_Updated = false;
 		}
 
 		void SetRotation(glm::vec3 rotation)
@@ -50,7 +51,7 @@ namespace Vortex
 			if (rotation == m_Rotation) return;
 
 			m_Rotation = rotation;
-			Update();
+			b_Updated = false;
 		}
 
 		void SetScale(glm::vec3 scale)
@@ -58,14 +59,14 @@ namespace Vortex
 			if (scale == m_Scale) return;
 
 			m_Scale = scale;
-			Update();
+			b_Updated = false;
 		}
 
 		const glm::vec3& GetPosition() { return m_Position; }
 		const glm::vec3& GetRotation() { return m_Rotation; }
 		const glm::vec3& GetScale() { return m_Scale; }
 
-		const glm::mat4& GetTransformMatrix() { return m_TransformMatrix; }
+		const glm::mat4& GetTransformMatrix() { Update();  return m_TransformMatrix; }
 
 		void Reset()
 		{
@@ -78,6 +79,8 @@ namespace Vortex
 	private:
 		void Update()
 		{
+			if (b_Updated) return;
+
 			m_TransformMatrix = glm::mat4(1.0f);
 
 			m_TransformMatrix = glm::translate(m_TransformMatrix, m_Position)
@@ -85,6 +88,8 @@ namespace Vortex
 				* glm::rotate(m_TransformMatrix, glm::radians(m_Rotation.x), glm::vec3(1, 0, 0))
 				* glm::rotate(m_TransformMatrix, glm::radians(m_Rotation.y), glm::vec3(0, 1, 0))
 				* glm::rotate(m_TransformMatrix, glm::radians(m_Rotation.z), glm::vec3(0, 0, 1));
+
+			b_Updated = true;
 		}
 
 	private:
@@ -93,6 +98,7 @@ namespace Vortex
 		glm::vec3 m_Scale;
 
 		glm::mat4 m_TransformMatrix;
+		bool b_Updated = true;
 	};
 
 	struct SpriteComponent
@@ -107,6 +113,22 @@ namespace Vortex
 	public:
 		Ref<Texture2D> m_Sprite;
 		glm::vec2 m_TextureTiling = glm::vec2(1.f);
+		glm::vec4 m_Tint = glm::vec4(1.f);
+
+		bool IsVisible = true;
+	};
+
+	struct SubSpriteComponent
+	{
+	public:
+		SubSpriteComponent() = default;
+		SubSpriteComponent(const SubSpriteComponent&) = default;
+
+		SubSpriteComponent(Ref<SubTexture2D> sprite, glm::vec4 tint = glm::vec4(1.f))
+			: m_Sprite(sprite), m_Tint(tint) {}
+
+	public:
+		Ref<SubTexture2D> m_Sprite;
 		glm::vec4 m_Tint = glm::vec4(1.f);
 
 		bool IsVisible = true;

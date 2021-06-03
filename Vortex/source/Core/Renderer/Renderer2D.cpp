@@ -24,7 +24,7 @@ namespace Vortex
 
 	struct Renderer2DData
 	{
-		static const uint32_t MaxQuads = 10000;
+		static const uint32_t MaxQuads = 100000;
 		static const uint32_t MaxVertices = MaxQuads * 4;
 		static const uint32_t MaxIndices = MaxQuads * 6;
 		static const uint32_t MaxTextureSlots = 32;
@@ -141,32 +141,44 @@ namespace Vortex
 	
 		s_Data.Stats.DrawCalls++;
 	}
+	void Renderer2D::FlushAndReset()
+	{
+		EndScene();
 
+		s_Data.QuadIndexCount = 0;
+		s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;
+
+		s_Data.TextureSlotIndex = 1;
+	}
+	
+	void Renderer2D::AppendSingleVertexData(const glm::vec3& position, const glm::vec4& color, const glm::vec2& texCoord, const glm::vec2& texTiling, const float& textureIndex)
+	{
+		s_Data.QuadVertexBufferPtr->Position = position;
+		s_Data.QuadVertexBufferPtr->Color = color;
+		s_Data.QuadVertexBufferPtr->TexCoord = texCoord;
+		s_Data.QuadVertexBufferPtr->TexTiling = texTiling;
+		s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
+		s_Data.QuadVertexBufferPtr++;
+	}
 
 	void Renderer2D::DrawQuad(TransformComponent& transform, const glm::vec4& color)
 	{
 		if (s_Data.QuadIndexCount >= s_Data.MaxIndices)
 			FlushAndReset();
 
-		s_Data.QuadVertexBufferPtr->Position = transform.GetTransformMatrix() * glm::vec4(-0.5f, -0.5f, 0.f, 1.f);
-		s_Data.QuadVertexBufferPtr->Color = color;
-		s_Data.QuadVertexBufferPtr->TexCoord = { 0.f, 0.f };
-		s_Data.QuadVertexBufferPtr++;
+		glm::vec3 position;
 
-		s_Data.QuadVertexBufferPtr->Position = transform.GetTransformMatrix() * glm::vec4(0.5f, -0.5f, 0.f, 1.f);
-		s_Data.QuadVertexBufferPtr->Color = color;
-		s_Data.QuadVertexBufferPtr->TexCoord = { 1.f, 0.f };
-		s_Data.QuadVertexBufferPtr++;
+		position = transform.GetTransformMatrix() * glm::vec4(-0.5f, -0.5f, 0.f, 1.f);
+		Renderer2D::AppendSingleVertexData(position, color, { 0.f, 0.f }, { 1.f, 1.f }, 0.f);
 
-		s_Data.QuadVertexBufferPtr->Position = transform.GetTransformMatrix() * glm::vec4(0.5f, 0.5f, 0.f, 1.f);
-		s_Data.QuadVertexBufferPtr->Color = color;
-		s_Data.QuadVertexBufferPtr->TexCoord = { 1.f, 1.f };
-		s_Data.QuadVertexBufferPtr++;
+		position = transform.GetTransformMatrix() * glm::vec4(0.5f, -0.5f, 0.f, 1.f);
+		Renderer2D::AppendSingleVertexData(position, color, { 1.f, 0.f }, { 1.f, 1.f }, 0.f);
 
-		s_Data.QuadVertexBufferPtr->Position = transform.GetTransformMatrix() * glm::vec4(-0.5f, 0.5f, 0.f, 1.f);
-		s_Data.QuadVertexBufferPtr->Color = color;
-		s_Data.QuadVertexBufferPtr->TexCoord = { 0.f, 1.f };
-		s_Data.QuadVertexBufferPtr++;
+		position = transform.GetTransformMatrix() * glm::vec4(0.5f, 0.5f, 0.f, 1.f);
+		Renderer2D::AppendSingleVertexData(position, color, { 1.f, 1.f }, { 1.f, 1.f }, 0.f);
+
+		position = transform.GetTransformMatrix() * glm::vec4(-0.5f, 0.5f, 0.f, 1.f);
+		Renderer2D::AppendSingleVertexData(position, color, { 0.f, 1.f }, {1.f, 1.f}, 0.f);
 
 		s_Data.QuadIndexCount += 6;
 
@@ -178,7 +190,6 @@ namespace Vortex
 			FlushAndReset();
 
 		float textureIndex = 0.f;
-
 		for (size_t i = 0; i < s_Data.TextureSlotIndex; i++)
 		{
 			if (s_Data.Textures[i]->GetID() == texture->GetID())
@@ -196,55 +207,67 @@ namespace Vortex
 			s_Data.TextureSlotIndex++;
 		}
 
-		s_Data.QuadVertexBufferPtr->Position = transform.GetTransformMatrix() * glm::vec4(-0.5f, -0.5f, 0.f, 1.f);
-		s_Data.QuadVertexBufferPtr->Color = tint;
-		s_Data.QuadVertexBufferPtr->TexCoord = { 0.f, 0.f };
-		s_Data.QuadVertexBufferPtr->TexTiling = texTiling;
-		s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
-		s_Data.QuadVertexBufferPtr++;
+		glm::vec3 position;
 
-		s_Data.QuadVertexBufferPtr->Position = transform.GetTransformMatrix() * glm::vec4(0.5f, -0.5f, 0.f, 1.f);
-		s_Data.QuadVertexBufferPtr->Color = tint;
-		s_Data.QuadVertexBufferPtr->TexCoord = { 1.f, 0.f };
-		s_Data.QuadVertexBufferPtr->TexTiling = texTiling;
-		s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
-		s_Data.QuadVertexBufferPtr++;
+		position = transform.GetTransformMatrix() * glm::vec4(-0.5f, -0.5f, 0.f, 1.f);
+		Renderer2D::AppendSingleVertexData(position, tint, { 0.f, 0.f }, texTiling, textureIndex);
 
-		s_Data.QuadVertexBufferPtr->Position = transform.GetTransformMatrix() * glm::vec4(0.5f, 0.5f, 0.f, 1.f);
-		s_Data.QuadVertexBufferPtr->Color = tint;
-		s_Data.QuadVertexBufferPtr->TexCoord = { 1.f, 1.f };
-		s_Data.QuadVertexBufferPtr->TexTiling = texTiling;
-		s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
-		s_Data.QuadVertexBufferPtr++;
+		position = transform.GetTransformMatrix() * glm::vec4(0.5f, -0.5f, 0.f, 1.f);
+		Renderer2D::AppendSingleVertexData(position, tint, { 1.f, 0.f }, texTiling, textureIndex);
 
-		s_Data.QuadVertexBufferPtr->Position = transform.GetTransformMatrix() * glm::vec4(-0.5f, 0.5f, 0.f, 1.f);
-		s_Data.QuadVertexBufferPtr->Color = tint;
-		s_Data.QuadVertexBufferPtr->TexCoord = { 0.f, 1.f };
-		s_Data.QuadVertexBufferPtr->TexTiling = texTiling;
-		s_Data.QuadVertexBufferPtr->TexIndex = textureIndex;
-		s_Data.QuadVertexBufferPtr++;
+		position = transform.GetTransformMatrix() * glm::vec4(0.5f, 0.5f, 0.f, 1.f);
+		Renderer2D::AppendSingleVertexData(position, tint, { 1.f, 1.f }, texTiling, textureIndex);
+
+		position = transform.GetTransformMatrix() * glm::vec4(-0.5f, 0.5f, 0.f, 1.f);
+		Renderer2D::AppendSingleVertexData(position, tint, { 0.f, 1.f }, texTiling, textureIndex);
 
 		s_Data.QuadIndexCount += 6;
 
 		s_Data.Stats.QuadCount++;
 	}
 
-	void Renderer2D::DrawFromSpriteSheet(TransformComponent& transform, const Texture2D& spriteSheet, const glm::vec2 spriteSize, const glm::vec2 spriteCoord, const glm::vec4& tint)
+	void Renderer2D::DrawSubQuad(TransformComponent& transform, const Ref<SubTexture2D>& subTexture, const glm::vec4& tint)
 	{
+		if (s_Data.QuadIndexCount >= s_Data.MaxIndices)
+			FlushAndReset();
+
+		float textureIndex = 0.f;
+		for (size_t i = 0; i < s_Data.TextureSlotIndex; i++)
+		{
+			if (s_Data.Textures[i]->GetID() == subTexture->GetAtlasTexture()->GetID())
+			{
+				textureIndex = (float)i;
+				break;
+			}
+		}
+
+		if (textureIndex == 0.f)
+		{
+			textureIndex = (float)s_Data.TextureSlotIndex;
+
+			s_Data.Textures[s_Data.TextureSlotIndex] = subTexture->GetAtlasTexture();
+			s_Data.TextureSlotIndex++;
+		}
+
+		glm::vec3 position;
+		const glm::vec2* texCoords = subTexture->GetTexCoords();
+
+		position = transform.GetTransformMatrix() * glm::vec4(-0.5f, -0.5f, 0.f, 1.f);
+		Renderer2D::AppendSingleVertexData(position, tint, *(texCoords + 0), {1.f, 1.f}, textureIndex);
+
+		position = transform.GetTransformMatrix() * glm::vec4(0.5f, -0.5f, 0.f, 1.f);
+		Renderer2D::AppendSingleVertexData(position, tint, *(texCoords + 1), { 1.f, 1.f }, textureIndex);
+
+		position = transform.GetTransformMatrix() * glm::vec4(0.5f, 0.5f, 0.f, 1.f);
+		Renderer2D::AppendSingleVertexData(position, tint, *(texCoords + 2), { 1.f, 1.f }, textureIndex);
+
+		position = transform.GetTransformMatrix() * glm::vec4(-0.5f, 0.5f, 0.f, 1.f);
+		Renderer2D::AppendSingleVertexData(position, tint, *(texCoords + 3), { 1.f, 1.f }, textureIndex);
+
+		s_Data.QuadIndexCount += 6;
+
+		s_Data.Stats.QuadCount++;
 	}
-
-	void Renderer2D::FlushAndReset()
-	{
-		EndScene();
-
-		s_Data.QuadIndexCount = 0;
-		s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;
-
-		s_Data.TextureSlotIndex = 1;
-
-		Renderer2D::ResetStats();
-	}
-
 
 
 	void Renderer2D::ResetStats()

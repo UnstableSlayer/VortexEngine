@@ -1,5 +1,6 @@
 #pragma once
 #include "Core\Renderer\Texture.h"
+#include <glm/glm.hpp>
 
 namespace Vortex
 {
@@ -13,8 +14,7 @@ namespace Vortex
 		virtual uint32_t GetID() const override { return m_ID; }
 		virtual const char* GetPath() const override { return m_Path.c_str(); }
 
-		virtual uint32_t GetWidth() const override { return m_Width; }
-		virtual uint32_t GetHeight() const override { return m_Height; }
+		virtual glm::vec2 GetSize() const override { return { m_Width, m_Height }; }
 
 		virtual void Bind(uint32_t slot = 0) const override;
 		virtual void SetData(void* data, uint32_t size) override;

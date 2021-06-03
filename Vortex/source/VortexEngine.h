@@ -12,6 +12,8 @@
 #include "..\thirdParty\imgui\imgui.h"
 #include "..\source\ImGui\ImGuiLayer.h"
 
+#include "..\source\Core\RNG.h"
+
 //---Scene---------------------------------
 #include "..\thirdParty\Entt\include\entt\entt.hpp"
 #include "..\source\Core\Envirovnemt\Object.h"
@@ -26,6 +28,7 @@
 #include "..\source\Core\Renderer\Buffers.h"
 #include "..\source\Core\Renderer\Shader.h"
 #include "..\source\Core\Renderer\Texture.h"
+#include "..\source\Core\Renderer\SubTexture2D.h"
 
 #include "..\source\Core\Renderer\Camera.h"
 

@@ -63,9 +63,6 @@
     <ClInclude Include="source\Core\Core.h">
       <Filter>source\Core</Filter>
     </ClInclude>
-    <ClInclude Include="source\Core\EntryPoint.h">
-      <Filter>source\Core</Filter>
-    </ClInclude>
     <ClInclude Include="source\Core\Envirovnemt\Components.h">
       <Filter>source\Core\Envirovnemt</Filter>
     </ClInclude>
@@ -137,6 +134,9 @@
     </ClInclude>
     <ClInclude Include="source\Core\Window.h">
       <Filter>source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="source\EntryPoint.h">
+      <Filter>source</Filter>
     </ClInclude>
     <ClInclude Include="source\ImGui\ImGuiLayer.h">
       <Filter>source\ImGui</Filter>
@@ -1410,6 +1410,8 @@
     <ClInclude Include="thirdParty\stb_image\stb_image.h">
       <Filter>thirdParty\stb_image</Filter>
     </ClInclude>
+    <ClInclude Include="source\Core\RNG.h" />
+    <ClInclude Include="source\Core\Renderer\SubTexture2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Core\ApplicationClass.cpp">
@@ -1481,5 +1483,6 @@
     <ClCompile Include="thirdParty\stb_image\stb_image.cpp">
       <Filter>thirdParty\stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="source\Core\Renderer\SubTexture2D.cpp" />
   </ItemGroup>
 </Project>

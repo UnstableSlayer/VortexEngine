@@ -44,13 +44,16 @@ namespace Vortex
 
 		size_t size() { return m_Registry.size(); }
 
-		Scope<Object> operator[] (int i)
+		Object* operator[] (int i)
 		{
-			return std::make_unique<Object>(Object((uint32_t) * (m_Registry.data() + i), &m_Registry));
+			//return std::make_unique<Object>(new Object((uint32_t) * (m_Registry.data() + i), &m_Registry));
+			currentObject->m_ID = (uint32_t)*m_Registry.data() + i;
+			return currentObject;
 		}
 
 	private:
-		entt::registry m_Registry;
+		entt::registry m_Registry = entt::registry();
+		Object* currentObject = new Object(entt::null, &m_Registry);
 
 		friend class Object;
 	};

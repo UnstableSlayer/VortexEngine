@@ -82,7 +82,7 @@ namespace Vortex
 	unsigned int* OpenGLTexture2D::GetData()
 	{
 		unsigned int* buffer = nullptr;
-		glGetTextureSubImage(m_ID, 0, 0, 0, 0, GetWidth(), GetHeight(), 0, m_DataFormat, GL_UNSIGNED_INT, GetWidth() * GetHeight() * sizeof(unsigned int), buffer);
+		glGetTextureSubImage(m_ID, 0, 0, 0, 0, m_Width, m_Height, 0, m_DataFormat, GL_UNSIGNED_INT, m_Width * m_Height * sizeof(unsigned int), buffer);
 
 		return buffer;
 	}
