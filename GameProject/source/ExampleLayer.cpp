@@ -17,7 +17,7 @@ ExampleLayer::ExampleLayer()
 		obj.AddComponent<Vortex::TransformComponent>();
 
 		auto& renderer2DComponent = obj.AddComponent<Vortex::SubSpriteComponent>();
-		renderer2DComponent.m_Sprite = Vortex::SubTexture2D::CreateFromPos(Vortex::Texture2D::Create("Textures/testAtlas.png"), { 0.f, 0.f }, {16.f, 16.f});
+		renderer2DComponent.m_Sprite = Vortex::SubTexture2D::CreateFromPos(Vortex::Texture2D::Create("Textures/testAtlas.png"), { 0, 1 }, { 16, 16 });
 	}
 
 	//Skull
@@ -29,7 +29,7 @@ ExampleLayer::ExampleLayer()
 		transform.SetPosition({ 1.f, -2.f, 0.f });
 		
 		auto& renderer2DComponent = obj.AddComponent<Vortex::SubSpriteComponent>();
-		renderer2DComponent.m_Sprite = Vortex::SubTexture2D::CreateFromPos(Vortex::Texture2D::Create("Textures/testAtlas.png"), { 1.f, 0.f }, { 16.f, 16.f });
+		renderer2DComponent.m_Sprite = Vortex::SubTexture2D::CreateFromPos(Vortex::Texture2D::Create("Textures/testAtlas.png"), { 1, 1 }, { 16, 16 });
 	}
 
 	//Spiderman
@@ -41,7 +41,7 @@ ExampleLayer::ExampleLayer()
 		transform.SetPosition({ -2.f, 1.f, 0.f });
 
 		auto& renderer2DComponent = obj.AddComponent<Vortex::SubSpriteComponent>();
-		renderer2DComponent.m_Sprite = Vortex::SubTexture2D::CreateFromPos(Vortex::Texture2D::Create("Textures/testAtlas.png"), { 1.f, 1.f }, { 16.f, 16.f });
+		renderer2DComponent.m_Sprite = Vortex::SubTexture2D::CreateFromPos(Vortex::Texture2D::Create("Textures/testAtlas.png"), { 1, 0 }, { 16, 16 });
 	}
 
 
