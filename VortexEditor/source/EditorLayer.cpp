@@ -7,12 +7,9 @@
 
 namespace Vortex
 {
-
 	EditorLayer::EditorLayer()
 		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f)
 	{
-		transformComp.reset(new Vortex::TransformComponent());
-
 		//Doom Wall
 		{
 			Vortex::Object obj = m_Scene.CreateObject();
@@ -69,23 +66,23 @@ namespace Vortex
 	void EditorLayer::Input()
 	{
 		glm::vec3 position = m_Camera.GetPosition();
-		glm::vec3 rotation = transformComp->GetRotation();
+		glm::vec3 rotation = m_Camera.GetRotation();
 		static float scale = 1.f;
 
-		if (Vortex::Input::IsKeyPressed(Vortex::Key::S)) scale -= 20.f * Vortex::Time::GetDeltaTime();
-		if (Vortex::Input::IsKeyPressed(Vortex::Key::W)) scale += 20.f * Vortex::Time::GetDeltaTime();
-		if (Vortex::Input::IsKeyPressed(Vortex::Key::A)) position.x -= 10.f * Vortex::Time::GetDeltaTime();
-		if (Vortex::Input::IsKeyPressed(Vortex::Key::D)) position.x += 10.f * Vortex::Time::GetDeltaTime();
-		if (Vortex::Input::IsKeyPressed(Vortex::Key::Q)) position.y -= 10.f * Vortex::Time::GetDeltaTime();
-		if (Vortex::Input::IsKeyPressed(Vortex::Key::E)) position.y += 10.f * Vortex::Time::GetDeltaTime();
+		if (Input::IsKeyPressed(Key::S))      scale -= 20.f * Time::GetDeltaTime();
+		if (Input::IsKeyPressed(Key::W))      scale += 20.f * Time::GetDeltaTime();
+		if (Input::IsKeyPressed(Key::A)) position.x -= 10.f * Time::GetDeltaTime();
+		if (Input::IsKeyPressed(Key::D)) position.x += 10.f * Time::GetDeltaTime();
+		if (Input::IsKeyPressed(Key::Q)) position.y -= 10.f * Time::GetDeltaTime();
+		if (Input::IsKeyPressed(Key::E)) position.y += 10.f * Time::GetDeltaTime();
 
-		if (Vortex::Input::IsKeyPressed(Vortex::Key::Up)) rotation.x += 60.f * Vortex::Time::GetDeltaTime();
-		if (Vortex::Input::IsKeyPressed(Vortex::Key::Down)) rotation.x -= 60.f * Vortex::Time::GetDeltaTime();
-		if (Vortex::Input::IsKeyPressed(Vortex::Key::Left)) rotation.y += 60.f * Vortex::Time::GetDeltaTime();
-		if (Vortex::Input::IsKeyPressed(Vortex::Key::Right)) rotation.y -= 60.f * Vortex::Time::GetDeltaTime();
+		if (Input::IsKeyPressed(Key::Up))    rotation.x += 60.f * Time::GetDeltaTime();
+		if (Input::IsKeyPressed(Key::Down))  rotation.x -= 60.f * Time::GetDeltaTime();
+		if (Input::IsKeyPressed(Key::Left))  rotation.y += 60.f * Time::GetDeltaTime();
+		if (Input::IsKeyPressed(Key::Right)) rotation.y -= 60.f * Time::GetDeltaTime();
 
 		m_Camera.SetPosition(position);
-		transformComp->SetRotation(rotation);
+		m_Camera.SetRotation(rotation);
 		m_Camera.SetZoom(scale);
 	}
 
@@ -102,8 +99,6 @@ namespace Vortex
 			Vortex::Object* object = m_Scene[i];
 
 			auto& transform = object->GetComponent<Vortex::TransformComponent>();
-			auto& finalTransform = transform;
-
 			bool toRender = true;
 
 			const glm::vec4 cameraRect = m_Camera.GetRect();
@@ -120,10 +115,8 @@ namespace Vortex
 				auto& sprite = object->GetComponent<Vortex::SubSpriteComponent>();
 				sprite.IsVisible = toRender;
 
-				finalTransform.SetRotation(transformComp->GetRotation());
-
 				if (sprite.IsVisible)
-					Vortex::Renderer2D::DrawSubQuad(finalTransform, sprite.m_Sprite, sprite.m_Tint);
+					Vortex::Renderer2D::DrawSubQuad(transform, sprite.m_Sprite, sprite.m_Tint);
 
 			}
 
@@ -133,7 +126,7 @@ namespace Vortex
 				sprite.IsVisible = toRender;
 
 				if (sprite.IsVisible)
-					Vortex::Renderer2D::DrawQuad(finalTransform, sprite.m_Sprite, sprite.m_TextureTiling, sprite.m_Tint);
+					Vortex::Renderer2D::DrawQuad(transform, sprite.m_Sprite, sprite.m_TextureTiling, sprite.m_Tint);
 			}
 		}
 
@@ -244,6 +237,79 @@ namespace Vortex
 				ImGui::Image((void*)m_ViewportFramebuffer->GetColorAttachmentID(), { (float)m_ViewportFramebuffer->GetParams().Width, (float)m_ViewportFramebuffer->GetParams().Height }, { 0.f, 1.f }, { 1.f, 0.f });
 				
 				ImGui::PopStyleVar();
+				ImGui::End();
+			}
+
+			{
+				ImGui::Begin("Hierarchy");
+				for (size_t i = 0; i < m_Scene.size(); i++)
+				{
+					Object* object = m_Scene[i];
+
+					const char* name = object->HasComponent<TagComponent>() ? object->GetComponent<TagComponent>().m_Tag : "Object{" + i + '}';
+					
+					if (ImGui::CollapsingHeader(name))
+					{
+						ImGui::BeginGroup();
+						if (object->HasComponent<TransformComponent>())// && ImGui::CollapsingHeader("Transform"))
+						{
+							ImGui::Text("Transform");
+							TransformComponent& transform = object->GetComponent<TransformComponent>();
+
+							glm::vec3 position = transform.GetPosition();
+							ImGui::InputFloat3("Position", (float*)&position);
+							transform.SetPosition(position);
+
+							glm::vec3 rotation = transform.GetRotation();
+							ImGui::InputFloat3("Rotation", (float*)&rotation);
+							transform.SetRotation(rotation);
+
+							glm::vec3 scale = transform.GetScale();
+							ImGui::InputFloat3("Scale", (float*)&scale);
+							transform.SetScale(scale);
+						}
+						if (object->HasComponent<SpriteComponent>())
+						{
+							ImGui::Text("Sprite");
+							SpriteComponent& sprite = object->GetComponent<SpriteComponent>();
+							
+							glm::vec4 color = sprite.m_Tint;
+							ImGui::ColorEdit4("Color", (float*)&color);
+							sprite.m_Tint = color;
+							
+							static bool state = false;
+
+							if(ImGui::ImageButton((void*)sprite.m_Sprite->GetID(), { 128.f, 128.f }, { 0.f, 1.f }, { 1.f, 0.f }))
+								state = state ? false : true;
+
+							if (state)
+							{
+								static bool texturePathTextBoxOpen = false;
+								static char path[255];
+								
+								if(!texturePathTextBoxOpen)
+									strcpy(path, sprite.m_Sprite->GetPath());
+								
+								texturePathTextBoxOpen = true;
+
+								ImGui::Begin("Select Texture:");
+								ImGui::InputText("Path", path, 255);
+
+								if (ImGui::Button("Open"))
+								{
+									sprite.m_Sprite = Texture2D::Create(path);
+									state = false;
+
+									texturePathTextBoxOpen = false;
+								}
+
+								ImGui::End();
+							}
+							
+						}
+						ImGui::EndGroup();
+					}
+				}
 				ImGui::End();
 			}
 

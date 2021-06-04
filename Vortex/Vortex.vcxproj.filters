@@ -168,9 +168,6 @@
     <ClInclude Include="source\Platforms\OpenGL\OpenGLTexture.h">
       <Filter>source\Platforms\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="source\Platforms\Windows\WindowsInput.h">
-      <Filter>source\Platforms\Windows</Filter>
-    </ClInclude>
     <ClInclude Include="source\Platforms\Windows\WindowsWindow.h">
       <Filter>source\Platforms\Windows</Filter>
     </ClInclude>

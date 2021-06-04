@@ -311,7 +311,6 @@
     <ClInclude Include="source\Platforms\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="source\Platforms\OpenGL\OpenGLShader.h" />
     <ClInclude Include="source\Platforms\OpenGL\OpenGLTexture.h" />
-    <ClInclude Include="source\Platforms\Windows\WindowsInput.h" />
     <ClInclude Include="source\Platforms\Windows\WindowsWindow.h" />
     <ClInclude Include="source\VortexEngine.h" />
     <ClInclude Include="source\vpch.h" />

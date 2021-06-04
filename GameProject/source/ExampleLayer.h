@@ -21,9 +21,8 @@ private:
 	Vortex::Scene m_Scene;
 	Vortex::OrthographicCamera m_Camera;
 
-	std::vector<Vortex::ProfileResult> m_ProfileResults;
-	Vortex::Ref<Vortex::TransformComponent> transformComp;
-	Vortex::Ref<Vortex::Framebuffer> m_Framebuffer;
+	std::unordered_map<char, Vortex::Ref<Vortex::SubTexture2D>> m_TextureMap;
+	const char* m_TileMap;
 
 	glm::vec4 color = glm::vec4(1.f);
 };

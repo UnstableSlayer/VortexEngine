@@ -24,7 +24,6 @@ namespace Vortex
 		Vortex::OrthographicCamera m_Camera;
 
 		std::vector<ProfileResult> m_ProfileResults;
-		Ref<TransformComponent> transformComp;
 		Ref<Framebuffer> m_ViewportFramebuffer;
 
 		glm::vec4 color = glm::vec4(1.f);
