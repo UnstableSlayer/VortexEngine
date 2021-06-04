@@ -62,7 +62,7 @@ namespace Vortex
 		void ReadShaderFiles(const std::string& shaderLoc);
 
 	public:
-		unsigned int m_ID;
+		uint32_t m_ID;
 
 	protected:
 		const char *m_VertexShaderSrc, *m_FragmentShaderSrc;

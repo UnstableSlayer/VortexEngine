@@ -18,7 +18,7 @@ namespace Vortex
 
 		virtual void Bind(uint32_t slot = 0) const = 0;
 		virtual void SetData(void* data, uint32_t size) = 0;
-		virtual unsigned int* GetData() = 0;
+		virtual uint32_t* GetData() = 0;
 	};
 
 	class Texture2D : public Texture

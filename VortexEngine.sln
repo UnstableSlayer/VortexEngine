@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImGui", "Vortex\thirdParty\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Vortex", "Vortex\Vortex.vcxproj", "{EDC893D8-D96A-BEAE-C225-D202AE6645FF}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VortexEditor", "VortexEditor\VortexEditor.vcxproj", "{741C3526-607F-C4CA-0905-FD80F546904D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -81,6 +83,18 @@ Global
 		{EDC893D8-D96A-BEAE-C225-D202AE6645FF}.Release|Win32.Build.0 = Release|Win32
 		{EDC893D8-D96A-BEAE-C225-D202AE6645FF}.Release|x64.ActiveCfg = Release|x64
 		{EDC893D8-D96A-BEAE-C225-D202AE6645FF}.Release|x64.Build.0 = Release|x64
+		{741C3526-607F-C4CA-0905-FD80F546904D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{741C3526-607F-C4CA-0905-FD80F546904D}.Debug|Win32.Build.0 = Debug|Win32
+		{741C3526-607F-C4CA-0905-FD80F546904D}.Debug|x64.ActiveCfg = Debug|x64
+		{741C3526-607F-C4CA-0905-FD80F546904D}.Debug|x64.Build.0 = Debug|x64
+		{741C3526-607F-C4CA-0905-FD80F546904D}.Dist|Win32.ActiveCfg = Dist|Win32
+		{741C3526-607F-C4CA-0905-FD80F546904D}.Dist|Win32.Build.0 = Dist|Win32
+		{741C3526-607F-C4CA-0905-FD80F546904D}.Dist|x64.ActiveCfg = Dist|x64
+		{741C3526-607F-C4CA-0905-FD80F546904D}.Dist|x64.Build.0 = Dist|x64
+		{741C3526-607F-C4CA-0905-FD80F546904D}.Release|Win32.ActiveCfg = Release|Win32
+		{741C3526-607F-C4CA-0905-FD80F546904D}.Release|Win32.Build.0 = Release|Win32
+		{741C3526-607F-C4CA-0905-FD80F546904D}.Release|x64.ActiveCfg = Release|x64
+		{741C3526-607F-C4CA-0905-FD80F546904D}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

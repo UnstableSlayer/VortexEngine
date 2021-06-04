@@ -30,6 +30,8 @@
 #include "..\source\Core\Renderer\Texture.h"
 #include "..\source\Core\Renderer\SubTexture2D.h"
 
+#include "..\source\Core\Renderer\Framebuffer.h"
+
 #include "..\source\Core\Renderer\Camera.h"
 
 #include "..\source\Core\Time.h"

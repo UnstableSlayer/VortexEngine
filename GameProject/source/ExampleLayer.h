@@ -23,6 +23,7 @@ private:
 
 	std::vector<Vortex::ProfileResult> m_ProfileResults;
 	Vortex::Ref<Vortex::TransformComponent> transformComp;
+	Vortex::Ref<Vortex::Framebuffer> m_Framebuffer;
 
 	glm::vec4 color = glm::vec4(1.f);
 };

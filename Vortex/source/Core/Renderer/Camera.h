@@ -23,21 +23,25 @@ namespace Vortex
 		void SetPosition(const glm::vec3& position) { m_Position = position; RecalculateViewMatrix(); }
 		void SetRotation(const glm::vec3& rotation) { m_Rotation = rotation; RecalculateViewMatrix(); }
 
+		const glm::vec4& GetRect() const 
+		{
+			return { -m_AspectRatio * m_Zoom, m_AspectRatio * m_Zoom, -m_Zoom, m_Zoom };
+		}
+		
 		void SetZoom(const float zoom) 
 		{
 			m_Zoom = zoom;
 			m_ProjectionMatrix = glm::ortho(-m_AspectRatio * m_Zoom, m_AspectRatio * m_Zoom, -m_Zoom, m_Zoom, -1.f, 10.f);
 		}
 
-		const glm::vec4& GetRect() const { 
-			return { -m_AspectRatio * m_Zoom, m_AspectRatio * m_Zoom, -m_Zoom, m_Zoom }; 
-		}
+		void Resize(const float width, const float height);
 
 		void OnEvent(Event &e)
 		{
 			EventDispatcher dispatcher(e);
 			dispatcher.Dispatch<WindowResizeEvent>(VORTEX_BIND_EVENT(OrthographicCamera::OnWindowResize));
 		}
+
 
 		const glm::mat4& GetProjectionMatrix() const { return m_ProjectionMatrix; }
 		const glm::mat4& GetViewMatrix() const { return m_ViewMatrix; }

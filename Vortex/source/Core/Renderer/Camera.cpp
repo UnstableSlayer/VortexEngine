@@ -24,6 +24,14 @@ namespace Vortex
 		m_ViewProjectionMatrix = m_ProjectionMatrix * m_ViewMatrix;
 	}
 
+	void OrthographicCamera::Resize(const float width, const float height)
+	{
+		m_AspectRatio = width / height;
+
+		m_ProjectionMatrix = glm::ortho(-m_AspectRatio * m_Zoom, m_AspectRatio * m_Zoom, -m_Zoom, m_Zoom, -1.f, 10.f);
+		RecalculateViewMatrix();
+	}
+
 	bool OrthographicCamera::OnWindowResize(WindowResizeEvent& e)
 	{
 		m_AspectRatio = (float)e.GetWidth() / (float)e.GetHeight();

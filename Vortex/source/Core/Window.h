@@ -7,12 +7,12 @@ namespace Vortex
 	struct WindowProperties
 	{
 		std::string title;
-		unsigned int width;
-		unsigned int height;
+		uint32_t width;
+		uint32_t height;
 
 		WindowProperties(const std::string& Title = "VortexEngine Example Window",
-						 unsigned int Width = 320,
-						 unsigned int Height = 240)
+						 uint32_t Width = 320,
+						 uint32_t Height = 240)
 			: title(Title), width(Width), height(Height) {}
 	};
 
@@ -24,8 +24,8 @@ namespace Vortex
 		virtual ~Window() {}
 
 		virtual void OnUpdate() = 0;
-		virtual unsigned int GetWindowWidth() const = 0;
-		virtual unsigned int GetWindowHeight() const = 0;
+		virtual const uint32_t GetWindowWidth() const = 0;
+		virtual const uint32_t GetWindowHeight() const = 0;
 
 		virtual void SetEventCallback(const EventCallback& callback) = 0;
 		virtual void SetVSync(bool enabled) = 0;

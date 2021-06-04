@@ -14,8 +14,8 @@ namespace Vortex
 
 		void OnUpdate() override;
 
-		inline unsigned int GetWindowWidth() const override { return m_Data.width; }
-		inline unsigned int GetWindowHeight() const override { return m_Data.height; }
+		inline const uint32_t GetWindowWidth() const override { return m_Data.width; }
+		inline const uint32_t GetWindowHeight() const override { return m_Data.height; }
 
 		inline void SetEventCallback(const EventCallback& callback) override { m_Data.eventCallback = callback; }
 		void SetVSync(bool enabled) override;
@@ -37,7 +37,7 @@ namespace Vortex
 		struct WindowData
 		{
 			std::string title;
-			unsigned int width, height;
+			uint32_t width, height;
 			bool vSync;
 
 			EventCallback eventCallback;

@@ -41,6 +41,11 @@ namespace Vortex
 		}
 	}
 
+	void ApplicationClass::OnClose()
+	{
+		m_Running = false;
+	}
+
 	void ApplicationClass::OnEvent(Event& event)
 	{
 		EventDispatcher dispatcher(event);

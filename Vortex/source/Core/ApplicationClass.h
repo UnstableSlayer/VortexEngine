@@ -23,6 +23,8 @@ namespace Vortex
 		~ApplicationClass();
 
 		void OnCreate();
+		void OnClose();
+
 		virtual void OnStart() = 0;
 		virtual void OnUpdate() = 0;
 		virtual void OnEvent(Event& event);

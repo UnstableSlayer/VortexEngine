@@ -22,8 +22,6 @@ namespace Vortex
 
 	public:
 		inline static float Time::TimeScale;
-
-	private:
 		inline static float Time::UnscaledDeltaTime;
 	};
 
