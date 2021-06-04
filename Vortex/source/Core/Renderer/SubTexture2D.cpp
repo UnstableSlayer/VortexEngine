@@ -19,6 +19,6 @@ namespace Vortex
 		const glm::vec2 min = { (spritePos.x * cellSize.x) / atlasSize.x, (spritePos.y * cellSize.y) / atlasSize.y };
 		const glm::vec2 max = { ((spritePos.x + spriteSize.x) * cellSize.x) / atlasSize.x, ((spritePos.y + spriteSize.y) * cellSize.y) / atlasSize.y };
 
-		return std::make_shared<SubTexture2D>(SubTexture2D(atlasTexture, min, max));
+		return MakeRef<SubTexture2D>(atlasTexture, min, max);
 	}
 }

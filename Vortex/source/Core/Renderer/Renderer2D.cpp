@@ -24,7 +24,7 @@ namespace Vortex
 
 	struct Renderer2DData
 	{
-		static const uint32_t MaxQuads = 100000;
+		static const uint32_t MaxQuads = 10000;
 		static const uint32_t MaxVertices = MaxQuads * 4;
 		static const uint32_t MaxIndices = MaxQuads * 6;
 		static const uint32_t MaxTextureSlots = 32;
@@ -267,6 +267,26 @@ namespace Vortex
 		s_Data.QuadIndexCount += 6;
 
 		s_Data.Stats.QuadCount++;
+	}
+
+	void Renderer2D::DrawFromTileMap(const char* tileMap, const uint32_t& mapWidth, const std::unordered_map<char, Ref<SubTexture2D>>& textureMap, const glm::vec4& tint)
+	{
+		const uint32_t mapHeight = strlen(tileMap) / mapWidth;
+		for (size_t y = 0; y < mapHeight; y++)
+		{
+			for (size_t x = 0; x < mapWidth; x++)
+			{
+				const char tileCode = *(tileMap + (x + y * mapWidth));
+				
+				TransformComponent transform = TransformComponent();
+				transform.SetPosition({ x, y, 0.f });
+
+				if (textureMap.find(tileCode) != textureMap.end())
+					DrawSubQuad(transform, textureMap.at(tileCode), tint);
+				else
+					DrawQuad(transform, tint);
+			}
+		}
 	}
 
 

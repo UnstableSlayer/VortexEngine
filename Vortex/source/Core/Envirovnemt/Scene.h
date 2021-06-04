@@ -46,7 +46,6 @@ namespace Vortex
 
 		Object* operator[] (int i)
 		{
-			//return std::make_unique<Object>(new Object((uint32_t) * (m_Registry.data() + i), &m_Registry));
 			currentObject->m_ID = (uint32_t)*m_Registry.data() + i;
 			return currentObject;
 		}

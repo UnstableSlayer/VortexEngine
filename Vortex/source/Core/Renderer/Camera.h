@@ -22,10 +22,15 @@ namespace Vortex
 
 		void SetPosition(const glm::vec3& position) { m_Position = position; RecalculateViewMatrix(); }
 		void SetRotation(const glm::vec3& rotation) { m_Rotation = rotation; RecalculateViewMatrix(); }
+
 		void SetZoom(const float zoom) 
 		{
 			m_Zoom = zoom;
 			m_ProjectionMatrix = glm::ortho(-m_AspectRatio * m_Zoom, m_AspectRatio * m_Zoom, -m_Zoom, m_Zoom, -1.f, 10.f);
+		}
+
+		const glm::vec4& GetRect() const { 
+			return { -m_AspectRatio * m_Zoom, m_AspectRatio * m_Zoom, -m_Zoom, m_Zoom }; 
 		}
 
 		void OnEvent(Event &e)

@@ -134,8 +134,4 @@ namespace Vortex
 		bool IsVisible = true;
 	};
 
-	struct CameraComponent
-	{
-		
-	};
 }

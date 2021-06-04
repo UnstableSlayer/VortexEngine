@@ -18,7 +18,7 @@ namespace Vortex
 			return nullptr;
 
 		case RendererAPI::API::OpenGL:
-			return Ref<OpenGLShader>(new OpenGLShader(shaderLoc));
+			return MakeRef<OpenGLShader>(shaderLoc);
 		}
 
 		VORTEX_ASSERT(false, "Unknown Renderer API!");

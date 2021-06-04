@@ -1,8 +1,32 @@
 #include "ExampleLayer.h"
+#include <iostream>
 
 #include <glm/gtc/type_ptr.hpp>
 
 //#define BENCH
+
+std::unordered_map<char, Vortex::Ref<Vortex::SubTexture2D>> m_TextureMap;
+const char* m_TileMap = "0000111110000"
+						"0001002001000"
+						"0001003001000"
+						"0001002001000"
+						"0001003001000"
+						"0001002001000"
+						"0001003001000"
+						"0001002001000"
+						"0001003001000"
+						"0001002001000"
+						"0001003001000"
+						"0001002001000"
+						"0001003001000"
+						"0001002001000"
+						"0001003001000"
+						"0001002001000"
+						"0001003001000"
+						"0001002001000"
+						"0001003001000"
+						"0001002001000"
+						"0000111110000";
 
 ExampleLayer::ExampleLayer()
 	: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f)
@@ -57,12 +81,17 @@ ExampleLayer::ExampleLayer()
 		renderer2DComponent.m_TextureTiling = glm::vec2(20.f);
 		renderer2DComponent.m_Tint = { 1.f, 1.f, 1.f, 0.2f };
 	}
+
+	m_TextureMap.insert({ '0', Vortex::SubTexture2D::CreateFromPos(Vortex::Texture2D::Create("Textures/testAtlas.png"), { 0, 0 }, { 16, 16 }) });
+	m_TextureMap.insert({ '1', Vortex::SubTexture2D::CreateFromPos(Vortex::Texture2D::Create("Textures/testAtlas.png"), { 0, 1 }, { 16, 16 }) });
+	m_TextureMap.insert({ '2', Vortex::SubTexture2D::CreateFromPos(Vortex::Texture2D::Create("Textures/testAtlas.png"), { 1, 0 }, { 16, 16 }) });
+	m_TextureMap.insert({ '3', Vortex::SubTexture2D::CreateFromPos(Vortex::Texture2D::Create("Textures/testAtlas.png"), { 1, 1 }, { 16, 16 }) });
 #endif
 
 #ifdef BENCH
 	Vortex::Ref<Vortex::Texture2D> spiderman = Vortex::Texture2D::Create("Textures/testTexture1.png");
 
-	for (size_t i = 0; i < 10000; i++)
+	for (size_t i = 0; i < 90000; i++)
 	{
 		{
 			Vortex::Object obj = m_Scene.CreateObject();
@@ -107,57 +136,85 @@ void ExampleLayer::OnUpdate()
 	Vortex::Renderer2D::BeginScene(m_Camera);
 	Vortex::RenderCommand::Clear();
 
-#ifndef BENCH
+#ifdef BENCH
 
 	for (int i = 0; i < m_Scene.size(); i++)
 	{
 		Vortex::Object* object = m_Scene[i];
-	
-		if (object->HasComponent<Vortex::SpriteComponent>() && object->GetComponent<Vortex::SpriteComponent>().IsVisible
-		 || object->HasComponent<Vortex::SubSpriteComponent>() && object->GetComponent<Vortex::SubSpriteComponent>().IsVisible)
-		{	
-			Vortex::TransformComponent& transform = object->GetComponent<Vortex::TransformComponent>();
-			Vortex::TransformComponent& finalTransform = transform;
-	
-	
-			if (object->HasComponent<Vortex::TagComponent>() && object->GetComponent<Vortex::TagComponent>().m_Tag != "bg0")
-			{
-				auto& obj = object->GetComponent<Vortex::SubSpriteComponent>();
+		
+		auto& transform = object->GetComponent<Vortex::TransformComponent>();
+		auto& finalTransform = transform;
 
-				finalTransform.SetRotation(transformComp->GetRotation());
-				Vortex::Renderer2D::DrawSubQuad(finalTransform, obj.m_Sprite, obj.m_Tint);
-			}
-			else
-			{
-				auto& obj = object->GetComponent<Vortex::SpriteComponent>();
+		bool toRender = true;
 
-				Vortex::Renderer2D::DrawQuad(finalTransform, obj.m_Sprite, obj.m_TextureTiling, obj.m_Tint);
-			}
+		const glm::vec4 cameraRect = m_Camera.GetRect();
+		const glm::vec3 cameraPos = m_Camera.GetPosition();
+
+		if(transform.GetPosition().x < cameraRect.x + cameraPos.x || transform.GetPosition().x > cameraRect.y + cameraPos.x
+	    || transform.GetPosition().y < cameraRect.z + cameraPos.y || transform.GetPosition().y > cameraRect.w + cameraPos.y)
+			toRender = false;
+		else
+			toRender = true;
+
+		if (object->HasComponent<Vortex::SubSpriteComponent>())
+		{
+			auto& sprite = object->GetComponent<Vortex::SubSpriteComponent>();
+			sprite.IsVisible = toRender;
+
+			finalTransform.SetRotation(transformComp->GetRotation());
+
+			if(sprite.IsVisible)
+				Vortex::Renderer2D::DrawSubQuad(finalTransform, sprite.m_Sprite, sprite.m_Tint);
+
+		}
+
+		if (object->HasComponent<Vortex::SpriteComponent>())
+		{
+			auto& sprite = object->GetComponent<Vortex::SpriteComponent>();
+			sprite.IsVisible = toRender;
+			
+			if (sprite.IsVisible)
+				Vortex::Renderer2D::DrawQuad(finalTransform, sprite.m_Sprite, sprite.m_TextureTiling, sprite.m_Tint);
 		}
 	}
 
 #endif
 
+	Vortex::Renderer2D::DrawFromTileMap(m_TileMap, 13, m_TextureMap);
 
 #ifdef BENCH
 	float x = 0, y = 0;
+	const glm::vec3 cameraPos = m_Camera.GetPosition();
+	const glm::vec4 cameraRect = { m_Camera.GetRect().x + cameraPos.x, m_Camera.GetRect().y + cameraPos.x,
+								   m_Camera.GetRect().z + cameraPos.y, m_Camera.GetRect().w + cameraPos.y };
+
 	for (int i = 0; i < m_Scene.size(); i++)
-	{
+	{			
 		Vortex::Object* object = m_Scene[i];
 
 		Vortex::TransformComponent& transform = object->GetComponent<Vortex::TransformComponent>();
 		transform.SetPosition({ x, y, 0.f });
 		transform.SetRotation(transformComp->GetRotation());
-		transform.SetScale({ 0.6f, 0.6f, 0.6f });
+		//transform.SetScale({ 0.6f, 0.6f, 0.6f });
 
-		glm::vec4 color = { x / 100.f, 0.4f, y / 100.f, 1.f };
+		bool toRender = true;
 
-		Vortex::SpriteComponent& sprite = object->GetComponent<Vortex::SpriteComponent>();
-		Vortex::Renderer2D::DrawQuad(transform, sprite.m_Sprite, glm::vec2(1.f), color);
+		if (transform.GetPosition().x + transform.GetScale().x / 2.f < cameraRect.x || transform.GetPosition().x - transform.GetScale().x / 2.f > cameraRect.y
+		 || transform.GetPosition().y + transform.GetScale().y / 2.f < cameraRect.z || transform.GetPosition().y - transform.GetScale().y / 2.f > cameraRect.w)
+			toRender = false;
+		else
+			toRender = true;
+
+		if (toRender)
+		{
+			glm::vec4 color = { x / 300.f, 0.4f, y / 300.f, 1.f };
+			Vortex::SpriteComponent& sprite = object->GetComponent<Vortex::SpriteComponent>();
+			Vortex::Renderer2D::DrawQuad(transform, sprite.m_Sprite, glm::vec2(1.f), color);
+		}
 
 		y++;
 
-		if (y == 100)
+		if (y == 300)
 		{
 			x++;
 			y = 0;

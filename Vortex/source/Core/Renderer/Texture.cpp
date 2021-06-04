@@ -11,7 +11,7 @@ namespace Vortex
         switch (RendererAPI::GetAPI())
         {
         case RendererAPI::API::None: VORTEX_ASSERT(false, "No API Selected!"); return nullptr;
-        case RendererAPI::API::OpenGL: return std::make_shared<OpenGLTexture2D>(width, height);
+        case RendererAPI::API::OpenGL: return MakeRef<OpenGLTexture2D>(width, height);
         }
 
         VORTEX_ASSERT(false, "Unknown Renderer API!");
@@ -24,7 +24,7 @@ namespace Vortex
         switch (RendererAPI::GetAPI())
         {
         case RendererAPI::API::None: VORTEX_ASSERT(false, "No API Selected!"); return nullptr;
-        case RendererAPI::API::OpenGL: return std::make_shared<OpenGLTexture2D>(path);
+        case RendererAPI::API::OpenGL: return MakeRef<OpenGLTexture2D>(path);
         }
 
         VORTEX_ASSERT(false, "Unknown Renderer API!");

@@ -21,14 +21,16 @@ namespace Vortex
 		template<typename T>
 		T& GetComponent()
 		{
-			return m_Registry->get<T>((entt::entity)m_ID);
+			return HasComponent<T>() ? m_Registry->get<T>((entt::entity)m_ID) : *(T*)nullptr;
 		}
 
 		template<typename... T>
 		std::tuple<>& GetComponents()
 		{
-			auto& [Components] = m_Registry->get<T>((entt::entity)m_ID);
-			return std::make_tuple<T>(Components);
+			if (!HasComponent<T...>()) return *(T*)nullptr;
+
+			auto& [Components] = m_Registry->get<T...>((entt::entity)m_ID);
+			return std::make_tuple<T...>(Components);
 		}
 
 		template<typename T, typename... Args>
@@ -40,7 +42,8 @@ namespace Vortex
 		template<typename T>
 		void RemoveComponent()
 		{
-			m_Registry->remove<T>(m_ID);
+			if(HasComponent<T>())
+				m_Registry->remove<T>(m_ID);
 		}
 
 		operator bool() const { return m_ID != entt::null; }
