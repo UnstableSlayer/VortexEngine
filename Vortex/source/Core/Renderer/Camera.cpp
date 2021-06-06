@@ -9,9 +9,8 @@ namespace Vortex
 	//glm::ortho(left, right, bottom, top, -1.f, 10.f)
 
 	OrthographicCamera::OrthographicCamera(float left, float right, float bottom, float top)
-		: m_ProjectionMatrix(glm::ortho(left, right, bottom, top, -1.f, 10.f)), m_ViewMatrix(glm::mat4(1.0f)), m_AspectRatio(right/top)
+		: m_ProjectionMatrix(glm::ortho(left, right, bottom, top, -1.f, 10.f)), m_ViewMatrix(glm::mat4(1.0f)), m_AspectRatio(right / top), m_Rect({ left, right, bottom, top })
 	{
-		RecalculateViewMatrix();
 	}
 
 	void OrthographicCamera::RecalculateViewMatrix()
@@ -28,16 +27,16 @@ namespace Vortex
 	{
 		m_AspectRatio = width / height;
 
-		m_ProjectionMatrix = glm::ortho(-m_AspectRatio * m_Zoom, m_AspectRatio * m_Zoom, -m_Zoom, m_Zoom, -1.f, 10.f);
-		RecalculateViewMatrix();
+		m_Rect = { -m_AspectRatio * m_Zoom, m_AspectRatio * m_Zoom, -m_Zoom, m_Zoom };
+		m_ProjectionMatrix = glm::ortho(m_Rect.x, m_Rect.y, m_Rect.z, m_Rect.w, -1.f, 10.f);
 	}
 
 	bool OrthographicCamera::OnWindowResize(WindowResizeEvent& e)
 	{
 		m_AspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
 
-		m_ProjectionMatrix = glm::ortho(-m_AspectRatio * m_Zoom, m_AspectRatio * m_Zoom, -m_Zoom, m_Zoom, -1.f, 10.f);
-		RecalculateViewMatrix();
+		m_Rect = { -m_AspectRatio * m_Zoom, m_AspectRatio * m_Zoom, -m_Zoom, m_Zoom };
+		m_ProjectionMatrix = glm::ortho(m_Rect.x, m_Rect.y, m_Rect.z, m_Rect.w, -1.f, 10.f);
 
 		return false;
 	}

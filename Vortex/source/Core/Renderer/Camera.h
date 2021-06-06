@@ -23,16 +23,15 @@ namespace Vortex
 		void SetPosition(const glm::vec3& position) { m_Position = position; RecalculateViewMatrix(); }
 		void SetRotation(const glm::vec3& rotation) { m_Rotation = rotation; RecalculateViewMatrix(); }
 
-		const glm::vec4& GetRect() const 
-		{
-			return { -m_AspectRatio * m_Zoom, m_AspectRatio * m_Zoom, -m_Zoom, m_Zoom };
-		}
+		const glm::vec4& GetRect() const { return m_Rect; }
 		
 		void SetZoom(const float zoom) 
 		{
-			m_Zoom = zoom;
+			m_Zoom = std::max(zoom, 0.1f);
+			m_Rect = { -m_AspectRatio * m_Zoom, m_AspectRatio * m_Zoom, -m_Zoom, m_Zoom };
 			m_ProjectionMatrix = glm::ortho(-m_AspectRatio * m_Zoom, m_AspectRatio * m_Zoom, -m_Zoom, m_Zoom, -1.f, 10.f);
 		}
+		const float& GetZoom() const { return m_Zoom; }
 
 		void Resize(const float width, const float height);
 
@@ -44,8 +43,9 @@ namespace Vortex
 
 
 		const glm::mat4& GetProjectionMatrix() const { return m_ProjectionMatrix; }
-		const glm::mat4& GetViewMatrix() const { return m_ViewMatrix; }
-		const glm::mat4& GetViewProjectionMatrix() const { return m_ViewProjectionMatrix; }
+
+		const glm::mat4& GetViewMatrix()		   { RecalculateViewMatrix(); return m_ViewMatrix; }
+		const glm::mat4& GetViewProjectionMatrix() { RecalculateViewMatrix(); return m_ViewProjectionMatrix; }
 
 	private:
 		void RecalculateViewMatrix();
@@ -58,6 +58,8 @@ namespace Vortex
 
 		glm::vec3 m_Position = glm::vec3(0.f);
 		glm::vec3 m_Rotation = glm::vec3(0.f);
+
+		glm::vec4 m_Rect;
 
 		float m_AspectRatio;
 		float m_Zoom = 1.f;

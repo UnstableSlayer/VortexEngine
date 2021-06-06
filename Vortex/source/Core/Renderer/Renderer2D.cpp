@@ -42,9 +42,8 @@ namespace Vortex
 		std::array<Ref<Texture2D>, MaxTextureSlots> Textures;
 		uint32_t TextureSlotIndex = 1;
 
-		std::array<Ref<TransformComponent>, MaxQuads> TransformMatrices;
-
-
+		const glm::vec3* CameraPos;
+		const glm::vec4* CameraRect;
 
 		Renderer2D::Statistics Stats;
 	};
@@ -108,11 +107,17 @@ namespace Vortex
 	{
 		delete s_Data.QuadVertexBufferPtr;
 		delete s_Data.QuadVertexBufferBase;
+
+		delete s_Data.CameraPos;
+		delete s_Data.CameraRect;
 	}
 
 
-	void Renderer2D::BeginScene(const OrthographicCamera& camera)
+	void Renderer2D::BeginScene(OrthographicCamera& camera)
 	{
+		s_Data.CameraPos = &camera.GetPosition();
+		s_Data.CameraRect = &camera.GetRect();
+
 		s_Data.DefaultShader->Bind();
 		s_Data.DefaultShader->SetUniformMat4("uViewProj", camera.GetViewProjectionMatrix());
 
@@ -161,8 +166,16 @@ namespace Vortex
 		s_Data.QuadVertexBufferPtr++;
 	}
 
+	bool Renderer2D::CameraCulling(TransformComponent& transform)
+	{
+		return transform.GetPosition().x + transform.GetScale().x / 2.f < s_Data.CameraRect->x + s_Data.CameraPos->x || transform.GetPosition().x - transform.GetScale().x / 2.f > s_Data.CameraRect->y + s_Data.CameraPos->x
+			|| transform.GetPosition().y + transform.GetScale().y / 2.f < s_Data.CameraRect->z + s_Data.CameraPos->y || transform.GetPosition().y - transform.GetScale().y / 2.f > s_Data.CameraRect->w + s_Data.CameraPos->y;
+	}
+
 	void Renderer2D::DrawQuad(TransformComponent& transform, const glm::vec4& color)
 	{
+		if (CameraCulling(transform)) return;
+
 		if (s_Data.QuadIndexCount >= s_Data.MaxIndices)
 			FlushAndReset();
 
@@ -186,6 +199,8 @@ namespace Vortex
 	}
 	void Renderer2D::DrawQuad(TransformComponent& transform, const Ref<Texture2D>& texture, const glm::vec2& texTiling, const glm::vec4& tint)
 	{	
+		if (CameraCulling(transform)) return;
+
 		if (s_Data.QuadIndexCount >= s_Data.MaxIndices)
 			FlushAndReset();
 
@@ -228,6 +243,8 @@ namespace Vortex
 
 	void Renderer2D::DrawSubQuad(TransformComponent& transform, const Ref<SubTexture2D>& subTexture, const glm::vec4& tint)
 	{
+		if (CameraCulling(transform)) return;
+
 		if (s_Data.QuadIndexCount >= s_Data.MaxIndices)
 			FlushAndReset();
 
@@ -269,22 +286,24 @@ namespace Vortex
 		s_Data.Stats.QuadCount++;
 	}
 
-	void Renderer2D::DrawFromTileMap(const char* tileMap, const uint32_t& mapWidth, const std::unordered_map<char, Ref<SubTexture2D>>& textureMap, const glm::vec4& tint)
+	void Renderer2D::DrawFromTileMap(const char* tileMap, const int32_t& mapWidth, const std::unordered_map<char, Ref<SubTexture2D>>& textureMap, const glm::vec4& tint)
 	{
-		const uint32_t mapHeight = strlen(tileMap) / mapWidth;
+		const int32_t mapHeight = strlen(tileMap) / mapWidth;
 		for (size_t y = 0; y < mapHeight; y++)
 		{
 			for (size_t x = 0; x < mapWidth; x++)
 			{
 				const char tileCode = *(tileMap + (x + y * mapWidth));
-				
+
 				TransformComponent transform = TransformComponent();
-				transform.SetPosition({ x, y, 0.f });
+				transform.SetPosition({ x, mapHeight - y, 0.f });
 
 				if (textureMap.find(tileCode) != textureMap.end())
+				{
+					glm::vec2 scale = textureMap.at(tileCode)->GetSpriteScale();
+					transform.SetScale({ scale.x, scale.y, 1.f });
 					DrawSubQuad(transform, textureMap.at(tileCode), tint);
-				else
-					DrawQuad(transform, tint);
+				}
 			}
 		}
 	}
