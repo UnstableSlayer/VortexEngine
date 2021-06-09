@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Event.h"
 #include "MouseCodes.h"
 

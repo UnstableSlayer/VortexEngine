@@ -1,5 +1,4 @@
 #include "vpch.h"
-
 #include "Layer.h"
 
 namespace Vortex

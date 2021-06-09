@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <sstream>
 #include <functional>
 #include <chrono>
 
@@ -19,7 +20,7 @@ public:
 
 private:
 	Vortex::Scene m_Scene;
-	Vortex::OrthographicCamera m_Camera;
+	Vortex::Object m_Camera;
 
 	std::unordered_map<char, Vortex::Ref<Vortex::SubTexture2D>> m_TextureMap;
 	const char* m_TileMap;

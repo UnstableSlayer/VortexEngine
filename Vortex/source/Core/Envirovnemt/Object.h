@@ -42,7 +42,7 @@ namespace Vortex
 		template<typename T>
 		void RemoveComponent()
 		{
-			if(HasComponent<T>())
+			if (HasComponent<T>())
 				m_Registry->remove<T>(m_ID);
 		}
 

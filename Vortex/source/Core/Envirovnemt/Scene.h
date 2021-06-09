@@ -1,8 +1,4 @@
 #pragma once
-#include "../Core.h"
-#include "../Logger.h"
-#include "../Assert.h"
-
 #include "Object.h"
 
 #include <entt/entt.hpp>
@@ -15,7 +11,8 @@ namespace Vortex
 
 		Object& CreateObject()
 		{
-			return Object((uint32_t)m_Registry.create(), &m_Registry);
+			uint32_t id = (uint32_t)m_Registry.create();
+			return Object(id, &m_Registry);
 		}
 
 		template <typename T>

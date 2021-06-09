@@ -1,5 +1,4 @@
 #include "vpch.h"
-
 #include "LayerStack.h"
 
 namespace Vortex

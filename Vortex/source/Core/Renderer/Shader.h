@@ -1,8 +1,4 @@
 #pragma once
-#include "../Core.h"
-#include "../Logger.h"
-#include "../Assert.h"
-
 #include <glm/glm.hpp>
 
 namespace Vortex
@@ -40,7 +36,7 @@ namespace Vortex
 	class VORTEX_API Shader
 	{
 	public:	
-		virtual ~Shader() {}
+		virtual ~Shader() = default;
 
 		virtual void Compile() = 0;
 

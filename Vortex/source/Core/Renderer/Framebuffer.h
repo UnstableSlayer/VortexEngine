@@ -1,5 +1,4 @@
 #pragma once
-#include "Core/Core.h"
 #include <glm/glm.hpp>
 
 namespace Vortex
@@ -17,6 +16,8 @@ namespace Vortex
 	class Framebuffer
 	{
 	public:
+		virtual ~Framebuffer() = default;
+
 		virtual const FramebufferParams& GetParams() const = 0;
 		virtual void Invalidate() = 0;
 		virtual void Resize(glm::vec2 size) = 0;

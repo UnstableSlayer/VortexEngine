@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Buffers.h"
 #include <glm/glm.hpp>
 

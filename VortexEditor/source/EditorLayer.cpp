@@ -17,7 +17,7 @@ namespace Vortex
 			obj.AddComponent<Vortex::TransformComponent>();
 
 			auto& renderer2DComponent = obj.AddComponent<Vortex::SpriteComponent>();
-			renderer2DComponent.m_Sprite = Vortex::Texture2D::Create("Assets/Textures/testTexture0.png");
+			renderer2DComponent.m_Texture = Vortex::Texture2D::Create("Assets/Textures/testTexture0.png");
 		}
 
 		//Skull
@@ -29,7 +29,7 @@ namespace Vortex
 			transform.SetPosition({ 1.f, -2.f, 0.f });
 
 			auto& renderer2DComponent = obj.AddComponent<Vortex::SpriteComponent>();
-			renderer2DComponent.m_Sprite = Vortex::Texture2D::Create("Assets/Textures/testTexture.png");
+			renderer2DComponent.m_Texture = Vortex::Texture2D::Create("Assets/Textures/testTexture.png");
 		}
 
 		//Spiderman
@@ -41,7 +41,7 @@ namespace Vortex
 			transform.SetPosition({ -2.f, 1.f, 0.f });
 
 			auto& renderer2DComponent = obj.AddComponent<Vortex::SpriteComponent>();
-			renderer2DComponent.m_Sprite = Vortex::Texture2D::Create("Assets/Textures/testTexture1.png");
+			renderer2DComponent.m_Texture = Vortex::Texture2D::Create("Assets/Textures/testTexture1.png");
 		}
 
 		//Background Grid
@@ -52,7 +52,7 @@ namespace Vortex
 			obj.AddComponent<Vortex::TransformComponent>().SetScale(glm::vec3(40.f));
 
 			auto& renderer2DComponent = obj.AddComponent<Vortex::SpriteComponent>();
-			renderer2DComponent.m_Sprite = Vortex::Texture2D::Create("Assets/Textures/bg0.png");
+			renderer2DComponent.m_Texture = Vortex::Texture2D::Create("Assets/Textures/bg0.png");
 			renderer2DComponent.m_TextureTiling = glm::vec2(20.f);
 			renderer2DComponent.m_Tint = { 1.f, 1.f, 1.f, 0.2f };
 		}
@@ -126,7 +126,7 @@ namespace Vortex
 				sprite.IsVisible = toRender;
 
 				if (sprite.IsVisible)
-					Vortex::Renderer2D::DrawQuad(transform, sprite.m_Sprite, sprite.m_TextureTiling, sprite.m_Tint);
+					Vortex::Renderer2D::DrawQuad(transform, sprite.m_Texture, sprite.m_TextureTiling, sprite.m_Tint);
 			}
 		}
 
@@ -279,7 +279,7 @@ namespace Vortex
 							
 							static bool state = false;
 
-							if(ImGui::ImageButton((void*)sprite.m_Sprite->GetID(), { 128.f, 128.f }, { 0.f, 1.f }, { 1.f, 0.f }))
+							if(ImGui::ImageButton((void*)sprite.m_Texture->GetID(), { 128.f, 128.f }, { 0.f, 1.f }, { 1.f, 0.f }))
 								state = state ? false : true;
 
 							if (state)
@@ -288,7 +288,7 @@ namespace Vortex
 								static char path[255];
 								
 								if(!texturePathTextBoxOpen)
-									strcpy(path, sprite.m_Sprite->GetPath());
+									strcpy(path, sprite.m_Texture->GetPath());
 								
 								texturePathTextBoxOpen = true;
 
@@ -297,7 +297,7 @@ namespace Vortex
 
 								if (ImGui::Button("Open"))
 								{
-									sprite.m_Sprite = Texture2D::Create(path);
+									sprite.m_Texture = Texture2D::Create(path);
 									state = false;
 
 									texturePathTextBoxOpen = false;

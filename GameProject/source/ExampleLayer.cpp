@@ -3,87 +3,69 @@
 
 #include <glm/gtc/type_ptr.hpp>
 
-#define BASIC_TEST
+//#define BALL_TEST
 #define TILEMAP_TEST
-//#define BENCH
-
-//#define CULLING_TEST
-
 
 ExampleLayer::ExampleLayer()
-	: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f)
+	: Layer("Example")
+
 {
-
-#ifdef BASIC_TEST
-	//Doom Wall
+	//Camera
 	{
-		Vortex::Object obj = m_Scene.CreateObject();
-		obj.AddComponent<Vortex::TagComponent>("DW");
-		obj.AddComponent<Vortex::TransformComponent>();
-
-		auto& renderer2DComponent = obj.AddComponent<Vortex::SpriteComponent>();
-		renderer2DComponent.m_Sprite = Vortex::Texture2D::Create("Textures/testTexture0.png");
+		m_Camera = m_Scene.CreateObject();
+		auto& transform = m_Camera.AddComponent<Vortex::TransformComponent>();
+		auto& camera = m_Camera.AddComponent<Vortex::CameraComponent>(Vortex::CameraType::Orthographical, glm::vec2(16.f, 9.f), -1.f, 100.f);
+		transform.SetPosition({ 0.f, 0.f, 0.f });
 	}
 
-	//Skull
+#ifdef BALLS_TEST
+	//Ball
 	{
-		Vortex::Object obj = m_Scene.CreateObject();
-		obj.AddComponent<Vortex::TagComponent>("SK");
-
-		auto& transform = obj.AddComponent<Vortex::TransformComponent>();
-		transform.SetPosition({ 1.f, -2.f, 0.f });
-
-		auto& renderer2DComponent = obj.AddComponent<Vortex::SpriteComponent>();
-		renderer2DComponent.m_Sprite = Vortex::Texture2D::Create("Textures/testTexture.png");
-	}
-
-	//Spiderman
-	{
-		Vortex::Object obj = m_Scene.CreateObject();
-		obj.AddComponent<Vortex::TagComponent>("SM");
-
-		auto& transform = obj.AddComponent<Vortex::TransformComponent>();
-		transform.SetPosition({ -2.f, 1.f, 0.f });
-
-		auto& renderer2DComponent = obj.AddComponent<Vortex::SpriteComponent>();
-		renderer2DComponent.m_Sprite = Vortex::Texture2D::Create("Textures/testTexture1.png");
-	}
-
-	//Background Grid
-	{
-		Vortex::Object obj = m_Scene.CreateObject();
-		obj.AddComponent<Vortex::TagComponent>("bg0");
-
-		obj.AddComponent<Vortex::TransformComponent>().SetScale(glm::vec3(40.f));
-
-		auto& renderer2DComponent = obj.AddComponent<Vortex::SpriteComponent>();
-		renderer2DComponent.m_Sprite = Vortex::Texture2D::Create("Textures/bg0.png");
-		renderer2DComponent.m_TextureTiling = glm::vec2(20.f);
-		renderer2DComponent.m_Tint = { 1.f, 1.f, 1.f, 0.2f };
+		float radius = 10.f;
+		auto& texture = Vortex::Texture2D::Create("Textures/Ball.png");
+	
+		int count = 128;
+		for (size_t x = 0; x < count; x++)
+		{
+			for (size_t y = 0; y < count; y++)
+			{
+				Vortex::Object obj = m_Scene.CreateObject();
+				obj.AddComponent<Vortex::TagComponent>("Ball");
+				Vortex::TransformComponent& transform = obj.AddComponent<Vortex::TransformComponent>();
+				float angleX = ((360.f / (count)) * x);
+				float angleY = ((360.f / (count)) * y);
+				transform.SetPosition({ radius * cosf(angleX) * sinf(angleY),
+										radius * sinf(angleX) * sinf(angleY),
+										radius * cosf(angleY) });
+	
+				auto& renderer2DComponent = obj.AddComponent<Vortex::SpriteComponent>();
+				renderer2DComponent.m_Texture = texture;
+			}
+		}
 	}
 #endif
 
 #ifdef TILEMAP_TEST
 	m_TileMap = "31111111111111111119"
-				"20000000000000000008"
-				"20000000000000000008"
-				"20000000000000000008"
-				"20000000000000000008"
-				"20000000000000000008"
-				"20000000000000000008"
-				"20000000000000000008"
-				"20000000000000000008"
-				"20000000000000000008"
-				"20000000000000000008"
-				"20000000000000000008"
-				"20000000000000000008"
-				"20000000000000000008"
-				"20000000000000000008"
-				"20000000000000000008"
-				"20000000000000000008"
-				"20000000000000000008"
-				"20000000000000000008"
-				"6444444444444444444c";
+		"20000000000000000008"
+		"20000000000000000008"
+		"20000000000000000008"
+		"20000000000000000008"
+		"20000000000000000008"
+		"20000000000000000008"
+		"20000000000000000008"
+		"20000000000000000008"
+		"20000000000000000008"
+		"20000000000000000008"
+		"20000000000000000008"
+		"20000000000000000008"
+		"20000000000000000008"
+		"20000000000000000008"
+		"20000000000000000008"
+		"20000000000000000008"
+		"20000000000000000008"
+		"20000000000000000008"
+		"6444444444444444444c";
 
 
 	m_TextureMap.insert({ '0', Vortex::SubTexture2D::CreateFromPos(Vortex::Texture2D::Create("Textures/Set_A_Standard_Coast.png"), { 1, 14 }, { 16, 16 }) });
@@ -96,119 +78,62 @@ ExampleLayer::ExampleLayer()
 	m_TextureMap.insert({ '8', Vortex::SubTexture2D::CreateFromPos(Vortex::Texture2D::Create("Textures/Set_A_Standard_Coast.png"), { 2, 14 }, { 16, 16 }) });
 	m_TextureMap.insert({ '9', Vortex::SubTexture2D::CreateFromPos(Vortex::Texture2D::Create("Textures/Set_A_Standard_Coast.png"), { 2, 15 }, { 16, 16 }) });
 #endif
-
-#ifdef BENCH
-	Vortex::Ref<Vortex::Texture2D> spiderman = Vortex::Texture2D::Create("Textures/testTexture1.png");
-
-	for (size_t i = 0; i < 90000; i++)
-	{
-		{
-			Vortex::Object obj = m_Scene.CreateObject();
-			obj.AddComponent<Vortex::TransformComponent>();
-
-			auto& renderer2DComponent = obj.AddComponent<Vortex::SpriteComponent>();
-			renderer2DComponent.m_Sprite = spiderman;
-		}
-	}
-#endif
 }
 
 void ExampleLayer::Input()
 {
-	glm::vec3 position = m_Camera.GetPosition();
-	glm::vec3 rotation = m_Camera.GetRotation();
-	static float scale = m_Camera.GetZoom();
+	auto& transform = m_Camera.GetComponent<Vortex::TransformComponent>();
+	auto& camera = m_Camera.GetComponent<Vortex::CameraComponent>();
 
-	float cameraSpeed = 5.f;
+	glm::vec3 position = glm::vec3(0.f);
+	glm::vec3 rotation = glm::vec3(0.f);
+	static float scale = 0.f;
 
-	if (Vortex::Input::IsKeyPressed(Vortex::Key::S)) scale += cameraSpeed * Vortex::Time::GetDeltaTime();
-	if (Vortex::Input::IsKeyPressed(Vortex::Key::W)) scale -= cameraSpeed * Vortex::Time::GetDeltaTime();
-	if (Vortex::Input::IsKeyPressed(Vortex::Key::A)) position.x -= 10.f * Vortex::Time::GetDeltaTime();
-	if (Vortex::Input::IsKeyPressed(Vortex::Key::D)) position.x += 10.f * Vortex::Time::GetDeltaTime();
-	if (Vortex::Input::IsKeyPressed(Vortex::Key::Q)) position.y -= 10.f * Vortex::Time::GetDeltaTime();
-	if (Vortex::Input::IsKeyPressed(Vortex::Key::E)) position.y += 10.f * Vortex::Time::GetDeltaTime();
+	if (Vortex::Input::IsKeyPressed(Vortex::Key::S)) scale += 5.f * Vortex::Time::GetDeltaTime();
+	if (Vortex::Input::IsKeyPressed(Vortex::Key::W)) scale -= 5.f * Vortex::Time::GetDeltaTime();
+	if (Vortex::Input::IsKeyPressed(Vortex::Key::A)) position.x = -10.f * Vortex::Time::GetDeltaTime();
+	if (Vortex::Input::IsKeyPressed(Vortex::Key::D)) position.x = 10.f * Vortex::Time::GetDeltaTime();
+	if (Vortex::Input::IsKeyPressed(Vortex::Key::Q)) position.y = -10.f * Vortex::Time::GetDeltaTime();
+	if (Vortex::Input::IsKeyPressed(Vortex::Key::E)) position.y = 10.f * Vortex::Time::GetDeltaTime();
 
-	if (Vortex::Input::IsKeyPressed(Vortex::Key::Up)) rotation.x += 60.f * Vortex::Time::GetDeltaTime();
-	if (Vortex::Input::IsKeyPressed(Vortex::Key::Down)) rotation.x -= 60.f * Vortex::Time::GetDeltaTime();
-	if (Vortex::Input::IsKeyPressed(Vortex::Key::Left)) rotation.y += 60.f * Vortex::Time::GetDeltaTime();
-	if (Vortex::Input::IsKeyPressed(Vortex::Key::Right)) rotation.y -= 60.f * Vortex::Time::GetDeltaTime();
+	if (Vortex::Input::IsKeyPressed(Vortex::Key::Up)) rotation.x = 60.f * Vortex::Time::GetDeltaTime();
+	if (Vortex::Input::IsKeyPressed(Vortex::Key::Down)) rotation.x = -60.f * Vortex::Time::GetDeltaTime();
+	if (Vortex::Input::IsKeyPressed(Vortex::Key::Left)) rotation.y = 60.f * Vortex::Time::GetDeltaTime();
+	if (Vortex::Input::IsKeyPressed(Vortex::Key::Right)) rotation.y = -60.f * Vortex::Time::GetDeltaTime();
 
-	m_Camera.SetPosition(position);
-	m_Camera.SetRotation(rotation);
-	m_Camera.SetZoom(scale);
+	transform.Move(position);
+	transform.Rotate(rotation);
+	camera.SetZoom(scale);
 }
 
 void ExampleLayer::OnUpdate()
 {
 	Input();
 
-	Vortex::RenderCommand::Clear();
+	Vortex::RenderCommand::Clear({ 0.1f, 0.1f, 0.1f, 1.f });
 	Vortex::Renderer2D::BeginScene(m_Camera);
 
-#ifdef BASIC_TEST
-
-	glm::vec3 light(1.f, 0.2f, 0.1f);
-	for (int i = 0; i < m_Scene.size(); i++)
-	{
-		Vortex::Object* object = m_Scene[i];
-
-		auto& transform = object->GetComponent<Vortex::TransformComponent>();
-
-
-		if (object->HasComponent<Vortex::SubSpriteComponent>())
-		{
-			auto& sprite = object->GetComponent<Vortex::SubSpriteComponent>();
-			if (transform.GetPosition().x > 2.f)
-				sprite.m_Tint *= glm::vec4(light, 1.f);
-
-			Vortex::Renderer2D::DrawSubQuad(transform, sprite.m_Sprite, sprite.m_Tint);
-		}
-
-		if (object->HasComponent<Vortex::SpriteComponent>())
-		{
-			auto& sprite = object->GetComponent<Vortex::SpriteComponent>();
-			glm::vec4 color = sprite.m_Tint;
-
-			if (transform.GetPosition().y > -2.f)
-				color *= glm::vec4(light, 1.f);
-
-			Vortex::Renderer2D::DrawQuad(transform, sprite.m_Sprite, sprite.m_TextureTiling, sprite.m_Tint);
-		}
-	}
-
-#endif
-
-#ifdef TILEMAP_TEST
-	Vortex::Renderer2D::DrawFromTileMap(m_TileMap, 20, m_TextureMap);
-#endif
-
-#ifdef BENCH
-	float x = 0, y = 0;
-	const glm::vec3 cameraPos = m_Camera.GetPosition();
-	const glm::vec4 cameraRect = { m_Camera.GetRect().x + cameraPos.x, m_Camera.GetRect().y + cameraPos.x,
-								   m_Camera.GetRect().z + cameraPos.y, m_Camera.GetRect().w + cameraPos.y };
-
-	for (int i = 0; i < m_Scene.size(); i++)
+	for (size_t i = 0; i < m_Scene.size(); i++)
 	{
 		Vortex::Object* object = m_Scene[i];
 
 		Vortex::TransformComponent& transform = object->GetComponent<Vortex::TransformComponent>();
-		transform.SetPosition({ x, y, 0.f });
-		transform.SetRotation({ x * Vortex::RNG::RandFloat(), y * Vortex::RNG::RandFloat(), (y - x) * Vortex::RNG::RandFloat() });
-		//transform.SetScale({ 0.6f, 0.6f, 0.6f });
 
-		glm::vec4 color = { x / 300.f, 0.4f, y / 300.f, 1.f };
-		Vortex::SpriteComponent& sprite = object->GetComponent<Vortex::SpriteComponent>();
-		Vortex::Renderer2D::DrawQuad(transform, sprite.m_Sprite, glm::vec2(1.f), color);
-
-		y++;
-
-		if (y == 300)
+		if (object->HasComponent<Vortex::SpriteComponent>())
 		{
-			x++;
-			y = 0;
+			Vortex::SpriteComponent& spriteComp = object->GetComponent<Vortex::SpriteComponent>();
+			Vortex::Renderer2D::DrawQuad(transform, spriteComp, spriteComp.m_Tint * color);
+		}
+		
+		if (object->HasComponent<Vortex::SubSpriteComponent>())
+		{
+			Vortex::SubSpriteComponent& subSpriteComp = object->GetComponent<Vortex::SubSpriteComponent>();
+			Vortex::Renderer2D::DrawSubQuad(transform, subSpriteComp.m_Sprite, subSpriteComp.m_Tint * color);
 		}
 	}
+
+#ifdef TILEMAP_TEST
+	Vortex::Renderer2D::DrawFromTileMap(m_TileMap, 20, m_TextureMap, color);
 #endif
 
 	Vortex::Renderer2D::EndScene();
@@ -216,7 +141,7 @@ void ExampleLayer::OnUpdate()
 
 void ExampleLayer::OnEvent(Vortex::Event& event)
 {
-	m_Camera.OnEvent(event);
+	m_Camera.GetComponent<Vortex::CameraComponent>().OnEvent(event);
 }
 
 void ExampleLayer::OnImGuiRender()
@@ -231,5 +156,8 @@ void ExampleLayer::OnImGuiRender()
 	ImGui::Text("Quad Count: %d", stats.QuadCount);
 	ImGui::Text("Vertex Count: %d", stats.GetVertexCount());
 	ImGui::Text("Index Count: %d", stats.GetIndexCount());
+
+	ImGui::ColorPicker4("Light", (float*)&color);
 	ImGui::End();
 }
+ 

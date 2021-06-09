@@ -1,10 +1,9 @@
 #pragma once
-#include "../Core/Core.h"
-#include "../Core/Layer.h"
-#include "../Core/Window.h"
-#include "../Core/Events/MouseEvents.h"
-#include "../Core/Events/KeyEvent.h"
-#include "../Core/Events/WindowEvents.h"
+#include "Core/Layer.h"
+#include "Core/Window.h"
+#include "Core/Events/MouseEvents.h"
+#include "Core/Events/KeyEvent.h"
+#include "Core/Events/WindowEvents.h"
 
 namespace Vortex
 {

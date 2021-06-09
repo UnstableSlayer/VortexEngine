@@ -1,10 +1,7 @@
 #include "vpch.h"
 #include "OpenGLTexture.h"
 
-#include "Core/Logger.h"
-#include "Core/Assert.h"
 #include "stb_image.h"
-
 #include "glad/glad.h"
 
 namespace Vortex

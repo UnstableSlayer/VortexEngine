@@ -1,7 +1,6 @@
 #include "vpch.h"
 
 #include "WindowsWindow.h"
-#include "Core/Logger.h"
 #include "Core/Events/WindowEvents.h"
 #include "Core/Events/MouseEvents.h"
 #include "Core/Events/KeyEvent.h"

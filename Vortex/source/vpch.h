@@ -15,3 +15,7 @@
 #ifdef VE_PLATFORM_WINDOWS
 	#include <Windows.h>
 #endif
+
+#include "Core/Core.h"
+#include "Core/Assert.h"
+#include "Core/Logger.h"

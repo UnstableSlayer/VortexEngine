@@ -1,5 +1,4 @@
 #pragma once
-#include "Core.h"
 #include "Layer.h"
 
 namespace Vortex

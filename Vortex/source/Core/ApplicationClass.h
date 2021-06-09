@@ -1,12 +1,10 @@
 #pragma once
-#include "Core.h"
-
 #include "Window.h"
 #include "LayerStack.h"
 #include "Events/Event.h"
 #include "Events/WindowEvents.h"
 
-#include "../ImGui/ImGuiLayer.h"
+#include "ImGui/ImGuiLayer.h"
 
 #include "Renderer/Shader.h"
 #include "Renderer/Buffers.h"

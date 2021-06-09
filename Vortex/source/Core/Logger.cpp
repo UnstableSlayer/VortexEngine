@@ -1,5 +1,4 @@
 #include "vpch.h"
-
 #include "Logger.h"
 
 namespace Vortex

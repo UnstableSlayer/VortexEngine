@@ -1,12 +1,10 @@
 #include "vpch.h"
 #include "Renderer2D.h"
-
-#include "../Core.h"
 #include "RenderCommand.h"
 
 #include "Buffers.h"
 #include "Shader.h"
-#include "../Time.h"
+#include "Core/Time.h"
 
 #include <glm/gtc/type_ptr.hpp>
 
@@ -42,8 +40,8 @@ namespace Vortex
 		std::array<Ref<Texture2D>, MaxTextureSlots> Textures;
 		uint32_t TextureSlotIndex = 1;
 
-		const glm::vec3* CameraPos;
-		const glm::vec4* CameraRect;
+		const glm::vec3* CameraPos = nullptr;
+		const glm::vec4* CameraRect = nullptr;
 
 		Renderer2D::Statistics Stats;
 	};
@@ -113,13 +111,19 @@ namespace Vortex
 	}
 
 
-	void Renderer2D::BeginScene(OrthographicCamera& camera)
+	void Renderer2D::BeginScene(Object& cameraObj)
 	{
-		s_Data.CameraPos = &camera.GetPosition();
+		VORTEX_ASSERT(cameraObj.HasComponent<TransformComponent>(), "Camera Object doesn't have TransformComponent");
+		VORTEX_ASSERT(cameraObj.HasComponent<CameraComponent>(), "Camera Object doesn't have CameraComponent");
+
+		auto& transform = cameraObj.GetComponent<TransformComponent>();
+		auto& camera = cameraObj.GetComponent<CameraComponent>();
+
+		s_Data.CameraPos = &transform.GetPosition();
 		s_Data.CameraRect = &camera.GetRect();
 
 		s_Data.DefaultShader->Bind();
-		s_Data.DefaultShader->SetUniformMat4("uViewProj", camera.GetViewProjectionMatrix());
+		s_Data.DefaultShader->SetUniformMat4("uViewProj", camera.GetViewProjectionMatrix(transform.GetPosition(), transform.GetRotation()));
 
 		s_Data.QuadIndexCount = 0;
 		s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;
@@ -197,7 +201,7 @@ namespace Vortex
 
 		s_Data.Stats.QuadCount++;
 	}
-	void Renderer2D::DrawQuad(TransformComponent& transform, const Ref<Texture2D>& texture, const glm::vec2& texTiling, const glm::vec4& tint)
+	void Renderer2D::DrawQuad(TransformComponent& transform, const SpriteComponent& sprite, const glm::vec4& tint)
 	{	
 		if (CameraCulling(transform)) return;
 
@@ -207,7 +211,7 @@ namespace Vortex
 		float textureIndex = 0.f;
 		for (size_t i = 0; i < s_Data.TextureSlotIndex; i++)
 		{
-			if (s_Data.Textures[i]->GetID() == texture->GetID())
+			if (s_Data.Textures[i]->GetID() == sprite.m_Texture->GetID())
 			{
 				textureIndex = (float)i;
 				break;
@@ -218,23 +222,23 @@ namespace Vortex
 		{
 			textureIndex = (float)s_Data.TextureSlotIndex;
 
-			s_Data.Textures[s_Data.TextureSlotIndex] = texture;
+			s_Data.Textures[s_Data.TextureSlotIndex] = sprite.m_Texture;
 			s_Data.TextureSlotIndex++;
 		}
 
 		glm::vec3 position;
 
 		position = transform.GetTransformMatrix() * glm::vec4(-0.5f, -0.5f, 0.f, 1.f);
-		Renderer2D::AppendSingleVertexData(position, tint, { 0.f, 0.f }, texTiling, textureIndex);
+		Renderer2D::AppendSingleVertexData(position, tint, { 0.f, 0.f }, sprite.m_TextureTiling, textureIndex);
 
 		position = transform.GetTransformMatrix() * glm::vec4(0.5f, -0.5f, 0.f, 1.f);
-		Renderer2D::AppendSingleVertexData(position, tint, { 1.f, 0.f }, texTiling, textureIndex);
+		Renderer2D::AppendSingleVertexData(position, tint, { 1.f, 0.f }, sprite.m_TextureTiling, textureIndex);
 
 		position = transform.GetTransformMatrix() * glm::vec4(0.5f, 0.5f, 0.f, 1.f);
-		Renderer2D::AppendSingleVertexData(position, tint, { 1.f, 1.f }, texTiling, textureIndex);
+		Renderer2D::AppendSingleVertexData(position, tint, { 1.f, 1.f }, sprite.m_TextureTiling, textureIndex);
 
 		position = transform.GetTransformMatrix() * glm::vec4(-0.5f, 0.5f, 0.f, 1.f);
-		Renderer2D::AppendSingleVertexData(position, tint, { 0.f, 1.f }, texTiling, textureIndex);
+		Renderer2D::AppendSingleVertexData(position, tint, { 0.f, 1.f }, sprite.m_TextureTiling, textureIndex);
 
 		s_Data.QuadIndexCount += 6;
 

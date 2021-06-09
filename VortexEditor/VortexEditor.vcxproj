@@ -255,18 +255,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Vortex\Vortex.vcxproj">
-      <Project>{EDC893D8-D96A-BEAE-C225-D202AE6645FF}</Project>
-    </ProjectReference>
+    <ClInclude Include="source\EditorLayer.h" />
+    <ClInclude Include="source\VortexEditor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\EditorLayer.cpp" />
-    <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\VortexEditor.cpp" />
+    <ClCompile Include="source\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\EditorLayer.h" />
-    <ClInclude Include="source\VortexEditor.h" />
+    <ProjectReference Include="..\Vortex\Vortex.vcxproj">
+      <Project>{EDC893D8-D96A-BEAE-C225-D202AE6645FF}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
