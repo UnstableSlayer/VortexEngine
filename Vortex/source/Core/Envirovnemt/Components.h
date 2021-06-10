@@ -27,6 +27,7 @@ namespace Vortex
 		void SetParent(TransformComponent* parent)
 		{
 			m_ParentTransform = parent;
+			m_ParentTransform->m_ChildCount++;
 		}
 
 		void Move(glm::vec3 delta)
@@ -78,7 +79,9 @@ namespace Vortex
 	private:
 		void Update()
 		{
-			if ((m_ParentTransform && m_ParentTransform->b_ParentUpdated && b_Updated) || (!m_ParentTransform && b_Updated)) return;
+			if (b_Updated && !m_ParentTransform || b_Updated && (m_ParentTransform && m_ParentTransform->m_OutdatedChildCount == 0)) return;
+
+			if (m_OutdatedChildCount == 0) m_OutdatedChildCount = m_ChildCount;
 
 			m_TransformMatrix = glm::mat4(1.0f);
 
@@ -89,13 +92,13 @@ namespace Vortex
 				* glm::rotate(m_TransformMatrix, glm::radians(m_Rotation.z), glm::vec3(0, 0, 1));
 
 			if (m_ParentTransform)
+			{
 				m_TransformMatrix = m_ParentTransform->GetTransformMatrix() * m_TransformMatrix;
+				m_ParentTransform->m_OutdatedChildCount--;
+			}
 
 			b_Updated = true;
-			b_ParentUpdated = !b_ParentUpdated;
 		}
-	protected:
-		bool b_ParentUpdated = true;
 
 	private:
 		glm::vec3 m_Position = glm::vec3(0.f);
@@ -103,9 +106,11 @@ namespace Vortex
 		glm::vec3 m_Scale = glm::vec3(1.f);
 
 		glm::mat4 m_TransformMatrix = glm::mat4(1.f);
-		TransformComponent* m_ParentTransform = nullptr;
-
 		bool b_Updated = true;
+
+		TransformComponent* m_ParentTransform = nullptr;
+		uint32_t m_ChildCount = 0;
+		uint32_t m_OutdatedChildCount = 0;
 	};
 
 	struct CameraComponent

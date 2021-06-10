@@ -3,8 +3,9 @@
 
 #include <glm/gtc/type_ptr.hpp>
 
-//#define BALL_TEST
-#define TILEMAP_TEST
+//#define BALLS_TEST
+#define TRANSFORM_PARENT_TEST
+//#define TILEMAP_TEST
 
 ExampleLayer::ExampleLayer()
 	: Layer("Example")
@@ -41,6 +42,32 @@ ExampleLayer::ExampleLayer()
 				auto& renderer2DComponent = obj.AddComponent<Vortex::SpriteComponent>();
 				renderer2DComponent.m_Texture = texture;
 			}
+		}
+	}
+#endif
+
+#ifdef TRANSFORM_PARENT_TEST
+	{
+		auto& texture = Vortex::Texture2D::Create("Textures/Ball.png");
+
+		Vortex::Object& parentObj = m_Scene.CreateObject();
+		auto& parentTrans = parentObj.AddComponent<Vortex::TransformComponent>();
+		parentTrans.SetPosition({ 0.f, 0.f, 0.f });
+		parentTrans.SetScale({ 4.f, 4.f, 4.f });
+
+		auto& parentSprite = parentObj.AddComponent<Vortex::SpriteComponent>();
+		parentSprite.m_Texture = texture;
+		parentSprite.m_Tint = { 1.f, 0.f, 0.f, 1.f };
+
+		for(int i = 0; i < 3; i++)
+		{
+			Vortex::Object& childObj = m_Scene.CreateObject();
+			auto& childTrans = childObj.AddComponent<Vortex::TransformComponent>();
+			childTrans.SetPosition({ i * 10.f, 0.f, 0.f });
+			
+			auto& childSprite = childObj.AddComponent<Vortex::SpriteComponent>();
+			childSprite.m_Texture = texture;
+			childSprite.m_Tint = { i * 0.1f, i * 0.2f, 0.f, 1.f };
 		}
 	}
 #endif
