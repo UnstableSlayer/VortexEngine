@@ -7,9 +7,11 @@
 
 namespace Vortex
 {
+	/// Camera ////////////////////////////////////
+
 	enum class CameraType
 	{
-		Orthographical,
+		Orthographic,
 		Perspective
 	};
 
@@ -17,7 +19,7 @@ namespace Vortex
 	{
 	public:
 		virtual ~Camera() = default;
-		static Ref<Camera> Create(const CameraType type, const float width, const float height, const float min, const float max);
+		static Ref<Camera> Create(const CameraType type, const float width, const float height, const float zNear = 0.1f, const float zFar = 1000.f, const float fov = 60.f);
 
 		virtual void Resize(const float width, const float height) = 0;
 		virtual void OnEvent(Event& e) = 0;
@@ -50,10 +52,13 @@ namespace Vortex
 
 	};
 
+
+	/// Orthographic ////////////////////////////////////
+
 	class OrthographicCamera : public Camera
 	{
 	public:
-		OrthographicCamera(float width, float height, float min = -1.f, float max = 10.f);
+		OrthographicCamera(float width, float height, float zNear, float zFar, float fov = 0.f);
 		virtual void SetZoom(const float zoom) override;
 
 		virtual void Resize(const float width, const float height) override;
@@ -61,5 +66,24 @@ namespace Vortex
 
 	private:
 		virtual bool OnWindowResize(WindowResizeEvent& event) override;
+	};
+
+
+	/// Perspective ////////////////////////////////////
+
+	class PerspectiveCamera : public Camera
+	{
+	public:
+		PerspectiveCamera(const float width, const float height, const float zNear, const float zFar, const float fov);
+		virtual void SetZoom(const float zoom) override;
+
+		virtual void Resize(const float width, const float height) override;
+		virtual void OnEvent(Event& e) override;
+
+	private:
+		virtual bool OnWindowResize(WindowResizeEvent& event) override;
+
+	private:
+		float m_FOV;
 	};
 }

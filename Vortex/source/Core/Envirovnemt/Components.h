@@ -24,49 +24,67 @@ namespace Vortex
 		TransformComponent() { Reset(); }
 		TransformComponent(const TransformComponent&) = default;
 
-		void SetParent(TransformComponent* parent)
+		void SetParent(Object& parent)
 		{
-			m_ParentTransform = parent;
-			m_ParentTransform->m_ChildCount++;
+			VORTEX_ASSERT(parent.HasComponent<TransformComponent>(), "Transform's Parent doesn't have TransformComponent!");
+			m_Parent = MakeRef<Object>(parent);
+			m_Parent->GetComponent<TransformComponent>().m_ChildCount++;
 		}
 
-		void Move(glm::vec3 delta)
+		void Move(const glm::vec3& delta)
 		{
 			SetPosition(m_Position + delta);
 		}
-		void Rotate(glm::vec3 delta)
+		void Rotate(const glm::vec3& delta)
 		{
 			SetRotation(m_Rotation + delta);
 		}
-		void Scale(glm::vec3 delta)
+		void Scale(const glm::vec3& delta)
 		{
 			SetScale(m_Scale + delta);
 		}
-
-		void SetPosition(glm::vec3 position)
+		void RotateAround(const glm::vec3& position, const glm::vec3& axis, const float radius, const float angle)
 		{
+			m_Position = position;
+
+			m_Origin = radius * (glm::vec3(1.f) - axis);
+			Rotate(axis * angle);
+		}
+		
+		void SetPosition(const glm::vec3& position)
+		{
+			if (position == m_Position) return;
 			m_Position = position;
 
 			b_Updated = false;
 		}
-		void SetRotation(glm::vec3 rotation)
+		void SetRotation(const glm::vec3& rotation)
 		{
+			if (rotation == m_Rotation) return;
 			m_Rotation = rotation;
 
 			b_Updated = false;
 		}
-		void SetScale(glm::vec3 scale)
+		void SetScale(const glm::vec3& scale)
 		{
+			if (scale == m_Scale) return;
 			m_Scale = scale;
 
 			b_Updated = false;
+		}
+		void SetOrigin(const glm::vec3& origin)
+		{
+			m_Origin = origin;
 		}
 
 		const glm::vec3& GetPosition() const { return m_Position; }
 		const glm::vec3& GetRotation() const { return m_Rotation; }
 		const glm::vec3& GetScale() const { return m_Scale; }
+		const glm::vec3& GetOrigin() const { return m_Origin; }
 
 		const glm::mat4& GetTransformMatrix() { Update();  return m_TransformMatrix; }
+
+		const TransformComponent* GetParent() { return m_Parent ? &m_Parent->GetComponent<TransformComponent>() : nullptr; }
 
 		void Reset()
 		{
@@ -74,12 +92,13 @@ namespace Vortex
 			m_Position = glm::vec3(0.f);
 			m_Rotation = glm::vec3(0.f);
 			m_Scale = glm::vec3(1.f);
+		    m_Origin = glm::vec3(0.f);
 		}
 
 	private:
 		void Update()
 		{
-			if (b_Updated && !m_ParentTransform || b_Updated && (m_ParentTransform && m_ParentTransform->m_OutdatedChildCount == 0)) return;
+			if ((b_Updated && !m_Parent) || (b_Updated && (m_Parent && m_Parent->GetComponent<TransformComponent>().m_OutdatedChildCount == 0))) return;
 
 			if (m_OutdatedChildCount == 0) m_OutdatedChildCount = m_ChildCount;
 
@@ -89,12 +108,14 @@ namespace Vortex
 				* glm::scale(m_TransformMatrix, m_Scale)
 				* glm::rotate(m_TransformMatrix, glm::radians(m_Rotation.x), glm::vec3(1, 0, 0))
 				* glm::rotate(m_TransformMatrix, glm::radians(m_Rotation.y), glm::vec3(0, 1, 0))
-				* glm::rotate(m_TransformMatrix, glm::radians(m_Rotation.z), glm::vec3(0, 0, 1));
+				* glm::rotate(m_TransformMatrix, glm::radians(m_Rotation.z), glm::vec3(0, 0, 1))
+				* glm::translate(m_TransformMatrix, m_Origin);
 
-			if (m_ParentTransform)
+			if (m_Parent)
 			{
-				m_TransformMatrix = m_ParentTransform->GetTransformMatrix() * m_TransformMatrix;
-				m_ParentTransform->m_OutdatedChildCount--;
+				auto& parentTransform = m_Parent->GetComponent<TransformComponent>();
+				m_TransformMatrix = parentTransform.GetTransformMatrix() * m_TransformMatrix;
+				parentTransform.m_OutdatedChildCount--;
 			}
 
 			b_Updated = true;
@@ -104,11 +125,12 @@ namespace Vortex
 		glm::vec3 m_Position = glm::vec3(0.f);
 		glm::vec3 m_Rotation = glm::vec3(0.f);
 		glm::vec3 m_Scale = glm::vec3(1.f);
+		glm::vec3 m_Origin = glm::vec3(0.f);
 
 		glm::mat4 m_TransformMatrix = glm::mat4(1.f);
 		bool b_Updated = true;
 
-		TransformComponent* m_ParentTransform = nullptr;
+		Ref<Object> m_Parent = nullptr;
 		uint32_t m_ChildCount = 0;
 		uint32_t m_OutdatedChildCount = 0;
 	};
@@ -116,7 +138,7 @@ namespace Vortex
 	struct CameraComponent
 	{
 	public:
-		CameraComponent(const CameraType type, const glm::vec2& rectSize, const float min, const float max) { m_Camera = Camera::Create(type, rectSize.x, rectSize.y, min, max); }
+		CameraComponent(const CameraType type, const glm::vec2& rectSize, const float zNear, const float zFar, const float fov = 60.f) { m_Camera = Camera::Create(type, rectSize.x, rectSize.y, zNear, zFar, fov); }
 		CameraComponent(const CameraComponent&) = default;
 
 		void SetZoom(const float zoom) { m_Camera->SetZoom(zoom); }

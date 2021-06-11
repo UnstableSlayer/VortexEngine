@@ -15,6 +15,11 @@ namespace Vortex
 			return Object(id, &m_Registry);
 		}
 
+		Object& GetByID(const uint32_t& id)
+		{
+			return Object(id, &m_Registry);
+		}
+
 		template <typename T>
 		Object& GetObjectsByComponent()
 		{
@@ -26,7 +31,7 @@ namespace Vortex
 				objects[i] = Object(view[i]);
 			}
 
-			return objects;
+			return Object(&objects);
 		}
 
 		void RemoveObject(uint32_t objectID)

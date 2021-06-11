@@ -25,5 +25,7 @@ private:
 	std::unordered_map<char, Vortex::Ref<Vortex::SubTexture2D>> m_TextureMap;
 	const char* m_TileMap;
 
-	glm::vec4 color = glm::vec4(1.f);
+	Vortex::Ref<Vortex::TransformComponent> m_TransformTest;
+
+	glm::vec4 m_Color = glm::vec4(1.f);
 };

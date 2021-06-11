@@ -12,6 +12,8 @@ namespace Vortex
 		Object() {}
 		Object(uint32_t ID, Registry* registry) : m_ID(ID), m_Registry(registry) {}
 
+		const uint32_t& GetID() { return m_ID; }
+
 		template<typename... T>
 		bool HasComponent()
 		{
@@ -21,7 +23,7 @@ namespace Vortex
 		template<typename T>
 		T& GetComponent()
 		{
-			return HasComponent<T>() ? m_Registry->get<T>((entt::entity)m_ID) : *(T*)nullptr;
+			return m_Registry->get<T>((entt::entity)m_ID);
 		}
 
 		template<typename... T>
