@@ -1499,5 +1499,6 @@
     <ClCompile Include="thirdParty\stb_image\stb_image.cpp">
       <Filter>thirdParty\stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="source\Core\Envirovnemt\Scene.cpp" />
   </ItemGroup>
 </Project>

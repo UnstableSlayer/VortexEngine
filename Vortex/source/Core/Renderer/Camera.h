@@ -27,6 +27,10 @@ namespace Vortex
 		virtual void SetZoom(const float zoom) = 0;
 		const float& GetZoom() const { return m_Zoom; }
 
+		void SetClipSpace(const float zNear, const float zFar) { m_Near = zNear; m_Far = zFar; }
+		const glm::vec2& GetClipSpace() const { return {m_Near, m_Far}; }
+
+
 		const glm::vec4& GetRect() const { return m_Rect; }
 
 		const glm::mat4& GetProjectionMatrix() const { return m_ProjectionMatrix; }

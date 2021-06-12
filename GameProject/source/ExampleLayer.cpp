@@ -3,9 +3,9 @@
 
 #include <glm/gtc/type_ptr.hpp>
 
-//#define BALLS_TEST
+#define BALLS_TEST
 //#define TRANSFORM_PARENT_TEST
-#define TILEMAP_TEST
+//#define TILEMAP_TEST
 
 ExampleLayer::ExampleLayer()
 	: Layer("Example")
@@ -16,8 +16,8 @@ ExampleLayer::ExampleLayer()
 	{
 		m_Camera = m_Scene.CreateObject();
 		auto& transform = m_Camera.AddComponent<Vortex::TransformComponent>();
-		auto& camera = m_Camera.AddComponent<Vortex::CameraComponent>(Vortex::CameraType::Perspective, glm::vec2(16.f, 9.f), -1.f, 100.f);
-		transform.SetPosition({ 0.f, 0.f, 0.f });
+		auto& camera = m_Camera.AddComponent<Vortex::CameraComponent>(Vortex::CameraType::Orthographic, glm::vec2(16.f, 9.f), -1.f, 10000.f, 50.f);
+		transform.SetPosition({ 0.f, 0.f, -100.f });
 	}
 
 #ifdef BALLS_TEST
@@ -26,7 +26,7 @@ ExampleLayer::ExampleLayer()
 		float radius = 10.f;
 		auto& texture = Vortex::Texture2D::Create("Textures/Ball.png");
 	
-		int count = 100;
+		int count = 64;
 		for (size_t x = 0; x < count; x++)
 		{
 			for (size_t y = 0; y < count; y++)
@@ -44,7 +44,7 @@ ExampleLayer::ExampleLayer()
 				renderer2DComponent.m_Texture = texture;
 
 				float a = abs(sinf(x)), b = abs(cosf(y));
-				renderer2DComponent.m_Tint = { a, b, 0.8f, a+b };
+				renderer2DComponent.m_Tint = { a, b, a+b, 1.f };
 			}
 		}
 	}
@@ -68,7 +68,7 @@ ExampleLayer::ExampleLayer()
 			auto& childObj = m_Scene.CreateObject();
 			auto& childTrans = childObj.AddComponent<Vortex::TransformComponent>();
 			childTrans.SetParent(parentObj);
-			childTrans.SetScale(glm::vec3(0.6f, 0.6f, 0.6f) * Vortex::RNG::RandFloat());
+			childTrans.SetScale(glm::vec3(5.f, 5.f, 5.f) * Vortex::RNG::RandFloat());
 
 			auto& childSprite = childObj.AddComponent<Vortex::SpriteComponent>();
 			childSprite.m_Texture = texture;
@@ -123,6 +123,9 @@ void ExampleLayer::Input()
 
 	if (Vortex::Input::IsKeyPressed(Vortex::Key::S)) scale += 5.f * Vortex::Time::GetDeltaTime();
 	if (Vortex::Input::IsKeyPressed(Vortex::Key::W)) scale -= 5.f * Vortex::Time::GetDeltaTime();
+
+	//if (Vortex::Input::IsKeyPressed(Vortex::Key::S)) position.z += 5.f * Vortex::Time::GetDeltaTime();
+	//if (Vortex::Input::IsKeyPressed(Vortex::Key::W)) position.z -= 5.f * Vortex::Time::GetDeltaTime();
 	if (Vortex::Input::IsKeyPressed(Vortex::Key::A)) position.x = -10.f * Vortex::Time::GetDeltaTime();
 	if (Vortex::Input::IsKeyPressed(Vortex::Key::D)) position.x = 10.f * Vortex::Time::GetDeltaTime();
 	if (Vortex::Input::IsKeyPressed(Vortex::Key::Q)) position.y = -10.f * Vortex::Time::GetDeltaTime();
@@ -130,11 +133,13 @@ void ExampleLayer::Input()
 
 	if (Vortex::Input::IsKeyPressed(Vortex::Key::Up)) rotation.x = 80.f * Vortex::Time::GetDeltaTime();
 	if (Vortex::Input::IsKeyPressed(Vortex::Key::Down)) rotation.x = -60.f * Vortex::Time::GetDeltaTime();
-	if (Vortex::Input::IsKeyPressed(Vortex::Key::Left)) rotation.z = 60.f * Vortex::Time::GetDeltaTime();
-	if (Vortex::Input::IsKeyPressed(Vortex::Key::Right)) rotation.z = -60.f * Vortex::Time::GetDeltaTime();
+	if (Vortex::Input::IsKeyPressed(Vortex::Key::Left)) rotation.y = 60.f * Vortex::Time::GetDeltaTime();
+	if (Vortex::Input::IsKeyPressed(Vortex::Key::Right)) rotation.y = -60.f * Vortex::Time::GetDeltaTime();
 
-	m_TransformTest->Move(position);
-	m_TransformTest->Rotate(rotation);
+	VORTEX_APP_INFO("POS: {0} {1} {2}", transform.GetPosition().x, transform.GetPosition().y, transform.GetPosition().z);
+
+	transform.Move(position);
+	transform.Rotate(rotation);
 	camera.SetZoom(scale);
 }
 
@@ -144,6 +149,39 @@ void ExampleLayer::OnUpdate()
 
 	Vortex::RenderCommand::Clear();
 	Vortex::Renderer2D::BeginScene(m_Camera);
+
+//	for (size_t i = 0; i < m_Scene.size(); i++)
+//	{
+//		auto* object = m_Scene[i];
+//
+//		auto& transform = object->GetComponent<Vortex::TransformComponent>();
+//
+//#ifdef TRANSFORM_PARENT_TEST
+//		if (i == 1)
+//		{
+//			transform.SetPosition(m_TransformTest->GetPosition());
+//			transform.SetRotation(m_TransformTest->GetRotation());
+//		}
+//		else if (i > 1)
+//		{
+//			float radius = 4.f * i * transform.GetScale().x + transform.GetParent()->GetScale().x / 8.f + 30.f;
+//			transform.RotateAround({0.f, 0.f, 0.f}, { 0.f, 0.f, 1.f }, radius, i * 10.f * Vortex::Time::GetDeltaTime());
+//		}
+//#endif
+//
+//		if (object->HasComponent<Vortex::SpriteComponent>())
+//		{
+//			auto& spriteComp = object->GetComponent<Vortex::SpriteComponent>();
+//			Vortex::Renderer2D::DrawQuad(transform, spriteComp, spriteComp.m_Tint * m_Color);
+//		}
+//		
+//		if (object->HasComponent<Vortex::SubSpriteComponent>())
+//		{
+//			auto& subSpriteComp = object->GetComponent<Vortex::SubSpriteComponent>();
+//			Vortex::Renderer2D::DrawSubQuad(transform, subSpriteComp.m_Sprite, subSpriteComp.m_Tint * m_Color);
+//		}
+//	}
+
 
 	for (size_t i = 0; i < m_Scene.size(); i++)
 	{
@@ -159,23 +197,12 @@ void ExampleLayer::OnUpdate()
 		}
 		else if (i > 1)
 		{
-			float radius = 4.f * i * transform.GetScale().x + transform.GetParent()->GetScale().x / 2.f + 10.f;
+			float radius = 4.f * i * transform.GetScale().x + transform.GetParent()->GetScale().x / 8.f + 30.f;
 			transform.RotateAround({0.f, 0.f, 0.f}, { 0.f, 0.f, 1.f }, radius, i * 10.f * Vortex::Time::GetDeltaTime());
 		}
 #endif
-
-		if (object->HasComponent<Vortex::SpriteComponent>())
-		{
-			auto& spriteComp = object->GetComponent<Vortex::SpriteComponent>();
-			Vortex::Renderer2D::DrawQuad(transform, spriteComp, spriteComp.m_Tint * m_Color);
-		}
-		
-		if (object->HasComponent<Vortex::SubSpriteComponent>())
-		{
-			auto& subSpriteComp = object->GetComponent<Vortex::SubSpriteComponent>();
-			Vortex::Renderer2D::DrawSubQuad(transform, subSpriteComp.m_Sprite, subSpriteComp.m_Tint * m_Color);
-		}
 	}
+	m_Scene.Update(m_Camera.GetComponent<Vortex::TransformComponent>().GetPosition(), Vortex::Time::GetDeltaTime());
 
 #ifdef TILEMAP_TEST
 	Vortex::Renderer2D::DrawFromTileMap(m_TileMap, 20, m_TextureMap, m_Color);

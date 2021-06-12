@@ -9,7 +9,6 @@
 
 namespace Vortex
 {
-
 	ApplicationClass* ApplicationClass::s_Instance = nullptr;
 
 	ApplicationClass::ApplicationClass()
@@ -25,8 +24,8 @@ namespace Vortex
 
 	void ApplicationClass::OnCreate()
 	{
-		OnStart();
 		Renderer::Init();
+		OnStart();
 
 		while (m_Running)
 		{

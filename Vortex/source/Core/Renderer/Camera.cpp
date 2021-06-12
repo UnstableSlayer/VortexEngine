@@ -48,7 +48,7 @@ namespace Vortex
 	{
 		m_Zoom = std::max(zoom, 0.1f);
 		m_Rect = { -m_AspectRatio * m_Zoom, m_AspectRatio * m_Zoom, -m_Zoom, m_Zoom };
-		m_ProjectionMatrix = glm::ortho(-m_AspectRatio * m_Zoom, m_AspectRatio * m_Zoom, -m_Zoom, m_Zoom, -1.f, 10.f);
+		m_ProjectionMatrix = glm::ortho(-m_AspectRatio * m_Zoom, m_AspectRatio * m_Zoom, -m_Zoom, m_Zoom, m_Near * m_AspectRatio * m_Zoom, m_Far * m_AspectRatio * m_Zoom);
 	}
 
 	void OrthographicCamera::Resize(const float width, const float height)
@@ -94,7 +94,7 @@ namespace Vortex
 	{
 		m_Zoom = std::max(zoom, 0.1f);
 		m_Rect = { -m_AspectRatio * m_Zoom, m_AspectRatio * m_Zoom, -m_Zoom, m_Zoom };
-		m_ProjectionMatrix = glm::ortho(-m_AspectRatio * m_Zoom, m_AspectRatio * m_Zoom, -m_Zoom, m_Zoom, -1.f, 10.f);
+		m_ProjectionMatrix = glm::perspectiveFov(m_FOV, m_Rect.y, m_Rect.w, m_Near * m_AspectRatio * m_Zoom, m_Far * m_AspectRatio * m_Zoom);
 	}
 
 	void PerspectiveCamera::Resize(const float width, const float height)
@@ -102,7 +102,7 @@ namespace Vortex
 		m_AspectRatio = width / height;
 
 		m_Rect = { -m_AspectRatio * m_Zoom, m_AspectRatio * m_Zoom, -m_Zoom, m_Zoom };
-		m_ProjectionMatrix = glm::ortho(m_Rect.x, m_Rect.y, m_Rect.z, m_Rect.w, m_Near, m_Far);
+		m_ProjectionMatrix = glm::perspectiveFov(m_FOV, m_Rect.y, m_Rect.w, m_Near * m_AspectRatio * m_Zoom, m_Far * m_AspectRatio * m_Zoom);
 	}
 
 	void PerspectiveCamera::OnEvent(Event& e)
@@ -115,10 +115,9 @@ namespace Vortex
 		m_AspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
 
 		m_Rect = { -m_AspectRatio * m_Zoom, m_AspectRatio * m_Zoom, -m_Zoom, m_Zoom };
-		m_ProjectionMatrix = glm::perspectiveFov(m_FOV, m_Rect.y, m_Rect.w, m_Near, m_Far);
+		m_ProjectionMatrix = glm::perspectiveFov(m_FOV, m_Rect.y, m_Rect.w, m_Near * m_AspectRatio * m_Zoom, m_Far * m_AspectRatio * m_Zoom);
 
 		return false;
 	}
-
 
 }

@@ -731,6 +731,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Core\ApplicationClass.cpp" />
+    <ClCompile Include="source\Core\Envirovnemt\Scene.cpp" />
     <ClCompile Include="source\Core\Layer.cpp" />
     <ClCompile Include="source\Core\LayerStack.cpp" />
     <ClCompile Include="source\Core\Logger.cpp" />

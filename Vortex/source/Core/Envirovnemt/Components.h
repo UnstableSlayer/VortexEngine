@@ -138,21 +138,31 @@ namespace Vortex
 	struct CameraComponent
 	{
 	public:
-		CameraComponent(const CameraType type, const glm::vec2& rectSize, const float zNear, const float zFar, const float fov = 60.f) { m_Camera = Camera::Create(type, rectSize.x, rectSize.y, zNear, zFar, fov); }
+		CameraComponent(const CameraType type, const glm::vec2& rectSize, const float zNear, const float zFar, const float fov = 60.f) : m_CameraZNear(zNear), m_CameraZFar(zFar) { m_Camera = Camera::Create(type, rectSize.x, rectSize.y, zNear, zFar, fov); }
 		CameraComponent(const CameraComponent&) = default;
 
 		void SetZoom(const float zoom) { m_Camera->SetZoom(zoom); }
 
 		const glm::mat4& GetProjectionMatrix() { return m_Camera->GetProjectionMatrix(); }
-		const glm::mat4& GetViewMatrix(const glm::vec3& position, const glm::vec3& rotation) { return m_Camera->GetViewMatrix(position, rotation); }
-		const glm::mat4& GetViewProjectionMatrix(const glm::vec3& position, const glm::vec3& rotation) { return m_Camera->GetViewProjectionMatrix(position, rotation); }
+		const glm::mat4& GetViewMatrix(const glm::vec3& position, const glm::vec3& rotation) { UpdateClipSpace(position); return m_Camera->GetViewMatrix(position, rotation); }
+		const glm::mat4& GetViewProjectionMatrix(const glm::vec3& position, const glm::vec3& rotation) { UpdateClipSpace(position);  return m_Camera->GetViewProjectionMatrix(position, rotation); }
 
 		const glm::vec4& GetRect() { return m_Camera->GetRect(); }
 
 		void OnEvent(Event& e) { m_Camera->OnEvent(e); }
 
 	private:
+		void UpdateClipSpace(const glm::vec3& position)
+		{
+			glm::vec2 clipSpace = m_Camera->GetClipSpace();
+			clipSpace = glm::vec2(m_CameraZNear, m_CameraZFar) + position.z;
+			m_Camera->SetClipSpace(clipSpace.x, clipSpace.y);
+		}
+
+	private:
 		Ref<Camera> m_Camera;
+
+		float m_CameraZNear, m_CameraZFar;
 	};
 
 	struct SpriteComponent
