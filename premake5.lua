@@ -23,10 +23,12 @@ workspace "VortexEngine"
 	IncludeDir["Glm"] = "Vortex/thirdParty/glm"
 	IncludeDir["stb_image"] = "Vortex/thirdParty/stb_image"
 	IncludeDir["EnTT"] = "Vortex/thirdParty/Entt/include"
+	IncludeDir["Assimp"] = "Vortex/thirdParty/Assimp"
 	
 	include "Vortex/thirdParty/GLFW"
 	include "Vortex/thirdParty/Glad"
 	include "Vortex/thirdParty/imgui"
+	include "Vortex/thirdParty/Assimp"
 	
 	project "Vortex"
 		location "Vortex"
@@ -65,7 +67,8 @@ workspace "VortexEngine"
 			"%{IncludeDir.ImGui}",
 			"%{IncludeDir.Glm}",
 			"%{IncludeDir.EnTT}",
-			"%{IncludeDir.stb_image}"
+			"%{IncludeDir.stb_image}",
+			"%{IncludeDir.Assimp}/include"
 		}
 		
 		links
@@ -73,8 +76,11 @@ workspace "VortexEngine"
 			"GLFW",
 			"Glad",
 			"ImGui",
-			"opengl32.lib"
+			"Assimp",
+			"opengl32.lib",
 		}
+		
+		
 	
 		filter "system:windows"
 			systemversion "latest"
@@ -124,12 +130,14 @@ workspace "VortexEngine"
 			"%{IncludeDir.Glm}",
 			"%{IncludeDir.EnTT}"
 		}
-	
+		
 		links 
 		{
-			"Vortex"
+			"Vortex",
 		}
-	
+		
+		
+		
 		filter "system:windows"
 			systemversion "latest"
 	

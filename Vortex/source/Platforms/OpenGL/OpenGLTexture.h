@@ -7,9 +7,10 @@ namespace Vortex
 	class OpenGLTexture2D : public Texture2D
 	{
 	public:
-		OpenGLTexture2D(const std::string& path);
+		OpenGLTexture2D(const std::string& path, TextureFormat format, TextureWrap wrap, TextureFilter filter);
 		OpenGLTexture2D(const uint32_t width, const uint32_t height);
 		virtual ~OpenGLTexture2D();
+
 
 		virtual uint32_t GetID() const override { return m_ID; }
 		virtual const char* GetPath() const override { return m_Path.c_str(); }

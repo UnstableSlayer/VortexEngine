@@ -19,15 +19,15 @@ namespace Vortex
     }
 
 
-    Ref<Texture2D> Texture2D::Create(const std::string& path)
-	{
+    Ref<Texture2D> Texture2D::Create(const std::string& path, TextureFormat format, TextureWrap wrap, TextureFilter filter)
+    {
         switch (RendererAPI::GetAPI())
         {
         case RendererAPI::API::None: VORTEX_ASSERT(false, "No API Selected!"); return nullptr;
-        case RendererAPI::API::OpenGL: return MakeRef<OpenGLTexture2D>(path);
+        case RendererAPI::API::OpenGL: return MakeRef<OpenGLTexture2D>(path, format, wrap, filter);
         }
 
         VORTEX_ASSERT(false, "Unknown Renderer API!");
         return nullptr;
-	}
+    }
 }

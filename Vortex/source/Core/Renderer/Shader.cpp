@@ -25,7 +25,7 @@ namespace Vortex
 		return nullptr;
 	}
 
-	void Shader::ReadShaderFiles(const std::string& shaderLoc)
+	void Shader::ReadShadeFile(const std::string& shaderLoc)
 	{
 		std::string* vShaderSrc = new std::string();
 		std::string* fShaderSrc = new std::string();

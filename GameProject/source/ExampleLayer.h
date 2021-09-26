@@ -28,4 +28,8 @@ private:
 	Vortex::Ref<Vortex::TransformComponent> m_TransformTest;
 
 	glm::vec4 m_Color = glm::vec4(1.f);
+
+	Vortex::Ref<Vortex::Mesh> m_ShipMesh;
+	Vortex::Ref<Vortex::VertexArray> m_ShipVao;
+	Vortex::Ref<Vortex::Shader> m_ShipShader;
 };

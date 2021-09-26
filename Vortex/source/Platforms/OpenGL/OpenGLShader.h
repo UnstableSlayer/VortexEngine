@@ -3,6 +3,8 @@
 
 namespace Vortex
 {
+	typedef int GLint;
+
 	class OpenGLShader : public Shader
 	{
 	public:
@@ -22,5 +24,11 @@ namespace Vortex
 		virtual void SetUniformVec4(const std::string& name, const glm::vec4& value) override;
 		virtual void SetUniformMat3(const std::string& name, const glm::mat3& value) override;
 		virtual void SetUniformMat4(const std::string& name, const glm::mat4& value) override;
+
+	private:
+		GLint GetUniformLocation(const std::string& name) const;
+
+	private:
+		mutable std::unordered_map<std::string, GLint> m_CachedUniformLocations;
 	};
 }

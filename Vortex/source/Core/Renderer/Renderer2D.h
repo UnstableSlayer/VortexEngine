@@ -4,6 +4,7 @@
 #include "SubTexture2D.h"
 #include "Core/Envirovnemt/Object.h"
 #include "Core/Envirovnemt/Components.h"
+#include "Mesh.h"
 
 namespace Vortex
 {
@@ -21,7 +22,7 @@ namespace Vortex
 		static void DrawQuad(TransformComponent& transform, const SpriteComponent& sprite, const glm::vec4& tint = glm::vec4(1.f));
 		static void DrawSubQuad(TransformComponent& transform, const Ref<SubTexture2D>& spriteAtlas, const glm::vec4& tint = glm::vec4(1.f));
 		static void DrawFromTileMap(const char* tileMap, const int32_t& mapWidth, const std::unordered_map<char, Ref<SubTexture2D>>& textureMap, const glm::vec4& tint = glm::vec4(1.f));
-	
+
 	private:
 		static void FlushAndReset();
 		static void AppendSingleVertexData(const glm::vec3& position, const glm::vec4& color, const glm::vec2& texCoord, const glm::vec2& texTiling, const float& textureIndex);

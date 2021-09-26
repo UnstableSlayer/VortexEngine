@@ -8,7 +8,7 @@ namespace Vortex
 {
 	OpenGLShader::OpenGLShader(const std::string& shaderLoc)
 	{
-		OpenGLShader::ReadShaderFiles(shaderLoc);
+		OpenGLShader::ReadShadeFile(shaderLoc);
 		OpenGLShader::Compile();
 	}
 
@@ -39,8 +39,7 @@ namespace Vortex
 			glDeleteShader(vertex);
 			delete m_VertexShaderSrc, m_FragmentShaderSrc;
 
-			VORTEX_CORE_ERROR("VERTEX SHADER COMPILATION FAILED: {0}", infoLog);
-			VORTEX_NO_CONDITION_ASSERT("");
+			VORTEX_ASSERT(false, "VERTEX SHADER COMPILATION FAILED: ", infoLog);
 		}
 
 		// Fragment Shader
@@ -61,8 +60,7 @@ namespace Vortex
 			glDeleteShader(fragment);
 			delete m_VertexShaderSrc, m_FragmentShaderSrc;
 
-			VORTEX_CORE_ERROR("FRAGMENT SHADER COMPILATION FAILED: {0}", infoLog);
-			VORTEX_NO_CONDITION_ASSERT("");
+			VORTEX_ASSERT(false, "FRAGMENT SHADER COMPILATION FAILED: ", infoLog);
 		}
 
 		// shader Program
@@ -91,8 +89,7 @@ namespace Vortex
 			glDeleteProgram(m_ID);
 			delete m_VertexShaderSrc, m_FragmentShaderSrc;
 
-			VORTEX_CORE_ERROR("FRAGMENT SHADER COMPILATION FAILED: {0}", infoLog);
-			VORTEX_NO_CONDITION_ASSERT("");
+			VORTEX_ASSERT(false, "SHADER PROGRAM FAILED: ", infoLog);
 		}
 
 		//Detach and Delete
@@ -116,36 +113,43 @@ namespace Vortex
 
 	void OpenGLShader::SetUniformInt(const std::string& name, int value)
 	{
-		GLint loc = glGetUniformLocation(m_ID, name.c_str());
-		glUniform1i(loc, value);
+		glUniform1i(GetUniformLocation(name), value);
 	}
 	void OpenGLShader::SetUniformIntArray(const std::string& name, int* value, uint32_t count)
 	{
-		GLint loc = glGetUniformLocation(m_ID, name.c_str());
-		glUniform1iv(loc, count, value);
+		glUniform1iv(GetUniformLocation(name), count, value);
 	}
 	void OpenGLShader::SetUniformVec1(const std::string& name, float value)
 	{
-		glUniform1f(glGetUniformLocation(m_ID, name.c_str()), value);
+		glUniform1f(GetUniformLocation(name), value);
 	}
 	void OpenGLShader::SetUniformVec2(const std::string& name, const glm::vec2& value)
 	{
-		glUniform2f(glGetUniformLocation(m_ID, name.c_str()), value.x, value.y);
+		glUniform2f(GetUniformLocation(name), value.x, value.y);
 	}
 	void OpenGLShader::SetUniformVec3(const std::string& name, const glm::vec3& value)
 	{
-		glUniform3f(glGetUniformLocation(m_ID, name.c_str()), value.x, value.y, value.z);
+		glUniform3f(GetUniformLocation(name), value.x, value.y, value.z);
 	}
 	void OpenGLShader::SetUniformVec4(const std::string& name, const glm::vec4& value)
 	{
-		glUniform4f(glGetUniformLocation(m_ID, name.c_str()), value.x, value.y, value.z, value.w);
+		glUniform4f(GetUniformLocation(name), value.x, value.y, value.z, value.w);
 	}
 	void OpenGLShader::SetUniformMat3(const std::string& name, const glm::mat3& value)
 	{
-		glUniformMatrix3fv(glGetUniformLocation(m_ID, name.c_str()), 1, GL_FALSE, glm::value_ptr(value));
+		glUniformMatrix3fv(GetUniformLocation(name), 1, GL_FALSE, glm::value_ptr(value));
 	}
 	void OpenGLShader::SetUniformMat4(const std::string& name, const glm::mat4& value)
 	{
-		glUniformMatrix4fv(glGetUniformLocation(m_ID, name.c_str()), 1, GL_FALSE, glm::value_ptr(value));
+		glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, glm::value_ptr(value));
+	}
+
+	GLint OpenGLShader::GetUniformLocation(const std::string& name) const
+	{
+		if (m_CachedUniformLocations.find(name) != m_CachedUniformLocations.end())
+			return m_CachedUniformLocations[name];
+
+		m_CachedUniformLocations[name] = glGetUniformLocation(m_ID, name.c_str());
+		return m_CachedUniformLocations[name];
 	}
 }

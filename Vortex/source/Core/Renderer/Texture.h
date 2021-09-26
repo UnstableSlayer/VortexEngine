@@ -4,6 +4,42 @@
 
 namespace Vortex
 {
+	enum class TextureFormat
+	{
+		NONE = -1,
+
+		AUTO,
+
+		//Color
+		RGB4,
+		RGB8,
+		RGB16,
+		RGB16F,
+		RGB32F,
+		RGBA4,
+		RGBA8,
+		RGBA16,
+		RGBA16F,
+		RGBA32F,
+
+		//Depth
+		DEPTH,
+		DEPTH24STENCIL8,
+		DEPTH32FSTENCIL8
+	};
+	enum class TextureWrap
+	{
+		REPEAT,
+		MIRRORED_REPEAT,
+		CLAMP_TO_EDGE,
+		CLAMP_TO_BORDER
+	};
+	enum class TextureFilter
+	{
+		NEAREST,
+		LINEAR
+	};
+
 	class Texture
 	{
 	public:
@@ -23,6 +59,6 @@ namespace Vortex
 	{
 	public:
 		static Ref<Texture2D> Create(const uint32_t width, const uint32_t height);
-		static Ref<Texture2D> Create(const std::string& path);
+		static Ref<Texture2D> Create(const std::string& path, TextureFormat format = TextureFormat::AUTO, TextureWrap wrap = TextureWrap::REPEAT, TextureFilter filter = TextureFilter::NEAREST);
 	};
 }

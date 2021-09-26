@@ -1,0 +1,363 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|Win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|Win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{6136F6E0-0D94-3337-A093-D7631A45CB92}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>zlib</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\bin\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">zlib.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">zlibd</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\bin\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">zlib.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">zlib</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\bin\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">zlib.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">zlib</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\bin\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">zlib.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">zlib</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">.dll</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\include;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\code;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\.;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /bigobj</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;WIN32_LEAN_AND_MEAN;UNICODE;_UNICODE;NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR="Debug";ZLIB_DLL</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;WIN32_LEAN_AND_MEAN;UNICODE;_UNICODE;NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR=\"Debug\";ZLIB_DLL</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\include;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\code;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\.;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\include;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\code;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\.;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/Dev/source/repos/VortexEngine-CMake/Vortex/thirdParty/Assimp/lib/Debug/zlibd.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Dev/source/repos/VortexEngine-CMake/Vortex/thirdParty/Assimp/bin/Debug/zlibd.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\include;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\code;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\.;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /bigobj</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;WIN32_LEAN_AND_MEAN;UNICODE;_UNICODE;NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR="Release";ZLIB_DLL</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;WIN32_LEAN_AND_MEAN;UNICODE;_UNICODE;NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR=\"Release\";ZLIB_DLL</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\include;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\code;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\.;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\include;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\code;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\.;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/Dev/source/repos/VortexEngine-CMake/Vortex/thirdParty/Assimp/lib/Release/zlib.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Dev/source/repos/VortexEngine-CMake/Vortex/thirdParty/Assimp/bin/Release/zlib.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\include;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\code;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\.;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /bigobj</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;WIN32_LEAN_AND_MEAN;UNICODE;_UNICODE;NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR="MinSizeRel";ZLIB_DLL</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;WIN32_LEAN_AND_MEAN;UNICODE;_UNICODE;NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR=\"MinSizeRel\";ZLIB_DLL</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\include;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\code;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\.;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\include;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\code;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\.;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/Dev/source/repos/VortexEngine-CMake/Vortex/thirdParty/Assimp/lib/MinSizeRel/zlib.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Dev/source/repos/VortexEngine-CMake/Vortex/thirdParty/Assimp/bin/MinSizeRel/zlib.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\include;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\code;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\.;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /bigobj</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <UseFullPaths>false</UseFullPaths>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;WIN32_LEAN_AND_MEAN;UNICODE;_UNICODE;NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR="RelWithDebInfo";ZLIB_DLL</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;WIN32_LEAN_AND_MEAN;UNICODE;_UNICODE;NO_FSEEKO;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;CMAKE_INTDIR=\"RelWithDebInfo\";ZLIB_DLL</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\include;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\code;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\.;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\include;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\code;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\.;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>D:/Dev/source/repos/VortexEngine-CMake/Vortex/thirdParty/Assimp/lib/RelWithDebInfo/zlib.lib</ImportLibrary>
+      <ProgramDataBaseFile>D:/Dev/source/repos/VortexEngine-CMake/Vortex/thirdParty/Assimp/bin/RelWithDebInfo/zlib.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule D:/Dev/source/repos/VortexEngine-CMake/Vortex/thirdParty/Assimp/contrib/zlib/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+"D:\Program Files\CMake\bin\cmake.exe" -SD:/Dev/source/repos/VortexEngine-CMake/Vortex/thirdParty/Assimp -BD:/Dev/source/repos/VortexEngine-CMake/Vortex/thirdParty/Assimp --check-stamp-file D:/Dev/source/repos/VortexEngine-CMake/Vortex/thirdParty/Assimp/contrib/zlib/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\CMakeFiles\CheckTypeSize\OFF64_T.c;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\zconf.h.cmakein;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\zlib.pc.cmakein;D:\Program Files\CMake\share\cmake-3.21\Modules\CheckCSourceCompiles.cmake;D:\Program Files\CMake\share\cmake-3.21\Modules\CheckFunctionExists.c;D:\Program Files\CMake\share\cmake-3.21\Modules\CheckFunctionExists.cmake;D:\Program Files\CMake\share\cmake-3.21\Modules\CheckIncludeFile.c.in;D:\Program Files\CMake\share\cmake-3.21\Modules\CheckIncludeFile.cmake;D:\Program Files\CMake\share\cmake-3.21\Modules\CheckIncludeFileCXX.cmake;D:\Program Files\CMake\share\cmake-3.21\Modules\CheckTypeSize.c.in;D:\Program Files\CMake\share\cmake-3.21\Modules\CheckTypeSize.cmake;D:\Program Files\CMake\share\cmake-3.21\Modules\Internal\CheckSourceCompiles.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule D:/Dev/source/repos/VortexEngine-CMake/Vortex/thirdParty/Assimp/contrib/zlib/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+"D:\Program Files\CMake\bin\cmake.exe" -SD:/Dev/source/repos/VortexEngine-CMake/Vortex/thirdParty/Assimp -BD:/Dev/source/repos/VortexEngine-CMake/Vortex/thirdParty/Assimp --check-stamp-file D:/Dev/source/repos/VortexEngine-CMake/Vortex/thirdParty/Assimp/contrib/zlib/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\CMakeFiles\CheckTypeSize\OFF64_T.c;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\zconf.h.cmakein;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\zlib.pc.cmakein;D:\Program Files\CMake\share\cmake-3.21\Modules\CheckCSourceCompiles.cmake;D:\Program Files\CMake\share\cmake-3.21\Modules\CheckFunctionExists.c;D:\Program Files\CMake\share\cmake-3.21\Modules\CheckFunctionExists.cmake;D:\Program Files\CMake\share\cmake-3.21\Modules\CheckIncludeFile.c.in;D:\Program Files\CMake\share\cmake-3.21\Modules\CheckIncludeFile.cmake;D:\Program Files\CMake\share\cmake-3.21\Modules\CheckIncludeFileCXX.cmake;D:\Program Files\CMake\share\cmake-3.21\Modules\CheckTypeSize.c.in;D:\Program Files\CMake\share\cmake-3.21\Modules\CheckTypeSize.cmake;D:\Program Files\CMake\share\cmake-3.21\Modules\Internal\CheckSourceCompiles.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule D:/Dev/source/repos/VortexEngine-CMake/Vortex/thirdParty/Assimp/contrib/zlib/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+"D:\Program Files\CMake\bin\cmake.exe" -SD:/Dev/source/repos/VortexEngine-CMake/Vortex/thirdParty/Assimp -BD:/Dev/source/repos/VortexEngine-CMake/Vortex/thirdParty/Assimp --check-stamp-file D:/Dev/source/repos/VortexEngine-CMake/Vortex/thirdParty/Assimp/contrib/zlib/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\CMakeFiles\CheckTypeSize\OFF64_T.c;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\zconf.h.cmakein;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\zlib.pc.cmakein;D:\Program Files\CMake\share\cmake-3.21\Modules\CheckCSourceCompiles.cmake;D:\Program Files\CMake\share\cmake-3.21\Modules\CheckFunctionExists.c;D:\Program Files\CMake\share\cmake-3.21\Modules\CheckFunctionExists.cmake;D:\Program Files\CMake\share\cmake-3.21\Modules\CheckIncludeFile.c.in;D:\Program Files\CMake\share\cmake-3.21\Modules\CheckIncludeFile.cmake;D:\Program Files\CMake\share\cmake-3.21\Modules\CheckIncludeFileCXX.cmake;D:\Program Files\CMake\share\cmake-3.21\Modules\CheckTypeSize.c.in;D:\Program Files\CMake\share\cmake-3.21\Modules\CheckTypeSize.cmake;D:\Program Files\CMake\share\cmake-3.21\Modules\Internal\CheckSourceCompiles.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule D:/Dev/source/repos/VortexEngine-CMake/Vortex/thirdParty/Assimp/contrib/zlib/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+"D:\Program Files\CMake\bin\cmake.exe" -SD:/Dev/source/repos/VortexEngine-CMake/Vortex/thirdParty/Assimp -BD:/Dev/source/repos/VortexEngine-CMake/Vortex/thirdParty/Assimp --check-stamp-file D:/Dev/source/repos/VortexEngine-CMake/Vortex/thirdParty/Assimp/contrib/zlib/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\CMakeFiles\CheckTypeSize\OFF64_T.c;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\zconf.h.cmakein;D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\zlib.pc.cmakein;D:\Program Files\CMake\share\cmake-3.21\Modules\CheckCSourceCompiles.cmake;D:\Program Files\CMake\share\cmake-3.21\Modules\CheckFunctionExists.c;D:\Program Files\CMake\share\cmake-3.21\Modules\CheckFunctionExists.cmake;D:\Program Files\CMake\share\cmake-3.21\Modules\CheckIncludeFile.c.in;D:\Program Files\CMake\share\cmake-3.21\Modules\CheckIncludeFile.cmake;D:\Program Files\CMake\share\cmake-3.21\Modules\CheckIncludeFileCXX.cmake;D:\Program Files\CMake\share\cmake-3.21\Modules\CheckTypeSize.c.in;D:\Program Files\CMake\share\cmake-3.21\Modules\CheckTypeSize.cmake;D:\Program Files\CMake\share\cmake-3.21\Modules\Internal\CheckSourceCompiles.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\adler32.c" />
+    <ClCompile Include="D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\compress.c" />
+    <ClCompile Include="D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\crc32.c" />
+    <ClCompile Include="D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\deflate.c" />
+    <ClCompile Include="D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\gzclose.c" />
+    <ClCompile Include="D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\gzlib.c" />
+    <ClCompile Include="D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\gzread.c" />
+    <ClCompile Include="D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\gzwrite.c" />
+    <ClCompile Include="D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\inflate.c" />
+    <ClCompile Include="D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\infback.c" />
+    <ClCompile Include="D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\inftrees.c" />
+    <ClCompile Include="D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\inffast.c" />
+    <ClCompile Include="D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\trees.c" />
+    <ClCompile Include="D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\uncompr.c" />
+    <ClCompile Include="D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\zutil.c" />
+    <ResourceCompile Include="D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\win32\zlib1.rc" />
+    <ClInclude Include="D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\zconf.h" />
+    <ClInclude Include="D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\zlib.h" />
+    <ClInclude Include="D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\crc32.h" />
+    <ClInclude Include="D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\deflate.h" />
+    <ClInclude Include="D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\gzguts.h" />
+    <ClInclude Include="D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\inffast.h" />
+    <ClInclude Include="D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\inffixed.h" />
+    <ClInclude Include="D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\inflate.h" />
+    <ClInclude Include="D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\inftrees.h" />
+    <ClInclude Include="D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\trees.h" />
+    <ClInclude Include="D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\contrib\zlib\zutil.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="D:\Dev\source\repos\VortexEngine-CMake\Vortex\thirdParty\Assimp\ZERO_CHECK.vcxproj">
+      <Project>{6CA4C871-0864-3E02-A351-305B809039EA}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

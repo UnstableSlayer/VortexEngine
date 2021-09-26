@@ -14,6 +14,7 @@ namespace Vortex
 		
 		{
 			auto view = m_Registry.view<TransformComponent, SpriteComponent>();
+			view.use<TransformComponent>();
 			for (auto [entity, transform, sprite] : view.each())
 			{
 				Renderer2D::DrawQuad(transform, sprite, sprite.m_Tint);

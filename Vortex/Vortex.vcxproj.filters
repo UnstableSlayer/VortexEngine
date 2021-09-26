@@ -117,6 +117,9 @@
     <ClInclude Include="source\Core\Renderer\GraphicsContext.h">
       <Filter>source\Core\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="source\Core\Renderer\Mesh.h">
+      <Filter>source\Core\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="source\Core\Renderer\RenderCommand.h">
       <Filter>source\Core\Renderer</Filter>
     </ClInclude>
@@ -166,6 +169,9 @@
       <Filter>source\Platforms\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="source\Platforms\OpenGL\OpenGLTexture.h">
+      <Filter>source\Platforms\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Platforms\OpenGL\OpenGLTextureEnums.h">
       <Filter>source\Platforms\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="source\Platforms\Windows\WindowsWindow.h">
@@ -1424,6 +1430,9 @@
     <ClCompile Include="source\Core\ApplicationClass.cpp">
       <Filter>source\Core</Filter>
     </ClCompile>
+    <ClCompile Include="source\Core\Envirovnemt\Scene.cpp">
+      <Filter>source\Core\Envirovnemt</Filter>
+    </ClCompile>
     <ClCompile Include="source\Core\Layer.cpp">
       <Filter>source\Core</Filter>
     </ClCompile>
@@ -1440,6 +1449,9 @@
       <Filter>source\Core\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="source\Core\Renderer\Framebuffer.cpp">
+      <Filter>source\Core\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Core\Renderer\Mesh.cpp">
       <Filter>source\Core\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="source\Core\Renderer\RenderCommand.cpp">
@@ -1499,6 +1511,5 @@
     <ClCompile Include="thirdParty\stb_image\stb_image.cpp">
       <Filter>thirdParty\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="source\Core\Envirovnemt\Scene.cpp" />
   </ItemGroup>
 </Project>

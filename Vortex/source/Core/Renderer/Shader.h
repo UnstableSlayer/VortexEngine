@@ -55,7 +55,7 @@ namespace Vortex
 		virtual void SetUniformMat4(const std::string& name, const glm::mat4& value) = 0;
 
 	protected:
-		void ReadShaderFiles(const std::string& shaderLoc);
+		void ReadShadeFile(const std::string& shaderLoc);
 
 	public:
 		uint32_t m_ID;

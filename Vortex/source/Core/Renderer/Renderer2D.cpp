@@ -41,7 +41,6 @@ namespace Vortex
 		uint32_t TextureSlotIndex = 1;
 
 		const glm::vec3* CameraPos = nullptr;
-		const glm::vec4* CameraRect = nullptr;
 
 		Renderer2D::Statistics Stats;
 	};
@@ -107,7 +106,6 @@ namespace Vortex
 		delete s_Data.QuadVertexBufferBase;
 
 		delete s_Data.CameraPos;
-		delete s_Data.CameraRect;
 	}
 
 
@@ -120,7 +118,6 @@ namespace Vortex
 		auto& camera = cameraObj.GetComponent<CameraComponent>();
 
 		s_Data.CameraPos = &transform.GetPosition();
-		s_Data.CameraRect = &camera.GetRect();
 
 		s_Data.DefaultShader->Bind();
 		s_Data.DefaultShader->SetUniformMat4("uViewProj", camera.GetViewProjectionMatrix(transform.GetPosition(), transform.GetRotation()));
@@ -170,16 +167,8 @@ namespace Vortex
 		s_Data.QuadVertexBufferPtr++;
 	}
 
-	bool Renderer2D::CameraCulling(TransformComponent& transform)
-	{
-		return transform.GetPosition().x + transform.GetScale().x / 2.f < s_Data.CameraRect->x + s_Data.CameraPos->x || transform.GetPosition().x - transform.GetScale().x / 2.f > s_Data.CameraRect->y + s_Data.CameraPos->x
-			|| transform.GetPosition().y + transform.GetScale().y / 2.f < s_Data.CameraRect->z + s_Data.CameraPos->y || transform.GetPosition().y - transform.GetScale().y / 2.f > s_Data.CameraRect->w + s_Data.CameraPos->y;
-	}
-
 	void Renderer2D::DrawQuad(TransformComponent& transform, const glm::vec4& color)
 	{
-		if (CameraCulling(transform)) return;
-
 		if (s_Data.QuadIndexCount >= s_Data.MaxIndices)
 			FlushAndReset();
 
@@ -203,8 +192,6 @@ namespace Vortex
 	}
 	void Renderer2D::DrawQuad(TransformComponent& transform, const SpriteComponent& sprite, const glm::vec4& tint)
 	{	
-		if (CameraCulling(transform)) return;
-
 		if (s_Data.QuadIndexCount >= s_Data.MaxIndices)
 			FlushAndReset();
 
@@ -247,8 +234,6 @@ namespace Vortex
 
 	void Renderer2D::DrawSubQuad(TransformComponent& transform, const Ref<SubTexture2D>& subTexture, const glm::vec4& tint)
 	{
-		if (CameraCulling(transform)) return;
-
 		if (s_Data.QuadIndexCount >= s_Data.MaxIndices)
 			FlushAndReset();
 
@@ -311,7 +296,6 @@ namespace Vortex
 			}
 		}
 	}
-
 
 	void Renderer2D::ResetStats()
 	{

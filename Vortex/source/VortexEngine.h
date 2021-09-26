@@ -35,6 +35,7 @@
 #include "..\source\Core\Renderer\Shader.h"
 #include "..\source\Core\Renderer\Texture.h"
 #include "..\source\Core\Renderer\SubTexture2D.h"
+#include "..\source\Core\Renderer\Mesh.h"
 
 #include "..\source\Core\Renderer\Framebuffer.h"
 

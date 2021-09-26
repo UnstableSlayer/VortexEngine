@@ -1,0 +1,14 @@
+# CMake generation dependency list for this directory.
+D:/Dev/source/repos/VortexEngine-CMake/Vortex/thirdParty/Assimp/CMakeFiles/CheckTypeSize/OFF64_T.c
+D:/Dev/source/repos/VortexEngine-CMake/Vortex/thirdParty/Assimp/contrib/zlib/CMakeLists.txt
+D:/Dev/source/repos/VortexEngine-CMake/Vortex/thirdParty/Assimp/contrib/zlib/zconf.h.cmakein
+D:/Dev/source/repos/VortexEngine-CMake/Vortex/thirdParty/Assimp/contrib/zlib/zlib.pc.cmakein
+D:/Program Files/CMake/share/cmake-3.21/Modules/CheckCSourceCompiles.cmake
+D:/Program Files/CMake/share/cmake-3.21/Modules/CheckFunctionExists.c
+D:/Program Files/CMake/share/cmake-3.21/Modules/CheckFunctionExists.cmake
+D:/Program Files/CMake/share/cmake-3.21/Modules/CheckIncludeFile.c.in
+D:/Program Files/CMake/share/cmake-3.21/Modules/CheckIncludeFile.cmake
+D:/Program Files/CMake/share/cmake-3.21/Modules/CheckIncludeFileCXX.cmake
+D:/Program Files/CMake/share/cmake-3.21/Modules/CheckTypeSize.c.in
+D:/Program Files/CMake/share/cmake-3.21/Modules/CheckTypeSize.cmake
+D:/Program Files/CMake/share/cmake-3.21/Modules/Internal/CheckSourceCompiles.cmake

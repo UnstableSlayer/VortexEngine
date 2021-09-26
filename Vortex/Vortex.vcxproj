@@ -134,7 +134,7 @@
       <PrecompiledHeaderFile>vpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;VE_PLATFORM_WINDOWS;VE_BUILD_DLL;GLFW_INCLUDE_NONE;VE_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\GLFW\include;thirdParty\Glad\include;thirdParty\imgui;thirdParty\glm;thirdParty\Entt\include;thirdParty\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\GLFW\include;thirdParty\Glad\include;thirdParty\imgui;thirdParty\glm;thirdParty\Entt\include;thirdParty\stb_image;thirdParty\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
@@ -156,7 +156,7 @@
       <PrecompiledHeaderFile>vpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;VE_PLATFORM_WINDOWS;VE_BUILD_DLL;GLFW_INCLUDE_NONE;VE_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\GLFW\include;thirdParty\Glad\include;thirdParty\imgui;thirdParty\glm;thirdParty\Entt\include;thirdParty\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\GLFW\include;thirdParty\Glad\include;thirdParty\imgui;thirdParty\glm;thirdParty\Entt\include;thirdParty\stb_image;thirdParty\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
@@ -178,7 +178,7 @@
       <PrecompiledHeaderFile>vpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;VE_PLATFORM_WINDOWS;VE_BUILD_DLL;GLFW_INCLUDE_NONE;VE_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\GLFW\include;thirdParty\Glad\include;thirdParty\imgui;thirdParty\glm;thirdParty\Entt\include;thirdParty\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\GLFW\include;thirdParty\Glad\include;thirdParty\imgui;thirdParty\glm;thirdParty\Entt\include;thirdParty\stb_image;thirdParty\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -203,7 +203,7 @@
       <PrecompiledHeaderFile>vpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;VE_PLATFORM_WINDOWS;VE_BUILD_DLL;GLFW_INCLUDE_NONE;VE_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\GLFW\include;thirdParty\Glad\include;thirdParty\imgui;thirdParty\glm;thirdParty\Entt\include;thirdParty\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\GLFW\include;thirdParty\Glad\include;thirdParty\imgui;thirdParty\glm;thirdParty\Entt\include;thirdParty\stb_image;thirdParty\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -228,7 +228,7 @@
       <PrecompiledHeaderFile>vpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;VE_PLATFORM_WINDOWS;VE_BUILD_DLL;GLFW_INCLUDE_NONE;VE_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\GLFW\include;thirdParty\Glad\include;thirdParty\imgui;thirdParty\glm;thirdParty\Entt\include;thirdParty\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\GLFW\include;thirdParty\Glad\include;thirdParty\imgui;thirdParty\glm;thirdParty\Entt\include;thirdParty\stb_image;thirdParty\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -253,7 +253,7 @@
       <PrecompiledHeaderFile>vpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;VE_PLATFORM_WINDOWS;VE_BUILD_DLL;GLFW_INCLUDE_NONE;VE_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\GLFW\include;thirdParty\Glad\include;thirdParty\imgui;thirdParty\glm;thirdParty\Entt\include;thirdParty\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\GLFW\include;thirdParty\Glad\include;thirdParty\imgui;thirdParty\glm;thirdParty\Entt\include;thirdParty\stb_image;thirdParty\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -294,6 +294,7 @@
     <ClInclude Include="source\Core\Renderer\Camera.h" />
     <ClInclude Include="source\Core\Renderer\Framebuffer.h" />
     <ClInclude Include="source\Core\Renderer\GraphicsContext.h" />
+    <ClInclude Include="source\Core\Renderer\Mesh.h" />
     <ClInclude Include="source\Core\Renderer\RenderCommand.h" />
     <ClInclude Include="source\Core\Renderer\Renderer.h" />
     <ClInclude Include="source\Core\Renderer\Renderer2D.h" />
@@ -311,6 +312,7 @@
     <ClInclude Include="source\Platforms\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="source\Platforms\OpenGL\OpenGLShader.h" />
     <ClInclude Include="source\Platforms\OpenGL\OpenGLTexture.h" />
+    <ClInclude Include="source\Platforms\OpenGL\OpenGLTextureEnums.h" />
     <ClInclude Include="source\Platforms\Windows\WindowsWindow.h" />
     <ClInclude Include="source\VortexEngine.h" />
     <ClInclude Include="source\vpch.h" />
@@ -738,6 +740,7 @@
     <ClCompile Include="source\Core\Renderer\Buffers.cpp" />
     <ClCompile Include="source\Core\Renderer\Camera.cpp" />
     <ClCompile Include="source\Core\Renderer\Framebuffer.cpp" />
+    <ClCompile Include="source\Core\Renderer\Mesh.cpp" />
     <ClCompile Include="source\Core\Renderer\RenderCommand.cpp" />
     <ClCompile Include="source\Core\Renderer\Renderer.cpp" />
     <ClCompile Include="source\Core\Renderer\Renderer2D.cpp" />
@@ -769,6 +772,9 @@
     </ProjectReference>
     <ProjectReference Include="thirdParty\imgui\ImGui.vcxproj">
       <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
+    </ProjectReference>
+    <ProjectReference Include="thirdParty\Assimp\Assimp.vcxproj">
+      <Project>{5234E0A7-3ED6-0A7E-2791-1ED213D291CE}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
