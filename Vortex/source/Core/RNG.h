@@ -2,7 +2,7 @@
 
 namespace Vortex
 {
-	class RNG
+	class VORTEX_API RNG
 	{
 	public:
 		static uint32_t Rand()

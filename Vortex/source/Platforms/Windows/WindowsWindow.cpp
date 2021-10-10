@@ -9,12 +9,7 @@
 
 namespace Vortex
 {
-	static bool b_GLFWInitialized = false;
-
-	static void glfwErrorCallback(int error, const char* description)
-	{
-		VORTEX_CORE_ERROR("GLFW ERROR ({0}): {1}", error, description);
-	}
+	static bool b_SDLInitialized = false;
 
 	Window* Window::Create(const WindowProperties& properties)
 	{
@@ -36,130 +31,178 @@ namespace Vortex
 
 		VORTEX_CORE_INFO("Creating window '{0}' {1}x{2}", properties.title, properties.width, properties.height);
 
-		if (!b_GLFWInitialized)
+		if (!b_SDLInitialized)
 		{
-			int result = glfwInit();
-			//VORTEX_ASSERT(result, "Could not initialize GLFW!");
+			int result = SDL_Init(SDL_INIT_EVERYTHING);
+			SDL_GL_LoadLibrary(NULL);
 
-			glfwSetErrorCallback(glfwErrorCallback);
+			SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
+			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
 
-			b_GLFWInitialized = true;
+			//MaybeToDo: Error handling callback
+
+			b_SDLInitialized = true;
 		}
 
-		m_Window = glfwCreateWindow((int)properties.width, (int)properties.height, m_Data.title.c_str(), nullptr, nullptr);
+		m_Window = SDL_CreateWindow(m_Data.title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+			(int)properties.width, (int)properties.height,
+			SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 		m_Context = new OpenGLContext(m_Window);
 		m_Context->Init();
-
-		glfwSetWindowUserPointer(m_Window, &m_Data);
+		
+		SDL_GetWindowSurface(m_Window)->userdata = &m_Data;
 		SetVSync(true);
 
-		//GLFW Callback
-		glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* window, int width, int height)
+		SDL_AddEventWatch((SDL_EventFilter)[](void* userdata, SDL_Event* event)
 			{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-				data.width = width;
-				data.height = height;
-				
-				WindowResizeEvent event(width, height);
-				data.eventCallback(event);
-			});
+				if (event->type != SDL_WINDOWEVENT || event->window.event != SDL_WINDOWEVENT_RESIZED) return 1;
 
-		glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)
-			{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-				WindowCloseEvent event;
-				data.eventCallback(event);
-			});
+				WindowData& data = *(WindowData*)userdata;
+				data.width = event->window.data1;
+				data.height = event->window.data2;
 
-		glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods) 
+				VORTEX_CORE_INFO("RESIZED: {0} {1}", data.width, data.height);
+				WindowResizeEvent veEvent(event->window.data1, event->window.data2);
+				data.eventCallback(veEvent);
+
+				return 0;
+			}, (void*)&m_Data);
+		
+		SDL_AddEventWatch((SDL_EventFilter)[](void* userdata, SDL_Event* event)
 			{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-				switch (action)
+				if (event->type != SDL_WINDOWEVENT || event->window.event != SDL_WINDOWEVENT_CLOSE) return 1;
+
+				WindowData& data = *(WindowData*)userdata;
+				WindowCloseEvent veEvent;
+				data.eventCallback(veEvent);
+
+				return 0;
+			}, (void*)&m_Data);
+		
+		/*SDL_AddEventWatch((SDL_EventFilter)[](void* userdata, SDL_Event* event)
+			{
+				if (event->type != SDL_KEYDOWN && event->type != SDL_KEYUP) return 1;
+
+				auto state = event->key.state;
+				uint32_t key = event->key.keysym.sym;
+				WindowData& data = *(WindowData*)userdata;
+				switch (state)
 				{
-					case GLFW_PRESS:
+					case SDL_PRESSED:
 					{
-						KeyPressedEvent event(key, 0);
-						data.eventCallback(event);
+						KeyPressedEvent veEvent(key, 0);
+						data.eventCallback(veEvent);
 						break;
 					}
-					case GLFW_RELEASE:
+					case SDL_RELEASED:
 					{
-						KeyReleasedEvent event(key);
-						data.eventCallback(event);
+						KeyReleasedEvent veEvent(key);
+						data.eventCallback(veEvent);
 						break;
 					}
-					case GLFW_REPEAT:
+					default:
 					{
-						KeyPressedEvent event(key, 1);
-						data.eventCallback(event);
+						KeyPressedEvent veEvent(key, 1);
+						data.eventCallback(veEvent);
 						break;
 					}
 				}
-			});
 
-		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int keycode) 
+				return 0;
+			}, (void*)&m_Data);
+		
+		SDL_AddEventWatch((SDL_EventFilter)[](void* userdata, SDL_Event* event)
 			{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-				KeyTypedEvent event(keycode);
-				data.eventCallback(event);
-			});
+				if (event->type != SDL_TEXTINPUT) return 1;
 
-		glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* window, int button, int action, int mods)
+				WindowData& data = *(WindowData*)userdata;
+				KeyTypedEvent veEvent(event->key.keysym.sym);
+				data.eventCallback(veEvent);
+
+				return 0;
+			}, (void*)&m_Data);
+		
+		SDL_AddEventWatch((SDL_EventFilter)[](void* userdata, SDL_Event* event)
 			{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-				
-				switch (action)
+				if (event->type != SDL_MOUSEBUTTONDOWN && event->type != SDL_MOUSEBUTTONUP) return 1;
+
+				auto state = event->button.state;
+				WindowData& data = *(WindowData*)userdata;
+
+				switch (state)
 				{
-					case GLFW_PRESS:
+					case SDL_MOUSEBUTTONDOWN:
 					{
-						MouseButtonPressedEvent event(button);
-						data.eventCallback(event);
+						MouseButtonPressedEvent veEvent(event->button.button);
+						data.eventCallback(veEvent);
 						break;
 					}
-					case GLFW_RELEASE:
+					case SDL_MOUSEBUTTONUP:
 					{
-						MouseButtonReleasedEvent event(button);
-						data.eventCallback(event);
+						MouseButtonReleasedEvent veEvent(event->button.button);
+						data.eventCallback(veEvent);
 						break;
 					}
 				}
-			});
 
-		glfwSetScrollCallback(m_Window, [](GLFWwindow* window, double xOffset, double yOffset)
+				return 0;
+			}, (void*)&m_Data);
+		
+		SDL_AddEventWatch((SDL_EventFilter)[](void* userdata, SDL_Event* event)
 			{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+				if (event->type != SDL_MOUSEWHEEL) return 1;
 
-				MouseScrolledEvent event((float)xOffset, (float)yOffset);
-				data.eventCallback(event);
-			});
+				WindowData& data = *(WindowData*)userdata;
 
-		glfwSetCursorPosCallback(m_Window, [](GLFWwindow* window, double xPos, double yPos)
+				MouseScrolledEvent veEvent((float)event->wheel.x, (float)event->wheel.y);
+				data.eventCallback(veEvent);
+
+				return 0;
+			}, (void*)&m_Data);
+		
+		SDL_AddEventWatch((SDL_EventFilter)[](void* userdata, SDL_Event* event)
 			{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+				if (event->type != SDL_MOUSEMOTION) return 1;
 
-				MouseMovedEvent event((float)xPos, (float)yPos);
-				data.eventCallback(event);
-			});
+				WindowData& data = *(WindowData*)userdata;
+
+				MouseMovedEvent veEvent((float)event->motion.x, (float)event->motion.y);
+				data.eventCallback(veEvent);
+
+				return 0;
+			}, (void*)&m_Data);*/
 	}
-
+	 
 	void WindowsWindow::Close()
 	{
+		m_Context->Destroy();
+		SDL_DestroyWindow(m_Window);
 	}
 
 	void WindowsWindow::OnUpdate()
 	{
-		glfwPollEvents();
+		SDL_Event event;
+		SDL_PollEvent(&event);
 		m_Context->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)
 	{
-		enabled ? glfwSwapInterval(1) : glfwSwapInterval(0);
+		enabled ? SDL_GL_SetSwapInterval(1) : SDL_GL_SetSwapInterval(0);
 		m_Data.vSync = enabled;
 	}
 
 	bool WindowsWindow::IsVSync() const
 	{
 		return m_Data.vSync;
+	}
+
+	void WindowsWindow::LockCursor(bool enable)
+	{
+		//SDL_SetWindowMouseGrab(m_Window, (SDL_bool)enable);
+		int result = SDL_SetRelativeMouseMode((SDL_bool)enable);
+
+		VORTEX_ASSERT(result == 0, "SDL couldn't set relative mouse mode: {0}", SDL_GetError());
 	}
 }

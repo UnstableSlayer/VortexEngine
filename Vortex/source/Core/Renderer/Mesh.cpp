@@ -23,6 +23,7 @@ namespace Vortex
 			| aiProcess_SortByPType
 			| aiProcess_FindDegenerates
 			| aiProcess_FindInvalidData
+			//| aiProcess_ForceGenNormals
 			| 0);
 		
 		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
@@ -36,25 +37,35 @@ namespace Vortex
 
 		VORTEX_ASSERT(mesh, "NO MESH IN FILE");
 
-		float* vertices = new float[mesh->mNumVertices * 3 * 2];
+		BufferLayout bufferLayout = {
+				{ShaderDataType::Vec3f, "aPos"},
+				{ShaderDataType::Vec3f, "aNormal"},
+				{ShaderDataType::Vec2f, "aTexCoord"}
+		};
+		
+		uint32_t shaderDataTypeVarCount = bufferLayout.GetStride() / sizeof(float);
+		float* vertices = new float[mesh->mNumVertices * shaderDataTypeVarCount];
 		for (size_t i = 0; i < mesh->mNumVertices; i++)
 		{
-			*(vertices + i * 6) = mesh->mVertices[i].x;
-			*(vertices + i * 6 + 1) = mesh->mVertices[i].y;
-			*(vertices + i * 6 + 2) = mesh->mVertices[i].z;
+			*(vertices + i * shaderDataTypeVarCount) = mesh->mVertices[i].x;
+			*(vertices + i * shaderDataTypeVarCount + 1) = mesh->mVertices[i].y;
+			*(vertices + i * shaderDataTypeVarCount + 2) = mesh->mVertices[i].z;
 
 			if (mesh->HasNormals())
 			{
-				*(vertices + i * 6 + 3) = mesh->mNormals[i].x;
-				*(vertices + i * 6 + 4) = mesh->mNormals[i].y;
-				*(vertices + i * 6 + 5) = mesh->mNormals[i].z;
+				*(vertices + i * shaderDataTypeVarCount + 3) = mesh->mNormals[i].x;
+				*(vertices + i * shaderDataTypeVarCount + 4) = mesh->mNormals[i].y;
+				*(vertices + i * shaderDataTypeVarCount + 5) = mesh->mNormals[i].z;
+			}
+
+			if (mesh->HasTextureCoords(0))
+			{
+				*(vertices + i * shaderDataTypeVarCount + 6) = mesh->mTextureCoords[0][i].x;
+				*(vertices + i * shaderDataTypeVarCount + 7) = mesh->mTextureCoords[0][i].y;
 			}
 		}
-		m_Vertices = VertexBuffer::Create(vertices, mesh->mNumVertices * 3 * 2 * sizeof(vertices));
-		m_Vertices->SetLayout({
-				{ShaderDataType::Vec3f, "aPos"},
-				{ShaderDataType::Vec3f, "aNormal"}
-			});
+		m_Vertices = VertexBuffer::Create(vertices, mesh->mNumVertices * shaderDataTypeVarCount * sizeof(vertices));
+		m_Vertices->SetLayout(bufferLayout);
 
 		uint32_t* indices = new uint32_t[mesh->mNumFaces * 3];
 		for (size_t i = 0; i < mesh->mNumFaces; i++)
@@ -67,5 +78,8 @@ namespace Vortex
 			}
 		}
 		m_Indices = IndexBuffer::Create(indices, mesh->mNumFaces * 3);
+
+		delete[] vertices;
+		delete[] indices;
 	}
 }

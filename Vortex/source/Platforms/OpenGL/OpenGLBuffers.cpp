@@ -64,15 +64,6 @@ namespace Vortex
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 
-
-
-
-
-
-
-
-
-
 	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
 	{
 		switch (type)
@@ -89,6 +80,8 @@ namespace Vortex
 		case ShaderDataType::Mat4:			return GL_FLOAT;
 		case ShaderDataType::Bool:			return GL_BOOL;
 		}
+
+		return GL_INVALID_ENUM;
 	}
 
 	OpenGLVertexArray::OpenGLVertexArray()

@@ -7,18 +7,20 @@ namespace Vortex
 {
 	void OpenGLRendererAPI::Init()
 	{
-		VORTEX_CORE_INFO("\nOpenGL Init:");
-		VORTEX_CORE_INFO("Version: {0}", glGetString(GL_VERSION));
-		VORTEX_CORE_INFO("Vendor: {0}", glGetString(GL_VENDOR));
+		VORTEX_CORE_INFO("OpenGL Init:");
+		VORTEX_CORE_INFO("	-Version: {0}", glGetString(GL_VERSION));
+		VORTEX_CORE_INFO("	-Vendor: {0}", glGetString(GL_VENDOR));
 
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		glEnable(GL_DEPTH);
+		//glEnable(GL_DEPTH);
+		glEnable(GL_DEPTH_TEST);
+		glDepthMask(GL_TRUE);
 
-		glEnable(GL_CULL_FACE);
+		/*glEnable(GL_CULL_FACE);
 		glCullFace(GL_BACK);
-		glFrontFace(GL_CCW);
+		glFrontFace(GL_CCW);*/
 	}
 
 	void OpenGLRendererAPI::SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
@@ -28,7 +30,7 @@ namespace Vortex
 
 	void OpenGLRendererAPI::Clear(const glm::vec4& color)
 	{
-		glClearColor(color.r, color.b, color.g, color.a);
+		glClearColor(color.r, color.g, color.b, color.a);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 	void OpenGLRendererAPI::DrawIndexed(const std::shared_ptr<VertexArray>& vertexArray, uint32_t indexCount)

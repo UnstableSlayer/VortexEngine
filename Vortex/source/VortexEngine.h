@@ -11,13 +11,6 @@
 #include "..\source\Core\Events\KeyCodes.h"
 #include "..\source\Core\Events\MouseCodes.h"
 
-//#ifdef VE_PLATFORM_WINDOWS
-//	#include "..\source\Platforms\Windows\WindowsInput.cpp"
-//#endif
-
-#include "..\thirdParty\imgui\imgui.h"
-#include "..\source\ImGui\ImGuiLayer.h"
-
 #include "..\source\Core\RNG.h"
 
 //---Scene---------------------------------

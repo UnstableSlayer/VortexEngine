@@ -13,7 +13,7 @@ namespace Vortex
 
 	};
 
-	class Framebuffer
+	class VORTEX_API Framebuffer
 	{
 	public:
 		virtual ~Framebuffer() = default;

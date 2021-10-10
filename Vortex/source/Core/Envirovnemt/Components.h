@@ -1,6 +1,7 @@
 #pragma once
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/quaternion.hpp>
 
 #include "Core/Renderer/Camera.h"
@@ -82,6 +83,13 @@ namespace Vortex
 		{
 			m_Origin = origin;
 		}
+		void SetShear(const glm::vec3& shear)
+		{
+			if (shear == m_Shear) return;
+			m_Shear = shear;
+
+			b_Updated = false;
+		}
 
 		bool IsChanged() const { return !b_Updated; }
 
@@ -92,12 +100,14 @@ namespace Vortex
 			m_Rotation = glm::quat(1.f, 0.f, 0.f, 0.f);
 			m_Scale = glm::vec3(1.f);
 			m_Origin = glm::vec3(0.f);
+			m_Shear = glm::vec3(0.f);
 		}
 
 		const glm::vec3& GetPosition() const { return m_Position; }
 		const glm::quat& GetRotation() const { return m_Rotation; }
 		const glm::vec3& GetScale() const { return m_Scale; }
 		const glm::vec3& GetOrigin() const { return m_Origin; }
+		const glm::vec3& GetShear() const { return m_Shear; }
 
 		const glm::mat4& GetTransformMatrix() { Update();  return m_TransformMatrix; }
 
@@ -110,9 +120,17 @@ namespace Vortex
 
 			if (m_OutdatedChildCount == 0) m_OutdatedChildCount = m_ChildCount;
 
-			m_TransformMatrix = glm::mat4(1.0f);
+			m_TransformMatrix = glm::mat4(1.f);
+
+			float* shearMat = new float[16]{
+				1, m_Shear.x, 0, 0,
+				m_Shear.y, 1, 0, 0,
+				0, 0, 1, 0,
+				0, 0, 0, 1
+			};
 
 			m_TransformMatrix = glm::translate(m_TransformMatrix, m_Position)
+				* glm::make_mat4(shearMat)
 				* glm::scale(m_TransformMatrix, m_Scale)
 				* glm::toMat4(m_Rotation)
 				* glm::translate(m_TransformMatrix, m_Origin);
@@ -132,6 +150,7 @@ namespace Vortex
 		glm::quat m_Rotation;
 		glm::vec3 m_Scale;
 		glm::vec3 m_Origin;
+		glm::vec3 m_Shear;
 
 		glm::mat4 m_TransformMatrix;
 		bool b_Updated = true;
@@ -151,6 +170,11 @@ namespace Vortex
 		CameraComponent(const CameraComponent&) = default;
 
 		void SetZoom(const float zoom) { m_Camera->SetZoom(zoom); }
+		const float& GetZoom() { return m_Camera->GetZoom(); }
+
+		const glm::vec2& GetClipSpace() { return m_Camera->GetClipSpace(); }
+
+		void ResizeFB(const float width, const float height) { m_Camera->Resize(width, height); }
 
 		const glm::mat4& GetProjectionMatrix() { return m_Camera->GetProjectionMatrix(); }
 		const glm::mat4& GetViewMatrix(const glm::vec3& position, const glm::quat& rotation)
@@ -162,8 +186,7 @@ namespace Vortex
 			return m_Camera->GetViewProjectionMatrix(position, rotation); 
 		}
 
-		const glm::vec2& GetClipSpace() { return m_Camera->GetClipSpace(); }
-		const float& GetZoom() { return m_Camera->GetZoom(); }
+
 
 		void OnEvent(Event& e) { m_Camera->OnEvent(e); }
 

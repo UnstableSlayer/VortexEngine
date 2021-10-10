@@ -9,6 +9,7 @@ namespace Vortex
 		
 		static bool IsMouseButtonPressed(int button);
 		static std::pair<float, float> GetMousePosition();
+		static std::pair<float, float> Input::GetMouseDelta();
 		static float GetMouseX();
 		static float GetMouseY();
 	};

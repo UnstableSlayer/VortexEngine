@@ -3,20 +3,27 @@
 
 namespace Vortex
 {
-	OpenGLContext::OpenGLContext(GLFWwindow* hwindow) : m_hWindow(hwindow) 
+	OpenGLContext::OpenGLContext(SDL_Window* hwindow) : m_hWindow(hwindow)
 	{
 
 	}
 
 	void OpenGLContext::Init()
 	{
-		glfwMakeContextCurrent(m_hWindow);
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		
+		m_Context = SDL_GL_CreateContext(m_hWindow);
+		VORTEX_ASSERT(m_Context != NULL, "SDL Context failed to initialise: {0}", SDL_GetError());
+
+		SDL_GL_MakeCurrent(m_hWindow, m_Context);
+		int status = gladLoadGLLoader(SDL_GL_GetProcAddress);
 	}
 
 	void OpenGLContext::SwapBuffers()
 	{
-		glfwSwapBuffers(m_hWindow);
+		SDL_GL_SwapWindow(m_hWindow);
+	}
+
+	void OpenGLContext::Destroy()
+	{
+		SDL_GL_DeleteContext(m_Context);
 	}
 }

@@ -3,7 +3,7 @@
 
 namespace Vortex
 {
-	class OpenGLRendererAPI : public RendererAPI
+	class VORTEX_API OpenGLRendererAPI : public RendererAPI
 	{
 	public:
 		virtual void Init() override;

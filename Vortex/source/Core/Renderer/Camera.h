@@ -15,7 +15,7 @@ namespace Vortex
 		Perspective
 	};
 
-	class Camera
+	class VORTEX_API Camera
 	{
 	public:
 		virtual ~Camera() = default;
@@ -55,7 +55,7 @@ namespace Vortex
 
 	/// Orthographic ////////////////////////////////////
 
-	class OrthographicCamera : public Camera
+	class VORTEX_API OrthographicCamera : public Camera
 	{
 	public:
 		OrthographicCamera(float width, float height, float zNear, float zFar, float fov = 0.f);
@@ -71,7 +71,7 @@ namespace Vortex
 
 	/// Perspective ////////////////////////////////////
 
-	class PerspectiveCamera : public Camera
+	class VORTEX_API PerspectiveCamera : public Camera
 	{
 	public:
 		PerspectiveCamera(const float width, const float height, const float zNear, const float zFar, const float fov);

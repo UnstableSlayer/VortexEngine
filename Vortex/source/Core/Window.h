@@ -29,6 +29,7 @@ namespace Vortex
 		virtual void SetEventCallback(const EventCallback& callback) = 0;
 		virtual void SetVSync(bool enabled) = 0;
 		virtual bool IsVSync() const = 0;
+		virtual void LockCursor(bool enabled) = 0;
 
 		virtual void* GetAPIWindow() const = 0;
 

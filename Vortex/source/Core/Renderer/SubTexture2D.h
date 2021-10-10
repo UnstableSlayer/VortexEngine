@@ -3,7 +3,7 @@
 
 namespace Vortex
 {
-	class SubTexture2D
+	class VORTEX_API SubTexture2D
 	{
 	public:
 		SubTexture2D(const Ref<Texture2D>& atlasTexture, const glm::vec2& min, const glm::vec2& max, const glm::vec2& spriteScale = {1.f, 1.f});

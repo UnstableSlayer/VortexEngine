@@ -4,8 +4,6 @@
 #include "Events/Event.h"
 #include "Events/WindowEvents.h"
 
-#include "ImGui/ImGuiLayer.h"
-
 #include "Renderer/Shader.h"
 #include "Renderer/Buffers.h"
 #include "Renderer/Camera.h"
@@ -38,7 +36,6 @@ namespace Vortex
 
 	protected:
 		Scope<Window> m_Window;
-		ImGuiLayer* m_ImGuiLayer;
 		LayerStack m_LayerStack;
 
 		bool m_Running = true;

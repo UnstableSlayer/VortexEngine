@@ -6,7 +6,7 @@ namespace Vortex
 {
 	using Registry = entt::registry;
 
-	class Object
+	class VORTEX_API Object
 	{
 	public:
 		Object() {}

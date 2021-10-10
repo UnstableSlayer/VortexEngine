@@ -4,7 +4,7 @@
 
 namespace Vortex
 {
-	class OpenGLTexture2D : public Texture2D
+	class VORTEX_API OpenGLTexture2D : public Texture2D
 	{
 	public:
 		OpenGLTexture2D(const std::string& path, TextureFormat format, TextureWrap wrap, TextureFilter filter);

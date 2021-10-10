@@ -45,6 +45,7 @@ namespace Vortex
 #pragma endregion
 
 		glTextureSubImage2D(m_ID, 0, 0, 0, m_Width, m_Height, m_DataFormat, GL_UNSIGNED_BYTE, data);
+		auto a = glGetError();
 
 		stbi_image_free(data);
 	}

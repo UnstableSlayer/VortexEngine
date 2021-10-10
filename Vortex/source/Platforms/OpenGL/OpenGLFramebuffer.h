@@ -3,7 +3,7 @@
 
 namespace Vortex
 {
-	class OpenGLFramebuffer : public Framebuffer
+	class VORTEX_API OpenGLFramebuffer : public Framebuffer
 	{
 	public:
 		OpenGLFramebuffer(const FramebufferParams& params);

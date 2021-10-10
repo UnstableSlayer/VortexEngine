@@ -36,7 +36,10 @@ uniform sampler2D uTextures[32];
   
 void main()
 {
-    if(vColor.a < 0.1)
+    vec4 fragColor = texture(uTextures[int(vTexIndex)], vTexCoord * vTexTiling) * vColor;
+    
+    if(fragColor.a < 0.001)
         discard;
-    gl_FragColor = texture(uTextures[int(vTexIndex)], vTexCoord * vTexTiling) * vColor;
+
+    gl_FragColor = fragColor;
 }

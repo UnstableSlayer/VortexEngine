@@ -113,7 +113,9 @@ namespace Vortex
 
 	void OpenGLShader::SetUniformInt(const std::string& name, int value)
 	{
+		GLint res = glGetError();
 		glUniform1i(GetUniformLocation(name), value);
+		res = glGetError();
 	}
 	void OpenGLShader::SetUniformIntArray(const std::string& name, int* value, uint32_t count)
 	{

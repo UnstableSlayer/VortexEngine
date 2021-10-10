@@ -40,7 +40,7 @@ namespace Vortex
 		LINEAR
 	};
 
-	class Texture
+	class VORTEX_API Texture
 	{
 	public:
 		virtual ~Texture() = default;
@@ -55,7 +55,7 @@ namespace Vortex
 		virtual uint32_t* GetData() = 0;
 	};
 
-	class Texture2D : public Texture
+	class VORTEX_API Texture2D : public Texture
 	{
 	public:
 		static Ref<Texture2D> Create(const uint32_t width, const uint32_t height);

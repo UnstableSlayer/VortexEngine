@@ -3,7 +3,7 @@
 
 namespace Vortex
 {
-	class OpenGLVertexBuffer : public VertexBuffer
+	class VORTEX_API OpenGLVertexBuffer : public VertexBuffer
 	{
 	public:
 		OpenGLVertexBuffer(uint32_t size);
@@ -22,7 +22,7 @@ namespace Vortex
 		BufferLayout m_Layout;
 	};
 
-	class OpenGLIndexBuffer : public IndexBuffer
+	class VORTEX_API OpenGLIndexBuffer : public IndexBuffer
 	{
 	public:
 		OpenGLIndexBuffer(uint32_t* indices, uint32_t count);
@@ -38,7 +38,7 @@ namespace Vortex
 	};
 
 
-	class OpenGLVertexArray : public VertexArray
+	class VORTEX_API OpenGLVertexArray : public VertexArray
 	{
 	public:
 		OpenGLVertexArray();

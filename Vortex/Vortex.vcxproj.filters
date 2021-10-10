@@ -150,9 +150,6 @@
     <ClInclude Include="source\EntryPoint.h">
       <Filter>source</Filter>
     </ClInclude>
-    <ClInclude Include="source\ImGui\ImGuiLayer.h">
-      <Filter>source\ImGui</Filter>
-    </ClInclude>
     <ClInclude Include="source\Platforms\OpenGL\OpenGLBuffers.h">
       <Filter>source\Platforms\OpenGL</Filter>
     </ClInclude>
@@ -1248,6 +1245,12 @@
     <ClInclude Include="thirdParty\glm\glm\gtx\orthonormalize.inl">
       <Filter>thirdParty\glm\glm\gtx</Filter>
     </ClInclude>
+    <ClInclude Include="thirdParty\glm\glm\gtx\pca.hpp">
+      <Filter>thirdParty\glm\glm\gtx</Filter>
+    </ClInclude>
+    <ClInclude Include="thirdParty\glm\glm\gtx\pca.inl">
+      <Filter>thirdParty\glm\glm\gtx</Filter>
+    </ClInclude>
     <ClInclude Include="thirdParty\glm\glm\gtx\perpendicular.hpp">
       <Filter>thirdParty\glm\glm\gtx</Filter>
     </ClInclude>
@@ -1474,12 +1477,6 @@
     </ClCompile>
     <ClCompile Include="source\Core\Renderer\Texture.cpp">
       <Filter>source\Core\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ImGui\ImGuiBuild.cpp">
-      <Filter>source\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ImGui\ImGuiLayer.cpp">
-      <Filter>source\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="source\Platforms\OpenGL\OpenGLBuffers.cpp">
       <Filter>source\Platforms\OpenGL</Filter>

@@ -4,7 +4,7 @@
 
 namespace Vortex
 {
-	class RendererAPI
+	class VORTEX_API RendererAPI
 	{
 	public:
 		enum class API

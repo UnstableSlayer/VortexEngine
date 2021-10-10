@@ -5,7 +5,7 @@
 
 namespace Vortex
 {
-	class Mesh
+	class VORTEX_API Mesh
 	{
 	public:
 		virtual ~Mesh() = default;

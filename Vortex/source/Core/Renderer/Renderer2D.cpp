@@ -275,9 +275,9 @@ namespace Vortex
 		s_Data.Stats.QuadCount++;
 	}
 
-	void Renderer2D::DrawFromTileMap(const char* tileMap, const int32_t& mapWidth, const std::unordered_map<char, Ref<SubTexture2D>>& textureMap, const glm::vec4& tint)
+	void Renderer2D::DrawFromTileMap(const char* tileMap, const uint32_t& mapWidth, const std::unordered_map<char, Ref<SubTexture2D>>& textureMap, const glm::vec4& tint)
 	{
-		const int32_t mapHeight = strlen(tileMap) / mapWidth;
+		const uint32_t mapHeight = strlen(tileMap) / mapWidth;
 		for (size_t y = 0; y < mapHeight; y++)
 		{
 			for (size_t x = 0; x < mapWidth; x++)

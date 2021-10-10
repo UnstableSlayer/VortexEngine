@@ -16,7 +16,6 @@ public:
 	virtual void OnUpdate() override;
 
 	virtual void OnEvent(Vortex::Event& event) override;
-	virtual void OnImGuiRender() override;
 
 private:
 	Vortex::Scene m_Scene;
@@ -32,4 +31,5 @@ private:
 	Vortex::Ref<Vortex::Mesh> m_ShipMesh;
 	Vortex::Ref<Vortex::VertexArray> m_ShipVao;
 	Vortex::Ref<Vortex::Shader> m_ShipShader;
+	Vortex::Ref<Vortex::Texture2D> m_ShipTexture;
 };

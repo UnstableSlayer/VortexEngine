@@ -5,7 +5,7 @@ namespace Vortex
 {
 	typedef int GLint;
 
-	class OpenGLShader : public Shader
+	class VORTEX_API OpenGLShader : public Shader
 	{
 	public:
 		OpenGLShader(const std::string& shaderLoc);

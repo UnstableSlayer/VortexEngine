@@ -4,7 +4,7 @@
 
 namespace Vortex
 {
-	class Renderer
+	class VORTEX_API Renderer
 	{
 	public:
 		static void Init();

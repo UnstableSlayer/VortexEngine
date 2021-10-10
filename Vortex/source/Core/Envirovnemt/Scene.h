@@ -6,7 +6,7 @@
 
 namespace Vortex
 {
-	class Scene
+	class VORTEX_API Scene
 	{
 	public:
 		virtual void Update(const glm::vec3& cameraPos, const float DeltaTime);

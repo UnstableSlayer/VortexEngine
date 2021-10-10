@@ -17,17 +17,14 @@ workspace "VortexEngine"
 	outputDir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 	
 	IncludeDir = {}
-	IncludeDir["GLFW"] = "Vortex/thirdParty/GLFW/include"
+	IncludeDir["SDL2"] = "Vortex/thirdParty/SDL2"
 	IncludeDir["Glad"] = "Vortex/thirdParty/Glad/include"
-	IncludeDir["ImGui"] = "Vortex/thirdParty/imgui"
 	IncludeDir["Glm"] = "Vortex/thirdParty/glm"
 	IncludeDir["stb_image"] = "Vortex/thirdParty/stb_image"
 	IncludeDir["EnTT"] = "Vortex/thirdParty/Entt/include"
 	IncludeDir["Assimp"] = "Vortex/thirdParty/Assimp"
 	
-	include "Vortex/thirdParty/GLFW"
 	include "Vortex/thirdParty/Glad"
-	include "Vortex/thirdParty/imgui"
 	include "Vortex/thirdParty/Assimp"
 	
 	project "Vortex"
@@ -62,24 +59,32 @@ workspace "VortexEngine"
 		{
 			"%{prj.name}/source",
 			"%{prj.name}/thirdParty/spdlog/include",
-			"%{IncludeDir.GLFW}",
+			"%{IncludeDir.SDL2}/include",
 			"%{IncludeDir.Glad}",
-			"%{IncludeDir.ImGui}",
 			"%{IncludeDir.Glm}",
 			"%{IncludeDir.EnTT}",
 			"%{IncludeDir.stb_image}",
 			"%{IncludeDir.Assimp}/include"
 		}
 		
-		links
+		libdirs
 		{
-			"GLFW",
-			"Glad",
-			"ImGui",
-			"Assimp",
-			"opengl32.lib",
+			"%{IncludeDir.SDL2}/lib/%{cfg.architecture}"
 		}
 		
+		links
+		{
+			"Glad",
+			"Assimp",
+			"opengl32.lib",
+			
+			"winmm.lib",
+			"imm32.lib",
+			"version.lib",
+			"setupapi.lib",
+			"SDL2",
+			"SDL2main"
+		}
 		
 	
 		filter "system:windows"
@@ -88,9 +93,8 @@ workspace "VortexEngine"
 			defines
 			{
 				"VE_PLATFORM_WINDOWS",
-				"VE_BUILD_DLL",
-				"GLFW_INCLUDE_NONE",
 			}
+	
 	
 		filter "configurations:Debug"
 			defines "VE_DEBUG"
@@ -107,6 +111,8 @@ workspace "VortexEngine"
 			runtime "Release"
 			optimize "on"
 	
+	
+	
 	project "GameProject"
 		location "GameProject"
 		kind "ConsoleApp"
@@ -114,8 +120,8 @@ workspace "VortexEngine"
 		cppdialect "C++17"
 		staticruntime "on"
 	
-		targetdir ("bin/" .. outputDir .. "/%{prj.name}")
-		objdir ("bin-int/" .. outputDir .. "/%{prj.name}")
+		targetdir ("bin\\" .. outputDir .. "\\%{prj.name}")
+		objdir ("bin-int\\" .. outputDir .. "\\%{prj.name}")
 	
 		files
 		{
@@ -137,7 +143,6 @@ workspace "VortexEngine"
 		}
 		
 		
-		
 		filter "system:windows"
 			systemversion "latest"
 	
@@ -145,6 +150,9 @@ workspace "VortexEngine"
 			{
 				"VE_PLATFORM_WINDOWS"
 			}
+			
+			postbuildcommands {  "IF EXIST ..\\Vortex\\thirdParty\\SDL2\\lib\\%{cfg.architecture}\\SDL2.dll (xcopy /Q /E /Y /I ..\\Vortex\\thirdParty\\SDL2\\lib\\%{cfg.architecture}\\SDL2.dll $(OutDir))" }
+	
 	
 		filter "configurations:Debug"
 			defines "VE_DEBUG"
@@ -160,6 +168,8 @@ workspace "VortexEngine"
 			defines "VE_DIST"
 			runtime "Release"
 			optimize "on"
+
+
 
 	project "VortexEditor"
 		location "VortexEditor"
@@ -190,6 +200,7 @@ workspace "VortexEngine"
 			"Vortex"
 		}
 	
+	
 		filter "system:windows"
 			systemversion "latest"
 	
@@ -197,6 +208,9 @@ workspace "VortexEngine"
 			{
 				"VE_PLATFORM_WINDOWS"
 			}
+			
+			postbuildcommands {  "IF EXIST ..\\Vortex\\thirdParty\\SDL2\\lib\\%{cfg.architecture}\\SDL2.dll (xcopy /Q /E /Y /I ..\\Vortex\\thirdParty\\SDL2\\lib\\%{cfg.architecture}\\SDL2.dll $(OutDir))" }
+	
 	
 		filter "configurations:Debug"
 			defines "VE_DEBUG"

@@ -3,7 +3,7 @@
 
 namespace Vortex
 {
-	class Time
+	class VORTEX_API Time
 	{
 	public:
 		static void Init()
@@ -27,7 +27,7 @@ namespace Vortex
 
 
 	template<typename Fn>
-	class Timer
+	class VORTEX_API Timer
 	{
 	public:
 		Timer(const char* name, Fn&& func = [&]() {})

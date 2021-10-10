@@ -133,8 +133,8 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>vpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;VE_PLATFORM_WINDOWS;VE_BUILD_DLL;GLFW_INCLUDE_NONE;VE_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\GLFW\include;thirdParty\Glad\include;thirdParty\imgui;thirdParty\glm;thirdParty\Entt\include;thirdParty\stb_image;thirdParty\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;VE_PLATFORM_WINDOWS;VE_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\SDL2\include;thirdParty\Glad\include;thirdParty\imgui;thirdParty\glm;thirdParty\Entt\include;thirdParty\stb_image;thirdParty\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
@@ -147,7 +147,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;winmm.lib;imm32.lib;version.lib;setupapi.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>thirdParty\SDL2\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -155,8 +156,8 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>vpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;VE_PLATFORM_WINDOWS;VE_BUILD_DLL;GLFW_INCLUDE_NONE;VE_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\GLFW\include;thirdParty\Glad\include;thirdParty\imgui;thirdParty\glm;thirdParty\Entt\include;thirdParty\stb_image;thirdParty\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;VE_PLATFORM_WINDOWS;VE_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\SDL2\include;thirdParty\Glad\include;thirdParty\imgui;thirdParty\glm;thirdParty\Entt\include;thirdParty\stb_image;thirdParty\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
@@ -169,7 +170,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;winmm.lib;imm32.lib;version.lib;setupapi.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>thirdParty\SDL2\lib\x86_64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -177,8 +179,8 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>vpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;VE_PLATFORM_WINDOWS;VE_BUILD_DLL;GLFW_INCLUDE_NONE;VE_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\GLFW\include;thirdParty\Glad\include;thirdParty\imgui;thirdParty\glm;thirdParty\Entt\include;thirdParty\stb_image;thirdParty\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;VE_PLATFORM_WINDOWS;VE_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\SDL2\include;thirdParty\Glad\include;thirdParty\imgui;thirdParty\glm;thirdParty\Entt\include;thirdParty\stb_image;thirdParty\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -194,7 +196,8 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;winmm.lib;imm32.lib;version.lib;setupapi.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>thirdParty\SDL2\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -202,8 +205,8 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>vpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;VE_PLATFORM_WINDOWS;VE_BUILD_DLL;GLFW_INCLUDE_NONE;VE_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\GLFW\include;thirdParty\Glad\include;thirdParty\imgui;thirdParty\glm;thirdParty\Entt\include;thirdParty\stb_image;thirdParty\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;VE_PLATFORM_WINDOWS;VE_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\SDL2\include;thirdParty\Glad\include;thirdParty\imgui;thirdParty\glm;thirdParty\Entt\include;thirdParty\stb_image;thirdParty\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -219,7 +222,8 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;winmm.lib;imm32.lib;version.lib;setupapi.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>thirdParty\SDL2\lib\x86_64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|Win32'">
@@ -227,8 +231,8 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>vpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;VE_PLATFORM_WINDOWS;VE_BUILD_DLL;GLFW_INCLUDE_NONE;VE_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\GLFW\include;thirdParty\Glad\include;thirdParty\imgui;thirdParty\glm;thirdParty\Entt\include;thirdParty\stb_image;thirdParty\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;VE_PLATFORM_WINDOWS;VE_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\SDL2\include;thirdParty\Glad\include;thirdParty\imgui;thirdParty\glm;thirdParty\Entt\include;thirdParty\stb_image;thirdParty\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -244,7 +248,8 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;winmm.lib;imm32.lib;version.lib;setupapi.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>thirdParty\SDL2\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
@@ -252,8 +257,8 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>vpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;VE_PLATFORM_WINDOWS;VE_BUILD_DLL;GLFW_INCLUDE_NONE;VE_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\GLFW\include;thirdParty\Glad\include;thirdParty\imgui;thirdParty\glm;thirdParty\Entt\include;thirdParty\stb_image;thirdParty\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;VE_PLATFORM_WINDOWS;VE_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>source;thirdParty\spdlog\include;thirdParty\SDL2\include;thirdParty\Glad\include;thirdParty\imgui;thirdParty\glm;thirdParty\Entt\include;thirdParty\stb_image;thirdParty\Assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -269,7 +274,8 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;winmm.lib;imm32.lib;version.lib;setupapi.lib;SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>thirdParty\SDL2\lib\x86_64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -305,7 +311,6 @@
     <ClInclude Include="source\Core\Time.h" />
     <ClInclude Include="source\Core\Window.h" />
     <ClInclude Include="source\EntryPoint.h" />
-    <ClInclude Include="source\ImGui\ImGuiLayer.h" />
     <ClInclude Include="source\Platforms\OpenGL\OpenGLBuffers.h" />
     <ClInclude Include="source\Platforms\OpenGL\OpenGLContext.h" />
     <ClInclude Include="source\Platforms\OpenGL\OpenGLFramebuffer.h" />
@@ -671,6 +676,8 @@
     <ClInclude Include="thirdParty\glm\glm\gtx\optimum_pow.inl" />
     <ClInclude Include="thirdParty\glm\glm\gtx\orthonormalize.hpp" />
     <ClInclude Include="thirdParty\glm\glm\gtx\orthonormalize.inl" />
+    <ClInclude Include="thirdParty\glm\glm\gtx\pca.hpp" />
+    <ClInclude Include="thirdParty\glm\glm\gtx\pca.inl" />
     <ClInclude Include="thirdParty\glm\glm\gtx\perpendicular.hpp" />
     <ClInclude Include="thirdParty\glm\glm\gtx\perpendicular.inl" />
     <ClInclude Include="thirdParty\glm\glm\gtx\polar_coordinates.hpp" />
@@ -748,8 +755,6 @@
     <ClCompile Include="source\Core\Renderer\Shader.cpp" />
     <ClCompile Include="source\Core\Renderer\SubTexture2D.cpp" />
     <ClCompile Include="source\Core\Renderer\Texture.cpp" />
-    <ClCompile Include="source\ImGui\ImGuiBuild.cpp" />
-    <ClCompile Include="source\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="source\Platforms\OpenGL\OpenGLBuffers.cpp" />
     <ClCompile Include="source\Platforms\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="source\Platforms\OpenGL\OpenGLFramebuffer.cpp" />
@@ -764,9 +769,6 @@
     <ClCompile Include="thirdParty\stb_image\stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="thirdParty\GLFW\GLFW.vcxproj">
-      <Project>{154B857C-0182-860D-AA6E-6C109684020F}</Project>
-    </ProjectReference>
     <ProjectReference Include="thirdParty\Glad\Glad.vcxproj">
       <Project>{BDD6857C-A90D-870D-52FA-6C103E10030F}</Project>
     </ProjectReference>

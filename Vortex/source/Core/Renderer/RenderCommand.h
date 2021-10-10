@@ -3,7 +3,7 @@
 
 namespace Vortex
 {
-	class RenderCommand
+	class VORTEX_API RenderCommand
 	{
 	public:
 		inline static void Init() { s_RendererAPI->Init(); }

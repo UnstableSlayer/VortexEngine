@@ -40,7 +40,7 @@ namespace Vortex
 		}
 	};
 
-	class BufferLayout
+	class VORTEX_API BufferLayout
 	{
 	public:
 		BufferLayout() {}
@@ -80,7 +80,7 @@ namespace Vortex
 
 	/// Vertex Buffer ////////////////////////////////////
 
-	class VertexBuffer
+	class VORTEX_API VertexBuffer
 	{
 	public:
 		virtual ~VertexBuffer() = default;
@@ -100,7 +100,7 @@ namespace Vortex
 
 	/// Index Buffer ////////////////////////////////////
 
-	class IndexBuffer
+	class VORTEX_API IndexBuffer
 	{
 	public:
 		virtual ~IndexBuffer() = default;
@@ -116,7 +116,7 @@ namespace Vortex
 
 	/// Vertex Array ////////////////////////////////////
 	
-	class VertexArray
+	class VORTEX_API VertexArray
 	{
 	public:
 		virtual ~VertexArray() = default;
