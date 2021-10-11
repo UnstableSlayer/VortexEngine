@@ -16,9 +16,6 @@
     <Filter Include="source\Core\Renderer">
       <UniqueIdentifier>{F4A028B5-E02F-B27E-894E-C67975BCC224}</UniqueIdentifier>
     </Filter>
-    <Filter Include="source\ImGui">
-      <UniqueIdentifier>{20B59E10-0C18-2EB5-B59D-666BA1DFF937}</UniqueIdentifier>
-    </Filter>
     <Filter Include="source\Platforms">
       <UniqueIdentifier>{3D12770F-290B-9661-523D-7BE63E95756D}</UniqueIdentifier>
     </Filter>

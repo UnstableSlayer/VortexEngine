@@ -67,25 +67,51 @@ workspace "VortexEngine"
 			"%{IncludeDir.Assimp}/include"
 		}
 		
+		linkoptions { "/NODEFAULTLIB", "/FORCE:MULTIPLE"}
+		
 		libdirs
 		{
 			"%{IncludeDir.SDL2}/lib/%{cfg.architecture}"
 		}
 		
-		links
-		{
-			"Glad",
-			"Assimp",
-			"opengl32.lib",
+		filter "configurations:Debug"
+			links
+			{
+				"libucrtd",
+				"libvcruntimed",
+				"libcpmtd",
+				"libcmtd",
 			
-			"winmm.lib",
-			"imm32.lib",
-			"version.lib",
-			"setupapi.lib",
-			"SDL2",
-			"SDL2main"
-		}
-		
+				"Glad",
+				"Assimp",
+				"opengl32.lib",
+				
+				"winmm.lib",
+				"imm32.lib",
+				"version.lib",
+				"setupapi.lib",
+				"SDL2",
+				"SDL2main"
+			}
+		filter "configurations:Release or Dist"
+			links
+			{
+				"libucrt",
+				"libvcruntime",
+				"libcpmt",
+				"libcmt",
+			
+				"Glad",
+				"Assimp",
+				"opengl32.lib",
+				
+				"winmm.lib",
+				"imm32.lib",
+				"version.lib",
+				"setupapi.lib",
+				"SDL2",
+				"SDL2main"
+			}
 	
 		filter "system:windows"
 			systemversion "latest"
@@ -137,9 +163,11 @@ workspace "VortexEngine"
 			"%{IncludeDir.EnTT}"
 		}
 		
+		linkoptions { "/NODEFAULTLIB", "/FORCE:MULTIPLE"}
+
 		links 
 		{
-			"Vortex",
+			"Vortex"
 		}
 		
 		
@@ -149,10 +177,7 @@ workspace "VortexEngine"
 			defines
 			{
 				"VE_PLATFORM_WINDOWS"
-			}
-			
-			postbuildcommands {  "IF EXIST ..\\Vortex\\thirdParty\\SDL2\\lib\\%{cfg.architecture}\\SDL2.dll (xcopy /Q /E /Y /I ..\\Vortex\\thirdParty\\SDL2\\lib\\%{cfg.architecture}\\SDL2.dll $(OutDir))" }
-	
+			}	
 	
 		filter "configurations:Debug"
 			defines "VE_DEBUG"
@@ -207,10 +232,7 @@ workspace "VortexEngine"
 			defines
 			{
 				"VE_PLATFORM_WINDOWS"
-			}
-			
-			postbuildcommands {  "IF EXIST ..\\Vortex\\thirdParty\\SDL2\\lib\\%{cfg.architecture}\\SDL2.dll (xcopy /Q /E /Y /I ..\\Vortex\\thirdParty\\SDL2\\lib\\%{cfg.architecture}\\SDL2.dll $(OutDir))" }
-	
+			}	
 	
 		filter "configurations:Debug"
 			defines "VE_DEBUG"
