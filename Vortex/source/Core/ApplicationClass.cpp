@@ -5,7 +5,8 @@
 #include "Core/Input.h"
 #include "Core/Logger.h"
 
-#include "Renderer/Renderer.h"
+#include "Renderer/RenderCommand.h"
+#include "Renderer/Renderer2D.h"
 
 namespace Vortex
 {
@@ -14,7 +15,6 @@ namespace Vortex
 	ApplicationClass::ApplicationClass()
 	{
 		s_Instance = this;
-		Time::Init();
 	}
 
 	ApplicationClass::~ApplicationClass()
@@ -24,7 +24,10 @@ namespace Vortex
 
 	void ApplicationClass::OnCreate()
 	{
-		Renderer::Init();
+		Time::Init();
+		RenderCommand::Init();
+		Renderer2D::Init();
+
 		OnStart();
 
 		while (m_Running)
@@ -85,7 +88,7 @@ namespace Vortex
 		}
 		m_Minimized = false;
 
-		Renderer::OnWindowResize(event.GetWidth(), event.GetHeight());
+		RenderCommand::SetViewport(0, 0, event.GetWidth(), event.GetHeight());
 
 		return false;
 	}

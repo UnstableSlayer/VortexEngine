@@ -1,7 +1,7 @@
 #include "vpch.h"
 #include "OpenGLRendererAPI.h"
 
-#include <glad/glad.h>
+#include <glad/gl.h>
 
 namespace Vortex
 {
@@ -17,10 +17,10 @@ namespace Vortex
 		//glEnable(GL_DEPTH);
 		glEnable(GL_DEPTH_TEST);
 		glDepthMask(GL_TRUE);
-
-		/*glEnable(GL_CULL_FACE);
+		
+		glEnable(GL_CULL_FACE);
 		glCullFace(GL_BACK);
-		glFrontFace(GL_CCW);*/
+		glFrontFace(GL_CCW);
 	}
 
 	void OpenGLRendererAPI::SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height)
@@ -37,6 +37,7 @@ namespace Vortex
 	{
 		uint32_t count = indexCount ? indexCount : vertexArray->GetIndexBuffer()->GetCount();
 		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
+		
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 }

@@ -23,6 +23,7 @@ namespace Vortex
 			switch (Type)
 			{
 			case ShaderDataType::Int:			return 1;
+			case ShaderDataType::UInt:			return 1;
 			case ShaderDataType::Vec2i:			return 2;
 			case ShaderDataType::Vec3i:			return 3;
 			case ShaderDataType::Vec4i:			return 4;

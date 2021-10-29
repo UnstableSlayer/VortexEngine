@@ -20,7 +20,6 @@
 #include "..\source\Core\Envirovnemt\Components.h"
 
 //----Rendering----------------------------
-#include "..\source\Core\Renderer\Renderer.h"
 #include "..\source\Core\Renderer\Renderer2D.h"
 #include "..\source\Core\Renderer\RenderCommand.h"
 
@@ -35,4 +34,8 @@
 #include "..\source\Core\Renderer\Camera.h"
 
 #include "..\source\Core\Time.h"
+//----Job System----------------------------
+
+#include "..\source\Core\Jobs\Coroutine.h"
+
 //-------------------------------------------

@@ -1,7 +1,7 @@
 #include "vpch.h"
 #include "OpenGLFramebuffer.h"
 
-#include <glad/glad.h>
+#include <glad/gl.h>
 
 namespace Vortex
 {

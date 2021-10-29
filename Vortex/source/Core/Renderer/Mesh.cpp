@@ -11,75 +11,77 @@ namespace Vortex
 	void Mesh::Load(const std::string& path)
 	{
 		Assimp::Importer importer;
-		const aiScene* scene = importer.ReadFile(path, aiProcess_CalcTangentSpace
-			| aiProcess_PreTransformVertices
-			| aiProcess_JoinIdenticalVertices
-			| aiProcess_ImproveCacheLocality
-			| aiProcess_LimitBoneWeights
-			| aiProcess_RemoveRedundantMaterials
-			| aiProcess_SplitLargeMeshes
-			| aiProcess_Triangulate
-			| aiProcess_GenUVCoords
-			| aiProcess_SortByPType
-			| aiProcess_FindDegenerates
-			| aiProcess_FindInvalidData
-			//| aiProcess_ForceGenNormals
-			| 0);
-		
+		const aiScene* scene = importer.ReadFile(path, aiProcessPreset_TargetRealtime_Fast);
+
 		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 		{
 			VORTEX_CORE_ERROR("Assimp can't load object: {0}", importer.GetErrorString());
 			return;
 		}
 
-		VORTEX_CORE_WARNING("SHITTY IMPLEMENTATION OF ASSIMP GONNA LOAD ONLY FIRST MESH");
-		aiMesh* mesh = scene->mMeshes[0];
-
-		VORTEX_ASSERT(mesh, "NO MESH IN FILE");
-
 		BufferLayout bufferLayout = {
 				{ShaderDataType::Vec3f, "aPos"},
 				{ShaderDataType::Vec3f, "aNormal"},
 				{ShaderDataType::Vec2f, "aTexCoord"}
 		};
-		
-		uint32_t shaderDataTypeVarCount = bufferLayout.GetStride() / sizeof(float);
-		float* vertices = new float[mesh->mNumVertices * shaderDataTypeVarCount];
-		for (size_t i = 0; i < mesh->mNumVertices; i++)
+		uint32_t vertexLayoutFloatCount = bufferLayout.GetStride() / sizeof(float);
+
+		m_Data = VertexArray::Create();
+
+		std::vector<uint32_t> indices;
+		uint32_t indexOffset = 0;
+		for (size_t m = 0; m < scene->mNumMeshes; m++)
 		{
-			*(vertices + i * shaderDataTypeVarCount) = mesh->mVertices[i].x;
-			*(vertices + i * shaderDataTypeVarCount + 1) = mesh->mVertices[i].y;
-			*(vertices + i * shaderDataTypeVarCount + 2) = mesh->mVertices[i].z;
+			aiMesh* mesh = scene->mMeshes[m];
 
-			if (mesh->HasNormals())
-			{
-				*(vertices + i * shaderDataTypeVarCount + 3) = mesh->mNormals[i].x;
-				*(vertices + i * shaderDataTypeVarCount + 4) = mesh->mNormals[i].y;
-				*(vertices + i * shaderDataTypeVarCount + 5) = mesh->mNormals[i].z;
-			}
+			VORTEX_ASSERT(mesh, "NO MESH IN FILE");
 
-			if (mesh->HasTextureCoords(0))
+			std::vector<float> vertices;
+			for (size_t i = 0; i < mesh->mNumVertices; i++)
 			{
-				*(vertices + i * shaderDataTypeVarCount + 6) = mesh->mTextureCoords[0][i].x;
-				*(vertices + i * shaderDataTypeVarCount + 7) = mesh->mTextureCoords[0][i].y;
+				vertices.push_back(mesh->mVertices[i].x);
+				vertices.push_back(mesh->mVertices[i].y);
+				vertices.push_back(mesh->mVertices[i].z);
+
+				if (mesh->HasNormals())
+				{
+					vertices.push_back(mesh->mNormals[i].x);
+					vertices.push_back(mesh->mNormals[i].y);
+					vertices.push_back(mesh->mNormals[i].z);
+				}
+
+				if (mesh->HasTextureCoords(0))
+				{
+					vertices.push_back(mesh->mTextureCoords[0][i].x);
+					vertices.push_back(mesh->mTextureCoords[0][i].y);
+				}
 			}
+			VORTEX_CORE_INFO("Vertices[{0}]: {1}", m, vertices.size());
+
+			Ref<VertexBuffer> m_Vertices = VertexBuffer::Create(vertices.data(), vertices.size() * sizeof(float));
+			m_Vertices->SetLayout(bufferLayout);
+
+			m_Data->AddVertexBuffer(m_Vertices);
+
+			uint32_t max = 0;
+			for (size_t i = 0; i < mesh->mNumFaces; i++)
+			{
+				aiFace face = mesh->mFaces[i];
+				for (size_t j = 0; j < face.mNumIndices; j++)
+				{
+					VORTEX_ASSERT(face.mNumIndices == 3, "Face Indices more than 3!");
+					indices.push_back(face.mIndices[j] + indexOffset);
+
+					if (face.mIndices[j] + indexOffset > max)
+						max = face.mIndices[j] + indexOffset;
+				}
+			}
+			indexOffset = max + vertexLayoutFloatCount - max % vertexLayoutFloatCount;
 		}
-		m_Vertices = VertexBuffer::Create(vertices, mesh->mNumVertices * shaderDataTypeVarCount * sizeof(vertices));
-		m_Vertices->SetLayout(bufferLayout);
 
-		uint32_t* indices = new uint32_t[mesh->mNumFaces * 3];
-		for (size_t i = 0; i < mesh->mNumFaces; i++)
-		{
-			aiFace face = mesh->mFaces[i];
-			for (size_t j = 0; j < face.mNumIndices; j++)
-			{
-				VORTEX_ASSERT(face.mNumIndices == 3, "Face Indices more than 3!");
-				*(indices + i * 3 + j) = face.mIndices[j];
-			}
-		}
-		m_Indices = IndexBuffer::Create(indices, mesh->mNumFaces * 3);
+		VORTEX_CORE_INFO("Indices: {0}", indices.size());
 
-		delete[] vertices;
-		delete[] indices;
+		Ref<IndexBuffer> m_Indices = IndexBuffer::Create(indices.data(), indices.size());
+		m_Data->SetIndexBuffer(m_Indices);
 	}
 }

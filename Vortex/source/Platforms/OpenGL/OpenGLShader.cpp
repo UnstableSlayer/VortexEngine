@@ -1,7 +1,7 @@
 #include "vpch.h"
 #include "OpenGLShader.h"
 
-#include <glad/glad.h>
+#include <glad/gl.h>
 #include <glm/gtc/type_ptr.hpp>
 
 namespace Vortex
@@ -113,9 +113,7 @@ namespace Vortex
 
 	void OpenGLShader::SetUniformInt(const std::string& name, int value)
 	{
-		GLint res = glGetError();
 		glUniform1i(GetUniformLocation(name), value);
-		res = glGetError();
 	}
 	void OpenGLShader::SetUniformIntArray(const std::string& name, int* value, uint32_t count)
 	{
@@ -144,6 +142,10 @@ namespace Vortex
 	void OpenGLShader::SetUniformMat4(const std::string& name, const glm::mat4& value)
 	{
 		glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, glm::value_ptr(value));
+	}
+	void OpenGLShader::SetUniformTexHandle(const std::string& name, uint64_t value)
+	{
+		glUniformHandleui64ARB(GetUniformLocation(name), value);
 	}
 
 	GLint OpenGLShader::GetUniformLocation(const std::string& name) const

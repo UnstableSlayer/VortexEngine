@@ -11,6 +11,7 @@
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
+#include <coroutine>
 
 #ifdef VE_PLATFORM_WINDOWS
 	#include <Windows.h>

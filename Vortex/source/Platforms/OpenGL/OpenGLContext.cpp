@@ -14,7 +14,7 @@ namespace Vortex
 		VORTEX_ASSERT(m_Context != NULL, "SDL Context failed to initialise: {0}", SDL_GetError());
 
 		SDL_GL_MakeCurrent(m_hWindow, m_Context);
-		int status = gladLoadGLLoader(SDL_GL_GetProcAddress);
+		int status = gladLoadGL((GLADloadfunc) SDL_GL_GetProcAddress);
 	}
 
 	void OpenGLContext::SwapBuffers()

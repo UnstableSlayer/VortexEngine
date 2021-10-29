@@ -120,9 +120,6 @@
     <ClInclude Include="source\Core\Renderer\RenderCommand.h">
       <Filter>source\Core\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="source\Core\Renderer\Renderer.h">
-      <Filter>source\Core\Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="source\Core\Renderer\Renderer2D.h">
       <Filter>source\Core\Renderer</Filter>
     </ClInclude>
@@ -1425,6 +1422,7 @@
     <ClInclude Include="thirdParty\stb_image\stb_image.h">
       <Filter>thirdParty\stb_image</Filter>
     </ClInclude>
+    <ClInclude Include="source\Core\Jobs\Coroutine.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Core\ApplicationClass.cpp">
@@ -1455,9 +1453,6 @@
       <Filter>source\Core\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="source\Core\Renderer\RenderCommand.cpp">
-      <Filter>source\Core\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Core\Renderer\Renderer.cpp">
       <Filter>source\Core\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="source\Core\Renderer\Renderer2D.cpp">
@@ -1505,5 +1500,6 @@
     <ClCompile Include="thirdParty\stb_image\stb_image.cpp">
       <Filter>thirdParty\stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="source\Core\Jobs\Coroutine.cpp" />
   </ItemGroup>
 </Project>

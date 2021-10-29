@@ -56,6 +56,7 @@ namespace Vortex
 	private:
 		unsigned int m_ID;
 
+		uint32_t vertexBufferIndexOffset = 0;
 		std::vector<std::shared_ptr<VertexBuffer>> m_VertexBuffers;
 		std::shared_ptr<IndexBuffer> m_IndexBuffer;
 	};

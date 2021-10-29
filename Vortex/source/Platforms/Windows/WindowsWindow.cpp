@@ -29,7 +29,7 @@ namespace Vortex
 		m_Data.width = properties.width;
 		m_Data.height = properties.height;
 
-		VORTEX_CORE_INFO("Creating window '{0}' {1}x{2}", properties.title, properties.width, properties.height);
+		VORTEX_CORE_TRACE("Creating window '{0}' {1}x{2}", properties.title, properties.width, properties.height);
 
 		if (!b_SDLInitialized)
 		{
@@ -37,8 +37,9 @@ namespace Vortex
 			SDL_GL_LoadLibrary(NULL);
 
 			SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
-			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
-			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
+			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 1);
+			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+			SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
 
 			//MaybeToDo: Error handling callback
 
@@ -62,7 +63,6 @@ namespace Vortex
 				data.width = event->window.data1;
 				data.height = event->window.data2;
 
-				VORTEX_CORE_INFO("RESIZED: {0} {1}", data.width, data.height);
 				WindowResizeEvent veEvent(event->window.data1, event->window.data2);
 				data.eventCallback(veEvent);
 
@@ -79,99 +79,6 @@ namespace Vortex
 
 				return 0;
 			}, (void*)&m_Data);
-		
-		/*SDL_AddEventWatch((SDL_EventFilter)[](void* userdata, SDL_Event* event)
-			{
-				if (event->type != SDL_KEYDOWN && event->type != SDL_KEYUP) return 1;
-
-				auto state = event->key.state;
-				uint32_t key = event->key.keysym.sym;
-				WindowData& data = *(WindowData*)userdata;
-				switch (state)
-				{
-					case SDL_PRESSED:
-					{
-						KeyPressedEvent veEvent(key, 0);
-						data.eventCallback(veEvent);
-						break;
-					}
-					case SDL_RELEASED:
-					{
-						KeyReleasedEvent veEvent(key);
-						data.eventCallback(veEvent);
-						break;
-					}
-					default:
-					{
-						KeyPressedEvent veEvent(key, 1);
-						data.eventCallback(veEvent);
-						break;
-					}
-				}
-
-				return 0;
-			}, (void*)&m_Data);
-		
-		SDL_AddEventWatch((SDL_EventFilter)[](void* userdata, SDL_Event* event)
-			{
-				if (event->type != SDL_TEXTINPUT) return 1;
-
-				WindowData& data = *(WindowData*)userdata;
-				KeyTypedEvent veEvent(event->key.keysym.sym);
-				data.eventCallback(veEvent);
-
-				return 0;
-			}, (void*)&m_Data);
-		
-		SDL_AddEventWatch((SDL_EventFilter)[](void* userdata, SDL_Event* event)
-			{
-				if (event->type != SDL_MOUSEBUTTONDOWN && event->type != SDL_MOUSEBUTTONUP) return 1;
-
-				auto state = event->button.state;
-				WindowData& data = *(WindowData*)userdata;
-
-				switch (state)
-				{
-					case SDL_MOUSEBUTTONDOWN:
-					{
-						MouseButtonPressedEvent veEvent(event->button.button);
-						data.eventCallback(veEvent);
-						break;
-					}
-					case SDL_MOUSEBUTTONUP:
-					{
-						MouseButtonReleasedEvent veEvent(event->button.button);
-						data.eventCallback(veEvent);
-						break;
-					}
-				}
-
-				return 0;
-			}, (void*)&m_Data);
-		
-		SDL_AddEventWatch((SDL_EventFilter)[](void* userdata, SDL_Event* event)
-			{
-				if (event->type != SDL_MOUSEWHEEL) return 1;
-
-				WindowData& data = *(WindowData*)userdata;
-
-				MouseScrolledEvent veEvent((float)event->wheel.x, (float)event->wheel.y);
-				data.eventCallback(veEvent);
-
-				return 0;
-			}, (void*)&m_Data);
-		
-		SDL_AddEventWatch((SDL_EventFilter)[](void* userdata, SDL_Event* event)
-			{
-				if (event->type != SDL_MOUSEMOTION) return 1;
-
-				WindowData& data = *(WindowData*)userdata;
-
-				MouseMovedEvent veEvent((float)event->motion.x, (float)event->motion.y);
-				data.eventCallback(veEvent);
-
-				return 0;
-			}, (void*)&m_Data);*/
 	}
 	 
 	void WindowsWindow::Close()

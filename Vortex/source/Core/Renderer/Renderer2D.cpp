@@ -57,7 +57,7 @@ namespace Vortex
 			{ ShaderDataType::Vec2f, "aTexCoord" },
 			{ ShaderDataType::Vec2f, "aTexTiling" },
 			{ ShaderDataType::Float, "aTexIndex" }
-		});
+			});
 		s_Data.QuadVertexArray->AddVertexBuffer(s_Data.QuadVertexBuffer);
 
 		s_Data.QuadVertexBufferBase = new QuadVertex[s_Data.MaxVertices];
@@ -92,7 +92,7 @@ namespace Vortex
 			samplers[i] = i;
 		}
 
-		s_Data.DefaultShader = Shader::Create("Shaders/FlatColor.glsl");
+		s_Data.DefaultShader = Shader::Create("Shaders/unlitSpriteShader.glsl");
 		s_Data.DefaultShader->Bind();
 		s_Data.DefaultShader->SetUniformInt("uTexture", 0);
 		s_Data.DefaultShader->SetUniformVec2("uTextureScale", glm::vec2(1.f));
@@ -144,7 +144,7 @@ namespace Vortex
 
 		s_Data.QuadVertexArray->Bind();
 		RenderCommand::DrawIndexed(s_Data.QuadVertexArray, s_Data.QuadIndexCount);
-	
+
 		s_Data.Stats.DrawCalls++;
 	}
 	void Renderer2D::FlushAndReset()
@@ -156,7 +156,7 @@ namespace Vortex
 
 		s_Data.TextureSlotIndex = 1;
 	}
-	
+
 	void Renderer2D::AppendSingleVertexData(const glm::vec3& position, const glm::vec4& color, const glm::vec2& texCoord, const glm::vec2& texTiling, const float& textureIndex)
 	{
 		s_Data.QuadVertexBufferPtr->Position = position;
@@ -184,14 +184,14 @@ namespace Vortex
 		Renderer2D::AppendSingleVertexData(position, color, { 1.f, 1.f }, { 1.f, 1.f }, 0.f);
 
 		position = transform.GetTransformMatrix() * glm::vec4(-0.5f, 0.5f, 0.f, 1.f);
-		Renderer2D::AppendSingleVertexData(position, color, { 0.f, 1.f }, {1.f, 1.f}, 0.f);
+		Renderer2D::AppendSingleVertexData(position, color, { 0.f, 1.f }, { 1.f, 1.f }, 0.f);
 
 		s_Data.QuadIndexCount += 6;
 
 		s_Data.Stats.QuadCount++;
 	}
 	void Renderer2D::DrawQuad(TransformComponent& transform, const SpriteComponent& sprite, const glm::vec4& tint)
-	{	
+	{
 		if (s_Data.QuadIndexCount >= s_Data.MaxIndices)
 			FlushAndReset();
 
@@ -259,7 +259,7 @@ namespace Vortex
 		const glm::vec2* texCoords = subTexture->GetTexCoords();
 
 		position = transform.GetTransformMatrix() * glm::vec4(-0.5f, -0.5f, 0.f, 1.f);
-		Renderer2D::AppendSingleVertexData(position, tint, *(texCoords + 0), {1.f, 1.f}, textureIndex);
+		Renderer2D::AppendSingleVertexData(position, tint, *(texCoords + 0), { 1.f, 1.f }, textureIndex);
 
 		position = transform.GetTransformMatrix() * glm::vec4(0.5f, -0.5f, 0.f, 1.f);
 		Renderer2D::AppendSingleVertexData(position, tint, *(texCoords + 1), { 1.f, 1.f }, textureIndex);

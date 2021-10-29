@@ -14,9 +14,11 @@ namespace Vortex
 
 		void OnUpdate() override;
 
+		inline const std::string& GetWindowTitle() const override { return m_Data.title; }
 		inline const uint32_t GetWindowWidth() const override { return m_Data.width; }
 		inline const uint32_t GetWindowHeight() const override { return m_Data.height; }
 
+		inline void SetWindowTitle(const std::string& title) override { m_Data.title = title; }
 		inline void SetEventCallback(const EventCallback& callback) override { m_Data.eventCallback = callback; }
 		void SetVSync(bool enabled) override;
 		bool IsVSync() const override;

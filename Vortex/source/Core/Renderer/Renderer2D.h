@@ -13,7 +13,7 @@ namespace Vortex
 	public:
 		static void Init();
 		static void Destroy();
-		
+
 		static void BeginScene(Object& cameraObj);
 		static void EndScene();
 		static void Flush();

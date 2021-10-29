@@ -45,6 +45,5 @@ namespace Vortex
 		static ApplicationClass* s_Instance;
 	};
 
-	//To be defined in game application
 	ApplicationClass* CreateApplication();
 }

@@ -23,9 +23,11 @@ namespace Vortex
 		virtual ~Window() {}
 
 		virtual void OnUpdate() = 0;
+		virtual const std::string& GetWindowTitle() const = 0;
 		virtual const uint32_t GetWindowWidth() const = 0;
 		virtual const uint32_t GetWindowHeight() const = 0;
 
+		virtual void SetWindowTitle(const std::string& title) = 0;
 		virtual void SetEventCallback(const EventCallback& callback) = 0;
 		virtual void SetVSync(bool enabled) = 0;
 		virtual bool IsVSync() const = 0;

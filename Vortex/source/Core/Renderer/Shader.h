@@ -6,8 +6,10 @@ namespace Vortex
 	enum class ShaderDataType
 	{
 		None = 0,
-		Int, Vec2i, Vec3i, Vec4i,
-		Float, Vec2f, Vec3f, Vec4f,
+		Int, UInt, 
+		Vec2i, Vec3i, Vec4i,
+		Float, 
+		Vec2f, Vec3f, Vec4f,
 		Mat3, Mat4,
 		Bool
 	};
@@ -17,6 +19,7 @@ namespace Vortex
 		switch (type)
 		{
 		case ShaderDataType::Int:			return 4;
+		case ShaderDataType::UInt:			return 4;
 		case ShaderDataType::Vec2i:			return 4 * 2;
 		case ShaderDataType::Vec3i:			return 4 * 3;
 		case ShaderDataType::Vec4i:			return 4 * 4;
@@ -46,6 +49,7 @@ namespace Vortex
 		static Ref<Shader> Create(const std::string& shaderLoc);
 
 		virtual void SetUniformInt(const std::string& name, int value) = 0;
+		virtual void SetUniformTexHandle(const std::string& name, uint64_t value) = 0;
 		virtual void SetUniformIntArray(const std::string& name, int* value, uint32_t count) = 0;
 		virtual void SetUniformVec1(const std::string& name, float value) = 0;
 		virtual void SetUniformVec2(const std::string& name, const glm::vec2& value) = 0;

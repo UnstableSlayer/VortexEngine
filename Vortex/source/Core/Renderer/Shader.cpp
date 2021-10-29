@@ -1,7 +1,7 @@
 #include "vpch.h"
 #include "Shader.h"
 
-#include "Renderer.h"
+#include "RendererAPI.h"
 #include "Platforms/OpenGL/OpenGLShader.h"
 
 #include <string>
@@ -11,7 +11,7 @@ namespace Vortex
 {
 	Ref<Shader> Shader::Create(const std::string& shaderLoc)
 	{
-		switch (Renderer::GetAPI())
+		switch (RendererAPI::GetAPI())
 		{
 		case RendererAPI::API::None:
 			VORTEX_ASSERT(false, "No API Selected!");
@@ -35,7 +35,7 @@ namespace Vortex
 		{
 			delete vShaderSrc, fShaderSrc;
 
-			VORTEX_ASSERT(false, "Shader file not found");
+			VORTEX_ASSERT(false, "Shader file not found " + shaderLoc);
 			return;
 		}
 
@@ -48,7 +48,7 @@ namespace Vortex
 				ifs.close();
 				delete vShaderSrc, fShaderSrc;
 
-				VORTEX_ASSERT(false, "Failed reading shader file");
+				VORTEX_ASSERT(false, "Failed reading shader file", shaderLoc);
 				return;
 			}
 

@@ -11,7 +11,6 @@ namespace Vortex
 		virtual ~Mesh() = default;
 		void Load(const std::string& path);
 
-		Ref<VertexBuffer> m_Vertices;
-		Ref<IndexBuffer> m_Indices;
+		Ref<VertexArray> m_Data;
 	};
 }

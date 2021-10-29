@@ -72,6 +72,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\nasm.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -285,6 +286,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="source\Core\Jobs\Coroutine.h" />
     <ClInclude Include="source\Core\ApplicationClass.h" />
     <ClInclude Include="source\Core\Assert.h" />
     <ClInclude Include="source\Core\Core.h" />
@@ -308,7 +310,6 @@
     <ClInclude Include="source\Core\Renderer\GraphicsContext.h" />
     <ClInclude Include="source\Core\Renderer\Mesh.h" />
     <ClInclude Include="source\Core\Renderer\RenderCommand.h" />
-    <ClInclude Include="source\Core\Renderer\Renderer.h" />
     <ClInclude Include="source\Core\Renderer\Renderer2D.h" />
     <ClInclude Include="source\Core\Renderer\RendererAPI.h" />
     <ClInclude Include="source\Core\Renderer\Shader.h" />
@@ -745,6 +746,7 @@
     <ClInclude Include="thirdParty\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\Core\Jobs\Coroutine.cpp" />
     <ClCompile Include="source\Core\ApplicationClass.cpp" />
     <ClCompile Include="source\Core\Envirovnemt\Scene.cpp" />
     <ClCompile Include="source\Core\Layer.cpp" />
@@ -755,7 +757,6 @@
     <ClCompile Include="source\Core\Renderer\Framebuffer.cpp" />
     <ClCompile Include="source\Core\Renderer\Mesh.cpp" />
     <ClCompile Include="source\Core\Renderer\RenderCommand.cpp" />
-    <ClCompile Include="source\Core\Renderer\Renderer.cpp" />
     <ClCompile Include="source\Core\Renderer\Renderer2D.cpp" />
     <ClCompile Include="source\Core\Renderer\RendererAPI.cpp" />
     <ClCompile Include="source\Core\Renderer\Shader.cpp" />
@@ -784,5 +785,6 @@
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\nasm.targets" />
   </ImportGroup>
 </Project>

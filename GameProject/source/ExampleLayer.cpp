@@ -7,6 +7,7 @@
 //#define BALLS_TEST
 //#define TRANSFORM_PARENT_TEST
 //#define TILEMAP_TEST
+#define SHIP_TEST
 
 ExampleLayer::ExampleLayer()
 	: Layer("Example")
@@ -26,7 +27,7 @@ ExampleLayer::ExampleLayer()
 	{
 		Vortex::Object obj = m_Scene.CreateObject();
 		obj.AddComponent<Vortex::TagComponent>("DW");
-		obj.AddComponent<Vortex::TransformComponent>().SetScale({10.f, 1.f, 1.f});
+		obj.AddComponent<Vortex::TransformComponent>().SetScale({ 10.f, 1.f, 1.f });
 
 		auto& renderer2DComponent = obj.AddComponent<Vortex::SpriteComponent>();
 		renderer2DComponent.m_Texture = Vortex::Texture2D::Create("Textures/4KTest.png", Vortex::TextureFormat::RGB16);
@@ -38,7 +39,7 @@ ExampleLayer::ExampleLayer()
 	{
 		float radius = 2.f;
 		auto& texture = Vortex::Texture2D::Create("Textures/Ball.png", Vortex::TextureFormat::RGBA8);
-	
+
 		int count = 16;
 		for (size_t x = 0; x < count; x++)
 		{
@@ -53,7 +54,7 @@ ExampleLayer::ExampleLayer()
 										radius * sinf(angleX) * sinf(angleY) + 0.001f * y,
 										radius * cosf(angleY) + 0.001f * y * x });
 				transform.SetScale({ 0.2f, 0.2f, 0.2f });
-	
+
 				auto& renderer2DComponent = obj.AddComponent<Vortex::SpriteComponent>();
 				renderer2DComponent.m_Texture = texture;
 
@@ -124,7 +125,7 @@ ExampleLayer::ExampleLayer()
 		parentSprite.m_Texture = texture;
 		parentSprite.m_Tint = { 1.f, 0.f, 0.f, 1.f };
 
-		for(int i = 0; i < 10; i++)
+		for (int i = 0; i < 10; i++)
 		{
 			auto& childObj = m_Scene.CreateObject();
 			auto& childTrans = childObj.AddComponent<Vortex::TransformComponent>();
@@ -139,59 +140,64 @@ ExampleLayer::ExampleLayer()
 #endif
 
 #ifdef TILEMAP_TEST
-	m_TileMap = "31111111111111111119"
-				"20000000000000000008"
-				"20000000000000000008"
-				"20000000000000000008"
-				"20000000000000000008"
-				"20000000000000000008"
-				"20000000000000000008"
-				"20000000000000000008"
-				"20000000000000000008"
-				"20000000000000000008"
-				"20000000000000000008"
-				"20000000000000000008"
-				"20000000000000000008"
-				"20000000000000000008"
-				"20000000000000000008"
-				"20000000000000000008"
-				"20000000000000000008"
-				"20000000000000000008"
-				"20000000000000000008"
-				"6444444444444444444c";
+	{
+		m_TileMap = "31111111111111111119"
+					"20000000000000000008"
+					"20000000000000000008"
+					"20000000000000000008"
+					"20000000000000000008"
+					"20000000000000000008"
+					"20000000000000000008"
+					"20000000000000000008"
+					"20000000000000000008"
+					"20000000000000000008"
+					"20000000000000000008"
+					"20000000000000000008"
+					"20000000000000000008"
+					"20000000000000000008"
+					"20000000000000000008"
+					"20000000000000000008"
+					"20000000000000000008"
+					"20000000000000000008"
+					"20000000000000000008"
+					"6444444444444444444c";
 
+		Vortex::Ref<Vortex::Texture2D> atlasTex = Vortex::Texture2D::Create("Textures/Set_A_Standard_Coast.png");
+		atlasTex->MakeHandleResident();
 
-	m_TextureMap.insert({ '0', Vortex::SubTexture2D::CreateFromPos(Vortex::Texture2D::Create("Textures/Set_A_Standard_Coast.png"), { 1, 14 }, { 16, 16 }) });
-	m_TextureMap.insert({ '1', Vortex::SubTexture2D::CreateFromPos(Vortex::Texture2D::Create("Textures/Set_A_Standard_Coast.png"), { 1, 15 }, { 16, 16 }) });
-	m_TextureMap.insert({ '3', Vortex::SubTexture2D::CreateFromPos(Vortex::Texture2D::Create("Textures/Set_A_Standard_Coast.png"), { 0, 15 }, { 16, 16 }) });
-	m_TextureMap.insert({ '2', Vortex::SubTexture2D::CreateFromPos(Vortex::Texture2D::Create("Textures/Set_A_Standard_Coast.png"), { 0, 14 }, { 16, 16 }) });
-	m_TextureMap.insert({ '6', Vortex::SubTexture2D::CreateFromPos(Vortex::Texture2D::Create("Textures/Set_A_Standard_Coast.png"), { 0, 13 }, { 16, 16 }) });
-	m_TextureMap.insert({ '4', Vortex::SubTexture2D::CreateFromPos(Vortex::Texture2D::Create("Textures/Set_A_Standard_Coast.png"), { 1, 13 }, { 16, 16 }) });
-	m_TextureMap.insert({ 'c', Vortex::SubTexture2D::CreateFromPos(Vortex::Texture2D::Create("Textures/Set_A_Standard_Coast.png"), { 2, 13 }, { 16, 16 }) });
-	m_TextureMap.insert({ '8', Vortex::SubTexture2D::CreateFromPos(Vortex::Texture2D::Create("Textures/Set_A_Standard_Coast.png"), { 2, 14 }, { 16, 16 }) });
-	m_TextureMap.insert({ '9', Vortex::SubTexture2D::CreateFromPos(Vortex::Texture2D::Create("Textures/Set_A_Standard_Coast.png"), { 2, 15 }, { 16, 16 }) });
+		m_TextureMap.insert({ '0', Vortex::SubTexture2D::CreateFromPos(atlasTex, { 1, 14 }, { 16, 16 }) });
+		m_TextureMap.insert({ '1', Vortex::SubTexture2D::CreateFromPos(atlasTex, { 1, 15 }, { 16, 16 }) });
+		m_TextureMap.insert({ '3', Vortex::SubTexture2D::CreateFromPos(atlasTex, { 0, 15 }, { 16, 16 }) });
+		m_TextureMap.insert({ '2', Vortex::SubTexture2D::CreateFromPos(atlasTex, { 0, 14 }, { 16, 16 }) });
+		m_TextureMap.insert({ '6', Vortex::SubTexture2D::CreateFromPos(atlasTex, { 0, 13 }, { 16, 16 }) });
+		m_TextureMap.insert({ '4', Vortex::SubTexture2D::CreateFromPos(atlasTex, { 1, 13 }, { 16, 16 }) });
+		m_TextureMap.insert({ 'c', Vortex::SubTexture2D::CreateFromPos(atlasTex, { 2, 13 }, { 16, 16 }) });
+		m_TextureMap.insert({ '8', Vortex::SubTexture2D::CreateFromPos(atlasTex, { 2, 14 }, { 16, 16 }) });
+		m_TextureMap.insert({ '9', Vortex::SubTexture2D::CreateFromPos(atlasTex, { 2, 15 }, { 16, 16 }) });
+	}
 #endif
 
-
-	if(true)
+#ifdef SHIP_TEST
 	{
 		using namespace Vortex;
 
 		m_ShipMesh.reset(new Vortex::Mesh());
 		m_ShipMesh->Load("Models/Ship0.fbx");
 
-		m_ShipVao = VertexArray::Create();
+		m_ShipVao = m_ShipMesh->m_Data;
 
-		m_ShipVao->AddVertexBuffer(m_ShipMesh->m_Vertices);
-		m_ShipVao->SetIndexBuffer(m_ShipMesh->m_Indices);
-
-		m_ShipShader = Vortex::Shader::Create("Shaders/shipShader.glsl");
-		m_ShipTexture = Vortex::Texture2D::Create("Textures/Ship0.png", Vortex::TextureFormat::RGBA16);
+		m_ShipTexture = Vortex::Texture2D::Create("Textures/Ship0.png", Vortex::TextureFormat::RGBA16, Vortex::TextureWrap::REPEAT, Vortex::TextureFilter::LINEAR);
+		m_ShipTexture->MakeHandleResident();
 		
+		m_ShipShader = Vortex::Shader::Create("Shaders/litShaderBindless.glsl");
 		m_ShipShader->Bind();
-		m_ShipShader->SetUniformInt("uTexture", m_ShipTexture->GetID());
+		m_ShipShader->SetUniformTexHandle("uTexture", m_ShipTexture->GetBindlessHandle());
 	}
 
+	VORTEX_APP_INFO("DeltaTime: {0}", Vortex::Time::GetDeltaTime());
+	Vortex::Fiber fb;
+	fb.TestingContextSwitching();
+#endif
 }
 
 void ExampleLayer::Input()
@@ -241,8 +247,9 @@ void ExampleLayer::OnUpdate()
 	Input();
 
 	Vortex::RenderCommand::Clear();
-	//Vortex::Renderer2D::BeginScene(m_Camera);
-
+	
+	#ifndef SHIP_TEST
+		Vortex::Renderer2D::BeginScene(m_Camera);
 
 //	for (size_t i = 1; i < m_Scene.size(); i++)
 //	{
@@ -277,24 +284,26 @@ void ExampleLayer::OnUpdate()
 //		}
 //#endif
 //	}
-	//m_Scene.Update(m_Camera.GetComponent<Vortex::TransformComponent>().GetPosition(), Vortex::Time::GetDeltaTime());
+	m_Scene.Update(m_Camera.GetComponent<Vortex::TransformComponent>().GetPosition(), Vortex::Time::GetDeltaTime());
 
-#ifdef TILEMAP_TEST
-	Vortex::Renderer2D::DrawFromTileMap(m_TileMap, 20, m_TextureMap, m_Color);
+	#ifdef TILEMAP_TEST
+		Vortex::Renderer2D::DrawFromTileMap(m_TileMap, 20, m_TextureMap, m_Color);
+	#endif
+
+	Vortex::Renderer2D::EndScene();
 #endif
 
+#ifdef SHIP_TEST
 	auto& camera = m_Camera.GetComponent<Vortex::CameraComponent>();
 	auto& cameraTransform = m_Camera.GetComponent<Vortex::TransformComponent>();
-	
+
 	m_ShipShader->Bind();
 	m_ShipShader->SetUniformMat4("uViewProj", camera.GetViewProjectionMatrix(cameraTransform.GetPosition(), cameraTransform.GetRotation()));
-	m_ShipShader->SetUniformInt("uTexture", m_ShipTexture->GetID());
-	m_ShipTexture->Bind(1);
 	
+	//m_ShipTexture->Bind(1);
 	m_ShipVao->Bind();
 	Vortex::RenderCommand::DrawIndexed(m_ShipVao, m_ShipVao->GetIndexBuffer()->GetCount());
-
-	//Vortex::Renderer2D::EndScene();
+#endif
 }
 
 void ExampleLayer::OnEvent(Vortex::Event& event)

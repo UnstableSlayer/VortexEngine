@@ -1,7 +1,7 @@
 #include "vpch.h"
 #include "OpenGLBuffers.h"
 
-#include <glad/glad.h>
+#include <glad/gl.h>
 
 namespace Vortex
 {
@@ -69,6 +69,7 @@ namespace Vortex
 		switch (type)
 		{
 		case ShaderDataType::Int:			return GL_INT;
+		case ShaderDataType::UInt:			return GL_UNSIGNED_INT;
 		case ShaderDataType::Vec2i:			return GL_INT;
 		case ShaderDataType::Vec3i:			return GL_INT;
 		case ShaderDataType::Vec4i:			return GL_INT;
@@ -107,7 +108,7 @@ namespace Vortex
 		glBindVertexArray(m_ID);
 		vertexBuffer->Bind();
 
-		uint32_t index = 0;
+		uint32_t index = vertexBufferIndexOffset;
 		auto& layout = vertexBuffer->GetLayout();
 		for (const auto& element : layout)
 		{
@@ -120,9 +121,12 @@ namespace Vortex
 				(const void*)element.Offset);
 
 			index++;
+
+			VORTEX_CORE_CRITICAL("TEST: {0}", glGetError());
 		}
 		m_VertexBuffers.push_back(vertexBuffer);
 
+		vertexBufferIndexOffset = index;
 		glBindVertexArray(0);
 	}
 

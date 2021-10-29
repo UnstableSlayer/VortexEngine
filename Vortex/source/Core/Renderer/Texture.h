@@ -46,11 +46,14 @@ namespace Vortex
 		virtual ~Texture() = default;
 
 		virtual uint32_t GetID() const = 0;
+		virtual uint64_t GetBindlessHandle() const = 0;
 		virtual const char* GetPath() const = 0;
 
 		virtual glm::vec2 GetSize() const = 0;
 
 		virtual void Bind(uint32_t slot = 0) const = 0;
+		virtual void MakeHandleResident() const = 0;
+		virtual void MakeHandleNonResident() const = 0;
 		virtual void SetData(void* data, uint32_t size) = 0;
 		virtual uint32_t* GetData() = 0;
 	};
@@ -60,5 +63,12 @@ namespace Vortex
 	public:
 		static Ref<Texture2D> Create(const uint32_t width, const uint32_t height);
 		static Ref<Texture2D> Create(const std::string& path, TextureFormat format = TextureFormat::AUTO, TextureWrap wrap = TextureWrap::REPEAT, TextureFilter filter = TextureFilter::NEAREST);
+	};
+
+	class VORTEX_API Texture3D : public Texture
+	{
+	public:
+		static Ref<Texture3D> Create(const uint32_t width, const uint32_t height);
+		static Ref<Texture3D> Create(const std::string& path, TextureFormat format = TextureFormat::AUTO, TextureWrap wrap = TextureWrap::REPEAT, TextureFilter filter = TextureFilter::NEAREST);
 	};
 }

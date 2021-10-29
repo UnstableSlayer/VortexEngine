@@ -2,8 +2,8 @@
 #include "OpenGLTexture.h"
 #include "OpenGLTextureEnums.h"
 
-#include "stb_image.h"
-#include "glad/glad.h"
+#include <stb_image.h>
+#include <glad/gl.h>
 
 namespace Vortex
 {
@@ -45,7 +45,6 @@ namespace Vortex
 #pragma endregion
 
 		glTextureSubImage2D(m_ID, 0, 0, 0, m_Width, m_Height, m_DataFormat, GL_UNSIGNED_BYTE, data);
-		auto a = glGetError();
 
 		stbi_image_free(data);
 	}
@@ -73,6 +72,23 @@ namespace Vortex
 	void OpenGLTexture2D::Bind(uint32_t slot) const
 	{
 		glBindTextureUnit(slot, m_ID);
+	}
+
+	void OpenGLTexture2D::MakeHandleResident() const
+	{
+		uint64_t handle = glGetTextureHandleARB(m_ID);
+		glMakeTextureHandleResidentARB(handle);
+	}
+
+	void OpenGLTexture2D::MakeHandleNonResident() const
+	{
+		uint64_t handle = glGetTextureHandleARB(m_ID);
+		glMakeTextureHandleNonResidentARB(handle);
+	}
+
+	uint64_t OpenGLTexture2D::GetBindlessHandle() const
+	{
+		return glGetTextureHandleARB(m_ID);
 	}
 
 	void OpenGLTexture2D::SetData(void* data, uint32_t size)

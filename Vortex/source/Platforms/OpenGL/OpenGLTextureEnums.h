@@ -1,10 +1,10 @@
 #pragma once
 #include "Core/Renderer/Texture.h"
-#include <glad/glad.h>
+#include <glad/gl.h>
 
 namespace Vortex
 {
-	static std::pair<GLenum, GLenum> TextureFormatToAPIEnum(TextureFormat format)
+	static const std::pair<GLenum, GLenum> TextureFormatToAPIEnum(TextureFormat format)
 	{
 		GLenum texFormat, dataFormat = GL_NONE;
 		switch (format)
@@ -31,7 +31,7 @@ namespace Vortex
 
 		return std::pair<GLenum, GLenum>(texFormat, dataFormat);
 	}
-	static GLenum TextureFilterToAPIEnum(TextureFilter filter)
+	static const GLenum TextureFilterToAPIEnum(TextureFilter filter)
 	{
 		GLenum texFilter;
 		switch (filter)
@@ -44,7 +44,7 @@ namespace Vortex
 
 		return texFilter;
 	}
-	static GLenum TextureWrapToApiEnum(TextureWrap wrap)
+	static const GLenum TextureWrapToApiEnum(TextureWrap wrap)
 	{
 		uint32_t texWrap;
 		switch (wrap)
@@ -59,7 +59,7 @@ namespace Vortex
 		return texWrap;
 	}
 
-	static bool IsDepthTexture(TextureFormat format)
+	static const bool IsDepthTexture(TextureFormat format)
 	{
 		switch (format)
 		{
