@@ -35,7 +35,7 @@ namespace Vortex
 
 		virtual void* GetAPIWindow() const = 0;
 
-		static Window* Create(const WindowProperties& properties = WindowProperties());
+		static Ref<Window> Create(const WindowProperties& properties = WindowProperties());
 	};
 }
 

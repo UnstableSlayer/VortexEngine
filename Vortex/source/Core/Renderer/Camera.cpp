@@ -90,15 +90,21 @@ namespace Vortex
 
 	void PerspectiveCamera::SetZoom(const float zoom)
 	{
-		m_Zoom = std::max(zoom, 0.1f);
-		m_ProjectionMatrix = glm::perspective(-m_FOV / m_Zoom, m_AspectRatio, m_Near, m_Far);
+		m_Zoom = zoom < 1.f ? 1.f : zoom;
+		m_ProjectionMatrix = glm::perspective(-glm::atan(glm::tan(m_FOV) / (m_Zoom * 10.f)), m_AspectRatio, m_Near, m_Far);
+	}
+
+	void PerspectiveCamera::SetFOV(const float fov)
+	{
+		m_FOV = fov;
+		m_ProjectionMatrix = glm::perspective(-glm::atan(glm::tan(m_FOV) / (m_Zoom * 10.f)), m_AspectRatio, m_Near, m_Far);
 	}
 
 	void PerspectiveCamera::Resize(const float width, const float height)
 	{
 		m_AspectRatio = width / height;
 
-		m_ProjectionMatrix = glm::perspective(-m_FOV, m_AspectRatio, m_Near, m_Far);
+		m_ProjectionMatrix = glm::perspective(-glm::atan(glm::tan(m_FOV) / (m_Zoom * 10.f)), m_AspectRatio, m_Near, m_Far);
 	}
 
 	void PerspectiveCamera::OnEvent(Event& e)
@@ -111,7 +117,7 @@ namespace Vortex
 		if ((float)e.GetWidth() == 0 || (float)e.GetHeight() == 0) return false;
 		m_AspectRatio = (float)e.GetWidth() / (float)e.GetHeight();
 
-		m_ProjectionMatrix = glm::perspective(-m_FOV, m_AspectRatio, m_Near, m_Far);
+		m_ProjectionMatrix = glm::perspective(-glm::atan(glm::tan(m_FOV) / (m_Zoom * 10.f)), m_AspectRatio, m_Near, m_Far);
 
 		return false;
 	}

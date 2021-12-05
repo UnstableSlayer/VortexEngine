@@ -21,8 +21,8 @@ namespace Vortex
 		static const float GetUnscaledDeltaTime() { return UnscaledDeltaTime; }
 
 	public:
-		inline static float Time::TimeScale;
-		inline static float Time::UnscaledDeltaTime;
+		inline static float TimeScale;
+		inline static float UnscaledDeltaTime;
 	};
 
 
@@ -49,7 +49,7 @@ namespace Vortex
 			auto end = std::chrono::time_point_cast<std::chrono::microseconds>(endPoint).time_since_epoch().count();
 
 			m_Running = false;
-			float elapsed = (end - start) * 0.001f;
+			float elapsed = (end - start) * 0.000001f;
 
 			m_Func({ m_Name, elapsed });
 		}

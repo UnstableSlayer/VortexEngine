@@ -27,6 +27,9 @@ namespace Vortex
 		virtual void SetZoom(const float zoom) = 0;
 		const float& GetZoom() const { return m_Zoom; }
 
+		virtual void SetFOV(const float fov) { m_FOV = fov; }
+		const float& GetFOV() const { return m_FOV; }
+
 		void SetClipSpace(const float zNear, const float zFar) { m_Near = zNear; m_Far = zFar; }
 		const glm::vec2& GetClipSpace() const { return {m_Near, m_Far}; }
 
@@ -50,6 +53,7 @@ namespace Vortex
 
 		float m_AspectRatio;
 		float m_Zoom;
+		float m_FOV;
 	};
 
 
@@ -76,14 +80,12 @@ namespace Vortex
 	public:
 		PerspectiveCamera(const float width, const float height, const float zNear, const float zFar, const float fov);
 		virtual void SetZoom(const float zoom) override;
+		virtual void SetFOV(const float fov) override;
 
 		virtual void Resize(const float width, const float height) override;
 		virtual void OnEvent(Event& e) override;
 
 	private:
 		virtual bool OnWindowResize(WindowResizeEvent& event) override;
-
-	private:
-		float m_FOV;
 	};
 }

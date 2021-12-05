@@ -141,7 +141,8 @@
       <MinimalRebuild>false</MinimalRebuild>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -165,7 +166,8 @@
       <MinimalRebuild>false</MinimalRebuild>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -191,7 +193,8 @@
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -218,7 +221,8 @@
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -245,7 +249,8 @@
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -272,7 +277,8 @@
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -286,7 +292,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="source\Core\Jobs\Coroutine.h" />
+    <ClInclude Include="source\Core\Jobs\JobData.h" />
     <ClInclude Include="source\Core\ApplicationClass.h" />
     <ClInclude Include="source\Core\Assert.h" />
     <ClInclude Include="source\Core\Core.h" />
@@ -300,9 +306,11 @@
     <ClInclude Include="source\Core\Events\MouseEvents.h" />
     <ClInclude Include="source\Core\Events\WindowEvents.h" />
     <ClInclude Include="source\Core\Input.h" />
+    <ClInclude Include="source\Core\Jobs\JobScheduler.h" />
     <ClInclude Include="source\Core\Layer.h" />
     <ClInclude Include="source\Core\LayerStack.h" />
     <ClInclude Include="source\Core\Logger.h" />
+    <ClInclude Include="source\Core\RefCounter.h" />
     <ClInclude Include="source\Core\RNG.h" />
     <ClInclude Include="source\Core\Renderer\Buffers.h" />
     <ClInclude Include="source\Core\Renderer\Camera.h" />
@@ -325,7 +333,7 @@
     <ClInclude Include="source\Platforms\OpenGL\OpenGLShader.h" />
     <ClInclude Include="source\Platforms\OpenGL\OpenGLTexture.h" />
     <ClInclude Include="source\Platforms\OpenGL\OpenGLTextureEnums.h" />
-    <ClInclude Include="source\Platforms\Windows\WindowsWindow.h" />
+    <ClInclude Include="source\Platforms\SDL\SDLWindow.h" />
     <ClInclude Include="source\VortexEngine.h" />
     <ClInclude Include="source\vpch.h" />
     <ClInclude Include="thirdParty\glm\glm\common.hpp" />
@@ -746,9 +754,9 @@
     <ClInclude Include="thirdParty\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\Core\Jobs\Coroutine.cpp" />
     <ClCompile Include="source\Core\ApplicationClass.cpp" />
     <ClCompile Include="source\Core\Envirovnemt\Scene.cpp" />
+    <ClCompile Include="source\Core\Jobs\JobScheduler.cpp" />
     <ClCompile Include="source\Core\Layer.cpp" />
     <ClCompile Include="source\Core\LayerStack.cpp" />
     <ClCompile Include="source\Core\Logger.cpp" />
@@ -768,8 +776,8 @@
     <ClCompile Include="source\Platforms\OpenGL\OpenGLRendererAPI.cpp" />
     <ClCompile Include="source\Platforms\OpenGL\OpenGLShader.cpp" />
     <ClCompile Include="source\Platforms\OpenGL\OpenGLTexture.cpp" />
-    <ClCompile Include="source\Platforms\Windows\WindowsInput.cpp" />
-    <ClCompile Include="source\Platforms\Windows\WindowsWindow.cpp" />
+    <ClCompile Include="source\Platforms\SDL\SDLInput.cpp" />
+    <ClCompile Include="source\Platforms\SDL\SDLWindow.cpp" />
     <ClCompile Include="source\vpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>

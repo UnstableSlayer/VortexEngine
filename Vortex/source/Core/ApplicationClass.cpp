@@ -7,6 +7,7 @@
 
 #include "Renderer/RenderCommand.h"
 #include "Renderer/Renderer2D.h"
+#include "Jobs/JobScheduler.h"
 
 namespace Vortex
 {
@@ -25,6 +26,7 @@ namespace Vortex
 	void ApplicationClass::OnCreate()
 	{
 		Time::Init();
+		JobScheduler::Init();
 		RenderCommand::Init();
 		Renderer2D::Init();
 
@@ -32,7 +34,7 @@ namespace Vortex
 
 		while (m_Running)
 		{
-			Timer timer = Timer("DeltaTime", [&](ProfileResult profileReport) {Time::Set(profileReport.Time / 1000.f); });
+			Timer timer = Timer("DeltaTime", [&](ProfileResult profileReport) {Time::Set(profileReport.Time); });
 			OnUpdate();
 
 			if (!m_Minimized)
@@ -41,6 +43,8 @@ namespace Vortex
 					layer->OnUpdate();
 			}
 		}
+
+		JobScheduler::Destroy();
 	}
 
 	void ApplicationClass::OnClose()

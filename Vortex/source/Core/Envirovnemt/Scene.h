@@ -14,7 +14,8 @@ namespace Vortex
 		Object& CreateObject()
 		{
 			uint32_t id = (uint32_t)m_Registry.create();
-			return Object(id, &m_Registry);
+			Object* obj = new Object(id, &m_Registry);
+			return *obj;
 		}
 		void RemoveObject(uint32_t objectID)
 		{

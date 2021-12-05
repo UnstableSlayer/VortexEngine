@@ -3,16 +3,16 @@
 
 #include <glm/gtc/type_ptr.hpp>
 
-//#define TEXTURE_TEST
+#define TEXTURE_TEST
 //#define BALLS_TEST
 //#define TRANSFORM_PARENT_TEST
 //#define TILEMAP_TEST
-#define SHIP_TEST
+///#define SHIP_TEST
 
 ExampleLayer::ExampleLayer()
 	: Layer("Example")
 {
-	m_TransformTest.reset(new Vortex::TransformComponent());
+	m_TransformTest = Vortex::MakeRef<Vortex::TransformComponent>();
 
 	//Camera
 	{
@@ -27,11 +27,46 @@ ExampleLayer::ExampleLayer()
 	{
 		Vortex::Object obj = m_Scene.CreateObject();
 		obj.AddComponent<Vortex::TagComponent>("DW");
-		obj.AddComponent<Vortex::TransformComponent>().SetScale({ 10.f, 1.f, 1.f });
+		auto& transform = obj.AddComponent<Vortex::TransformComponent>();
+		transform.SetPosition({0.f, 0.f, 0.f});
 
 		auto& renderer2DComponent = obj.AddComponent<Vortex::SpriteComponent>();
-		renderer2DComponent.m_Texture = Vortex::Texture2D::Create("Textures/4KTest.png", Vortex::TextureFormat::RGB16);
+		renderer2DComponent.m_Texture = Vortex::Texture2D::Create("Textures/testTexture0.png", Vortex::TextureFormat::RGB16);
 	}
+
+	//Spiderman
+	{
+		Vortex::Object obj = m_Scene.CreateObject();
+		obj.AddComponent<Vortex::TagComponent>("SP");
+		auto& transform = obj.AddComponent<Vortex::TransformComponent>();
+		transform.SetPosition({ -1.f, 0.f, 0.f });
+
+		auto& renderer2DComponent = obj.AddComponent<Vortex::SpriteComponent>();
+		renderer2DComponent.m_Texture = Vortex::Texture2D::Create("Textures/testTexture1.png", Vortex::TextureFormat::RGBA16);
+	}
+
+	//Skull
+	{
+		Vortex::Object obj = m_Scene.CreateObject();
+		obj.AddComponent<Vortex::TagComponent>("SK");
+		auto& transform = obj.AddComponent<Vortex::TransformComponent>();
+		transform.SetPosition({ 0.f, 1.f, 0.f });
+
+		auto& renderer2DComponent = obj.AddComponent<Vortex::SpriteComponent>();
+		renderer2DComponent.m_Texture = Vortex::Texture2D::Create("Textures/testTexture.png", Vortex::TextureFormat::RGBA16);
+	}
+
+	//Bricks
+	{
+		Vortex::Object obj = m_Scene.CreateObject();
+		obj.AddComponent<Vortex::TagComponent>("BR");
+		auto& transform = obj.AddComponent<Vortex::TransformComponent>();
+		transform.SetPosition({ 0.f, 0.f, -10.f });
+	
+		auto& renderer2DComponent = obj.AddComponent<Vortex::SpriteComponent>();
+		renderer2DComponent.m_Texture = Vortex::Texture2D::Create("Textures/bricks.png", Vortex::TextureFormat::RGB16);
+	}
+
 #endif
 
 #ifdef BALLS_TEST
@@ -114,7 +149,7 @@ ExampleLayer::ExampleLayer()
 
 #ifdef TRANSFORM_PARENT_TEST
 	{
-		auto& texture = Vortex::Texture2D::Create("Textures/Ball.png");
+		auto texture = Vortex::Texture2D::Create("Textures/Ball.png");
 
 		auto& parentObj = m_Scene.CreateObject();
 		auto& parentTrans = parentObj.AddComponent<Vortex::TransformComponent>();
@@ -181,7 +216,7 @@ ExampleLayer::ExampleLayer()
 	{
 		using namespace Vortex;
 
-		m_ShipMesh.reset(new Vortex::Mesh());
+		m_ShipMesh = Vortex::MakeRef<Vortex::Mesh>();
 		m_ShipMesh->Load("Models/Ship0.fbx");
 
 		m_ShipVao = m_ShipMesh->m_Data;
@@ -194,9 +229,7 @@ ExampleLayer::ExampleLayer()
 		m_ShipShader->SetUniformTexHandle("uTexture", m_ShipTexture->GetBindlessHandle());
 	}
 
-	VORTEX_APP_INFO("DeltaTime: {0}", Vortex::Time::GetDeltaTime());
-	Vortex::Fiber fb;
-	fb.TestingContextSwitching();
+	//VORTEX_APP_INFO("DeltaTime: {0}", Vortex::Time::GetDeltaTime());
 #endif
 }
 
@@ -207,10 +240,10 @@ void ExampleLayer::Input()
 
 	glm::vec3 velocity = glm::vec3(0.f);
 	glm::vec3 angularVelocity = glm::vec3(0.f);
-	static float scale = 1.f;
+	float scale = camera.GetZoom();
 
-	if (Vortex::Input::IsKeyPressed(Vortex::Key::I)) scale += 2.f * Vortex::Time::GetDeltaTime();
-	if (Vortex::Input::IsKeyPressed(Vortex::Key::O)) scale -= 2.f * Vortex::Time::GetDeltaTime();
+	if (Vortex::Input::IsKeyPressed(Vortex::Key::I)) scale += 10.f * Vortex::Time::GetDeltaTime();
+	if (Vortex::Input::IsKeyPressed(Vortex::Key::O)) scale -= 10.f * Vortex::Time::GetDeltaTime();
 
 	if (Vortex::Input::IsKeyPressed(Vortex::Key::S)) velocity.z += 40.f  * Vortex::Time::GetDeltaTime();
 	if (Vortex::Input::IsKeyPressed(Vortex::Key::W)) velocity.z -= 40.f  * Vortex::Time::GetDeltaTime();
@@ -223,10 +256,10 @@ void ExampleLayer::Input()
 	if (Vortex::Input::IsMouseButtonPressed(Vortex::Mouse::L)) Vortex::ApplicationClass::Get().GetWindow().LockCursor(true);
 
 	{
-		auto& [mousePosX, mousePosY] = Vortex::Input::GetMouseDelta();
+		auto [mousePosX, mousePosY] = Vortex::Input::GetMouseDelta();
 		{
-			float deltaX = mousePosY;// - lastMousePos.y;
-			float deltaY = mousePosX;// - lastMousePos.x;
+			float deltaX = mousePosY;
+			float deltaY = mousePosX;
 
 			angularVelocity.x = 20.f * deltaX * Vortex::Time::GetDeltaTime();
 			angularVelocity.y = 20.f * deltaY * Vortex::Time::GetDeltaTime();
@@ -247,43 +280,35 @@ void ExampleLayer::OnUpdate()
 	Input();
 
 	Vortex::RenderCommand::Clear();
-	
+
 	#ifndef SHIP_TEST
 		Vortex::Renderer2D::BeginScene(m_Camera);
 
-//	for (size_t i = 1; i < m_Scene.size(); i++)
-//	{
-//		auto* object = m_Scene[i];
-//
-//		auto& transform = object->GetComponent<Vortex::TransformComponent>();
-//		static glm::vec2 shear = transform.GetShear();
-//
-//		if (Vortex::Input::IsKeyPressed(Vortex::Key::Q)) shear.y += -0.2f * Vortex::Time::GetDeltaTime();
-//		if (Vortex::Input::IsKeyPressed(Vortex::Key::E)) shear.y +=  0.2f * Vortex::Time::GetDeltaTime();
-//
-//		if (shear.y < -0.5f) shear.y = 0.5f;
-//		if (shear.y > 0.5f) shear.y = -0.5f;
-//
-//		transform.SetShear({ 0.f, shear.y, 0.f });
-//		//transform.SetPosition(m_TransformTest->GetPosition());
-//		//transform.SetRotation(m_TransformTest->GetRotation());
-//		//auto& test = transform.GetRotation();
-//		//VORTEX_APP_INFO("Rot: {0} {1} {2} {3}", test.x, test.y, test.z, test.w);
-//
-//#ifdef TRANSFORM_PARENT_TEST
-//		if (i == 1)
-//		{
-//			transform.SetPosition(m_TransformTest->GetPosition());
-//			transform.SetRotation(m_TransformTest->GetRotation());
-//		}
-//		else if (i > 1)
-//		{
-//			float radius = 0.5f * i * transform.GetScale().x;
-//			transform.RotateAround({0.f, 0.f, 0.f}, { 0.f, 0.f, 1.f }, radius, i * 10.f * Vortex::Time::GetDeltaTime());
-//			transform.SetPosition({ transform.GetPosition().x, transform.GetPosition().y, i});
-//		}
-//#endif
-//	}
+	#ifdef TRANSFORM_PARENT_TEST
+	for (size_t i = 1; i < m_Scene.size(); i++)
+	{
+		auto* object = m_Scene[i];
+
+		auto& transform = object->GetComponent<Vortex::TransformComponent>();
+		//transform.SetPosition(m_TransformTest->GetPosition());
+		//transform.SetRotation(m_TransformTest->GetRotation());
+		//auto& test = transform.GetRotation();
+		//VORTEX_APP_INFO("Rot: {0} {1} {2} {3}", test.x, test.y, test.z, test.w);
+
+		if (i == 1)
+		{
+			transform.SetPosition(m_TransformTest->GetPosition());
+			transform.SetRotation(m_TransformTest->GetRotation());
+		}
+		else if (i > 1)
+		{
+			float radius = 0.5f * i * transform.GetScale().x;
+			transform.RotateAround({0.f, 0.f, 0.f}, { 0.f, 0.f, 1.f }, radius, i * 10.f * Vortex::Time::GetDeltaTime());
+			transform.SetPosition({ transform.GetPosition().x, transform.GetPosition().y, i});
+		}
+	}
+	#endif
+
 	m_Scene.Update(m_Camera.GetComponent<Vortex::TransformComponent>().GetPosition(), Vortex::Time::GetDeltaTime());
 
 	#ifdef TILEMAP_TEST

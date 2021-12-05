@@ -35,7 +35,7 @@ namespace Vortex
 		virtual bool OnWindowResize(WindowResizeEvent& event);
 
 	protected:
-		Scope<Window> m_Window;
+		Ref<Window> m_Window;
 		LayerStack m_LayerStack;
 
 		bool m_Running = true;

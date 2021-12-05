@@ -6,11 +6,11 @@ class GameApplication : public Vortex::ApplicationClass
 public:
 	GameApplication()
 	{
-		m_Window = std::unique_ptr<Vortex::Window>(Vortex::Window::Create(Vortex::WindowProperties("Vortex Engine Example Window", 640, 360)));
+		m_Window = Vortex::Window::Create(Vortex::WindowProperties("Vortex Engine Example Window", 640, 360));
 		m_Window->SetEventCallback(VORTEX_BIND_EVENT(ApplicationClass::OnEvent));
 		m_Window->SetVSync(false);
 		m_Window->LockCursor(true);
-
+		m_Window->SetWindowTitle("Testing Setting");
 		PushLayer(new ExampleLayer());
 	}
 

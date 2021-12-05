@@ -7,7 +7,6 @@ namespace Vortex
 	class VORTEX_API Logger
 	{
 	public:
-
 		static void Init();
 
 		inline static std::shared_ptr<spdlog::logger>& GetCoreLogger() { return m_CoreLogger; }

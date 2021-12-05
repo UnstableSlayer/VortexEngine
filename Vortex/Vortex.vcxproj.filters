@@ -165,7 +165,7 @@
     <ClInclude Include="source\Platforms\OpenGL\OpenGLTextureEnums.h">
       <Filter>source\Platforms\OpenGL</Filter>
     </ClInclude>
-    <ClInclude Include="source\Platforms\Windows\WindowsWindow.h">
+    <ClInclude Include="source\Platforms\SDL\SDLWindow.h">
       <Filter>source\Platforms\Windows</Filter>
     </ClInclude>
     <ClInclude Include="source\VortexEngine.h">
@@ -1422,7 +1422,9 @@
     <ClInclude Include="thirdParty\stb_image\stb_image.h">
       <Filter>thirdParty\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="source\Core\Jobs\Coroutine.h" />
+    <ClInclude Include="source\Core\Jobs\JobData.h" />
+    <ClInclude Include="source\Core\Jobs\JobScheduler.h" />
+    <ClInclude Include="source\Core\RefCounter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Core\ApplicationClass.cpp">
@@ -1488,10 +1490,10 @@
     <ClCompile Include="source\Platforms\OpenGL\OpenGLTexture.cpp">
       <Filter>source\Platforms\OpenGL</Filter>
     </ClCompile>
-    <ClCompile Include="source\Platforms\Windows\WindowsInput.cpp">
+    <ClCompile Include="source\Platforms\SDL\SDLInput.cpp">
       <Filter>source\Platforms\Windows</Filter>
     </ClCompile>
-    <ClCompile Include="source\Platforms\Windows\WindowsWindow.cpp">
+    <ClCompile Include="source\Platforms\SDL\SDLWindow.cpp">
       <Filter>source\Platforms\Windows</Filter>
     </ClCompile>
     <ClCompile Include="source\vpch.cpp">
@@ -1500,6 +1502,6 @@
     <ClCompile Include="thirdParty\stb_image\stb_image.cpp">
       <Filter>thirdParty\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="source\Core\Jobs\Coroutine.cpp" />
+    <ClCompile Include="source\Core\Jobs\JobScheduler.cpp" />
   </ItemGroup>
 </Project>

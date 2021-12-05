@@ -2,6 +2,7 @@
 //for use in game application
 #include "..\source\Core\Core.h"
 #include "..\source\Core\Assert.h"
+#include "..\source\Core\RefCounter.h"
 #include "..\source\Core\Logger.h"
 
 #include "..\source\Core\ApplicationClass.h"
@@ -36,6 +37,7 @@
 #include "..\source\Core\Time.h"
 //----Job System----------------------------
 
-#include "..\source\Core\Jobs\Coroutine.h"
+#include "..\source\Core\Jobs\JobData.h"
+#include "..\source\Core\Jobs\JobScheduler.h"
 
 //-------------------------------------------

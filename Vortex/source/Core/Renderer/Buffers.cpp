@@ -11,7 +11,7 @@ namespace Vortex
         switch (RendererAPI::GetAPI())
         {
         case RendererAPI::API::None: VORTEX_ASSERT(false, "No API Selected!"); return nullptr;
-        case RendererAPI::API::OpenGL: return Ref<OpenGLVertexBuffer>(new OpenGLVertexBuffer(size));
+        case RendererAPI::API::OpenGL: return MakeRef<OpenGLVertexBuffer>(size);
         }
 
         VORTEX_ASSERT(false, "Unknown Renderer API!");
