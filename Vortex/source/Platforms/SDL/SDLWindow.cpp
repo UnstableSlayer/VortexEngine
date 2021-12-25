@@ -40,7 +40,6 @@ namespace Vortex
 			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 1);
 			SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 			SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
-
 			//MaybeToDo: Error handling callback
 
 			b_SDLInitialized = true;

@@ -6,6 +6,7 @@ namespace Vortex
 	{
 	public:
 		static bool IsKeyPressed(int keycode);
+		static bool IsControllerButtonPressed(int keycode, int controllerIndex);
 		
 		static bool IsMouseButtonPressed(int button);
 		static std::pair<float, float> GetMousePosition();

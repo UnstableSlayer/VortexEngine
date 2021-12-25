@@ -3,11 +3,11 @@
 
 #include <glm/gtc/type_ptr.hpp>
 
-#define TEXTURE_TEST
+//#define TEXTURE_TEST
 //#define BALLS_TEST
 //#define TRANSFORM_PARENT_TEST
 //#define TILEMAP_TEST
-///#define SHIP_TEST
+#define SHIP_TEST
 
 ExampleLayer::ExampleLayer()
 	: Layer("Example")
@@ -73,7 +73,7 @@ ExampleLayer::ExampleLayer()
 	//Ball
 	{
 		float radius = 2.f;
-		auto& texture = Vortex::Texture2D::Create("Textures/Ball.png", Vortex::TextureFormat::RGBA8);
+		auto texture = Vortex::Texture2D::Create("Textures/Ball.png", Vortex::TextureFormat::RGBA8);
 
 		int count = 16;
 		for (size_t x = 0; x < count; x++)

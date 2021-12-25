@@ -22,7 +22,7 @@ namespace Vortex
 
 	void Camera::RecalculateViewMatrix(const glm::vec3& position, const glm::quat& rotation)
 	{
-		m_ViewMatrix = glm::toMat4(rotation) * glm::translate(glm::mat4(1.0f), -position);// *glm::toMat4(rotation);
+		m_ViewMatrix = glm::toMat4(rotation) * glm::translate(glm::mat4(1.0f), -position);
 		m_ViewProjectionMatrix = m_ProjectionMatrix * m_ViewMatrix;
 	}
 

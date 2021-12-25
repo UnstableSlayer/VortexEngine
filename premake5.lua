@@ -1,5 +1,5 @@
 workspace "VortexEngine"
-	platforms { "x86", "x64" }
+	platforms { "x86", "x64", "arm", "arm64"}
 	startproject "GameProject"
 
 	configurations
@@ -31,7 +31,7 @@ workspace "VortexEngine"
 		location "Vortex"
 		kind "StaticLib"
 		language "C++"
-		cppdialect "C++17"
+		cppdialect "C++20"
 		staticruntime "on"
 	
 		targetdir ("bin/" .. outputDir .. "/%{prj.name}")
@@ -69,12 +69,12 @@ workspace "VortexEngine"
 		
 		linkoptions { "/NODEFAULTLIB", "/FORCE:MULTIPLE"}
 		
-		libdirs
-		{
-			"%{IncludeDir.SDL2}/lib/%{cfg.architecture}"
-		}
-		
 		filter "configurations:Debug"
+			libdirs
+			{
+				"%{IncludeDir.SDL2}/lib/%{cfg.architecture}/Debug"
+			}
+			
 			links
 			{
 				"libucrtd",
@@ -94,6 +94,10 @@ workspace "VortexEngine"
 				"SDL2main"
 			}
 		filter "configurations:Release or Dist"
+			libdirs
+			{
+				"%{IncludeDir.SDL2}/lib/%{cfg.architecture}/Release"
+			}
 			links
 			{
 				"libucrt",
@@ -143,7 +147,7 @@ workspace "VortexEngine"
 		location "GameProject"
 		kind "ConsoleApp"
 		language "C++"
-		cppdialect "C++17"
+		cppdialect "C++20"
 		staticruntime "on"
 	
 		targetdir ("bin\\" .. outputDir .. "\\%{prj.name}")

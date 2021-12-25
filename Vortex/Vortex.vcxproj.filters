@@ -13,6 +13,9 @@
     <Filter Include="source\Core\Events">
       <UniqueIdentifier>{B25DDF08-9E41-A05E-07A2-9AB1F3A48AE0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="source\Core\Jobs">
+      <UniqueIdentifier>{4BDF93DF-37D8-B231-600A-98B64C62923D}</UniqueIdentifier>
+    </Filter>
     <Filter Include="source\Core\Renderer">
       <UniqueIdentifier>{F4A028B5-E02F-B27E-894E-C67975BCC224}</UniqueIdentifier>
     </Filter>
@@ -22,8 +25,8 @@
     <Filter Include="source\Platforms\OpenGL">
       <UniqueIdentifier>{D1349BF2-3D6C-E389-4676-47ADB22C0A83}</UniqueIdentifier>
     </Filter>
-    <Filter Include="source\Platforms\Windows">
-      <UniqueIdentifier>{77A91D9E-63CE-6C1E-8C19-52AE789D6B3C}</UniqueIdentifier>
+    <Filter Include="source\Platforms\SDL">
+      <UniqueIdentifier>{AF181B3D-9BA7-A406-44C6-B8013034B5AC}</UniqueIdentifier>
     </Filter>
     <Filter Include="thirdParty">
       <UniqueIdentifier>{3095977A-1C4D-D9C7-8554-B223712B74B8}</UniqueIdentifier>
@@ -90,6 +93,12 @@
     <ClInclude Include="source\Core\Input.h">
       <Filter>source\Core</Filter>
     </ClInclude>
+    <ClInclude Include="source\Core\Jobs\JobData.h">
+      <Filter>source\Core\Jobs</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Core\Jobs\JobScheduler.h">
+      <Filter>source\Core\Jobs</Filter>
+    </ClInclude>
     <ClInclude Include="source\Core\Layer.h">
       <Filter>source\Core</Filter>
     </ClInclude>
@@ -100,6 +109,9 @@
       <Filter>source\Core</Filter>
     </ClInclude>
     <ClInclude Include="source\Core\RNG.h">
+      <Filter>source\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Core\RefCounter.h">
       <Filter>source\Core</Filter>
     </ClInclude>
     <ClInclude Include="source\Core\Renderer\Buffers.h">
@@ -166,7 +178,7 @@
       <Filter>source\Platforms\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="source\Platforms\SDL\SDLWindow.h">
-      <Filter>source\Platforms\Windows</Filter>
+      <Filter>source\Platforms\SDL</Filter>
     </ClInclude>
     <ClInclude Include="source\VortexEngine.h">
       <Filter>source</Filter>
@@ -1422,9 +1434,6 @@
     <ClInclude Include="thirdParty\stb_image\stb_image.h">
       <Filter>thirdParty\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="source\Core\Jobs\JobData.h" />
-    <ClInclude Include="source\Core\Jobs\JobScheduler.h" />
-    <ClInclude Include="source\Core\RefCounter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\Core\ApplicationClass.cpp">
@@ -1432,6 +1441,9 @@
     </ClCompile>
     <ClCompile Include="source\Core\Envirovnemt\Scene.cpp">
       <Filter>source\Core\Envirovnemt</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Core\Jobs\JobScheduler.cpp">
+      <Filter>source\Core\Jobs</Filter>
     </ClCompile>
     <ClCompile Include="source\Core\Layer.cpp">
       <Filter>source\Core</Filter>
@@ -1491,10 +1503,10 @@
       <Filter>source\Platforms\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="source\Platforms\SDL\SDLInput.cpp">
-      <Filter>source\Platforms\Windows</Filter>
+      <Filter>source\Platforms\SDL</Filter>
     </ClCompile>
     <ClCompile Include="source\Platforms\SDL\SDLWindow.cpp">
-      <Filter>source\Platforms\Windows</Filter>
+      <Filter>source\Platforms\SDL</Filter>
     </ClCompile>
     <ClCompile Include="source\vpch.cpp">
       <Filter>source</Filter>
@@ -1502,6 +1514,5 @@
     <ClCompile Include="thirdParty\stb_image\stb_image.cpp">
       <Filter>thirdParty\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="source\Core\Jobs\JobScheduler.cpp" />
   </ItemGroup>
 </Project>

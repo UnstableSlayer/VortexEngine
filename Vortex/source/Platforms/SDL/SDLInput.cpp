@@ -12,9 +12,17 @@ namespace Vortex
 
         const uint8_t* sdlKeyStateArray = SDL_GetKeyboardState(NULL);
         auto state = sdlKeyStateArray[SDL_GetScancodeFromKey(keycode)];
-
         return state;
     }
+    bool Input::IsControllerButtonPressed(int keycode, int controllerIndex)
+    {
+        auto window = static_cast<SDL_Window*>(ApplicationClass::Get().GetWindow().GetAPIWindow());
+        
+        auto a = SDL_GameControllerOpen(controllerIndex);
+        const bool state = SDL_GameControllerGetButton(a, (SDL_GameControllerButton)keycode);
+        return state;
+    }
+
     bool Input::IsMouseButtonPressed(int button)
     {
         auto window = static_cast<SDL_Window*>(ApplicationClass::Get().GetWindow().GetAPIWindow());
@@ -32,7 +40,6 @@ namespace Vortex
 
         return { (float)xPos, (float)yPos };
     }
-
     std::pair<float, float> Input::GetMousePosition()
     {
         auto window = static_cast<SDL_Window*>(ApplicationClass::Get().GetWindow().GetAPIWindow());
@@ -52,7 +59,6 @@ namespace Vortex
 
         return x;
     }
-
     float Input::GetMouseY()
     {
         auto [x, y] = Input::GetMousePosition();
