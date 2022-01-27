@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef VE_PLATFORM_WINDOWS
+//#ifdef VE_PLATFORM_WINDOWS
 
 extern Vortex::ApplicationClass* Vortex::CreateApplication();
 
@@ -12,4 +12,4 @@ int main(int argc, char** argv)
 	delete app;
 }
 
-#endif
+//#endif

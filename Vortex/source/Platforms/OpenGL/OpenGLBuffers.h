@@ -1,5 +1,5 @@
 #pragma once
-#include "Core/Renderer/Buffers.h"
+#include "Renderer/Buffers.h"
 
 namespace Vortex
 {

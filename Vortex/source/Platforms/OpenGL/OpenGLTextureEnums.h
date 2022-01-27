@@ -1,5 +1,5 @@
 #pragma once
-#include "Core/Renderer/Texture.h"
+#include "Renderer/Texture.h"
 #include <glad/gl.h>
 
 namespace Vortex

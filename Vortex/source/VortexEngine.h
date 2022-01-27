@@ -1,43 +1,46 @@
 #pragma once
-//for use in game application
-#include "..\source\Core\Core.h"
-#include "..\source\Core\Assert.h"
-#include "..\source\Core\RefCounter.h"
-#include "..\source\Core\Logger.h"
 
-#include "..\source\Core\ApplicationClass.h"
-#include "..\source\Core\Layer.h"
+//----for use in game application----------
+#include "Core/Core.h"
+#include "Core/Assert.h"
+#include "Core/RefCounter.h"
+#include "Core/Logger.h"
 
-#include "..\source\Core\Input.h"
-#include "..\source\Core\Events\KeyCodes.h"
-#include "..\source\Core\Events\MouseCodes.h"
+#include "Core/ApplicationClass.h"
+#include "Core/Layer.h"
 
-#include "..\source\Core\RNG.h"
+#include "Core/Input.h"
+#include "Events/KeyCodes.h"
+#include "Events/MouseCodes.h"
 
-//---Scene---------------------------------
-#include "..\thirdParty\Entt\include\entt\entt.hpp"
-#include "..\source\Core\Envirovnemt\Object.h"
-#include "..\source\Core\Envirovnemt\Scene.h"
-#include "..\source\Core\Envirovnemt\Components.h"
+#include "Core/RNG.h"
+
+//----Scene--------------------------------
+#include "../thirdParty/Entt/include/entt/entt.hpp"
+#include "Environment/Object.h"
+#include "Environment/Scene.h"
+#include "Environment/Components.h"
+
+//----ImGui--------------------------------
+#include "../thirdParty/imgui/imgui.h"
+#include "ImGui/ImGuiLayer.h"
 
 //----Rendering----------------------------
-#include "..\source\Core\Renderer\Renderer2D.h"
-#include "..\source\Core\Renderer\RenderCommand.h"
+#include "Renderer/Renderer2D.h"
+#include "Renderer/RenderCommand.h"
 
-#include "..\source\Core\Renderer\Buffers.h"
-#include "..\source\Core\Renderer\Shader.h"
-#include "..\source\Core\Renderer\Texture.h"
-#include "..\source\Core\Renderer\SubTexture2D.h"
-#include "..\source\Core\Renderer\Mesh.h"
+#include "Renderer/Buffers.h"
+#include "Renderer/Shader.h"
+#include "Renderer/Texture.h"
+#include "Renderer/SubTexture2D.h"
+#include "Renderer/Mesh.h"
 
-#include "..\source\Core\Renderer\Framebuffer.h"
+#include "Renderer/Framebuffer.h"
 
-#include "..\source\Core\Renderer\Camera.h"
+#include "Renderer/Camera.h"
 
-#include "..\source\Core\Time.h"
+#include "Core/Time.h"
 //----Job System----------------------------
 
-#include "..\source\Core\Jobs\JobData.h"
-#include "..\source\Core\Jobs\JobScheduler.h"
-
-//-------------------------------------------
+#include "Jobs/JobData.h"
+#include "Jobs/JobScheduler.h"

@@ -1,6 +1,6 @@
 #pragma once
 #include "Core/Window.h"
-#include "Core/Renderer/GraphicsContext.h"
+#include "Renderer/GraphicsContext.h"
 
 #include "SDL2/SDL.h"
 

@@ -2,7 +2,9 @@
 
 #include <memory>
 
-#ifdef VE_PLATFORM_WINDOWS
+#define VORTEX_API
+
+/*#ifdef VE_PLATFORM_WINDOWS
 	#ifdef VE_DYNAMIC_LINKING
 		#ifdef VE_BUILD_DLL
 			#define VORTEX_API __declspec(dllexport)
@@ -11,12 +13,12 @@
 		#endif
 	#else
 		#define VORTEX_API
-	#endif
+	#endif*/
 
-#else 
-	#error VortexEngine doesn't support current platform;
+/*#else 
+	#error VortexEngine doesn't support current platform;*/
 
-#endif
+//#endif
 
 #define VORTEX_BIND_EVENT(x) std::bind(&x, this, std::placeholders::_1)
 

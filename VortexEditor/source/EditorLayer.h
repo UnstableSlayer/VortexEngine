@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <sstream>
 #include <functional>
 #include <chrono>
 
@@ -21,7 +22,7 @@ namespace Vortex
 
 	private:
 		Vortex::Scene m_Scene;
-		Vortex::OrthographicCamera m_Camera;
+		Vortex::Object m_Camera;
 
 		std::vector<ProfileResult> m_ProfileResults;
 		Ref<Framebuffer> m_ViewportFramebuffer;

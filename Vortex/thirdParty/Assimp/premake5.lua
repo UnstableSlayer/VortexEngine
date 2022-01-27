@@ -115,8 +115,6 @@ project 'Assimp'
 		"contrib/unzip/*",
 		"contrib/zlib/*"
     }
-	
-	buildoptions { "/bigobj" }
 
 	filter "system:windows"
 		systemversion "latest"

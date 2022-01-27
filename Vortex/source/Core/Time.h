@@ -30,7 +30,7 @@ namespace Vortex
 	class VORTEX_API Timer
 	{
 	public:
-		Timer(const char* name, Fn&& func = [&]() {})
+		Timer(const char* name, Fn&& func)
 			: m_Name(name), m_Running(true), m_Func(func)
 		{
 			m_StartPoint = std::chrono::high_resolution_clock::now();
@@ -56,7 +56,7 @@ namespace Vortex
 
 	private:
 		const char* m_Name;
-		std::chrono::time_point<std::chrono::steady_clock> m_StartPoint;
+		std::chrono::time_point<std::chrono::system_clock> m_StartPoint;
 		bool m_Running;
 		Fn m_Func = nullptr;
 	};
@@ -69,4 +69,5 @@ namespace Vortex
 }
 
 #define PROFILE_SCOPE(name, profileResults) Vortex::Timer timer##__LINE__(name, [&](Vortex::ProfileResult profileResult) {profileResults.push_back(profileResult);})
+#define TIMER_SCOPE(name) Vortex::Timer timer##__LINE__(name, [&](Vortex::ProfileResult profileResult)  {VORTEX_CORE_INFO("{0}: {1}", profileResult.Name, profileResult.Time);})
 //#define TIMER_SCOPE(name, x) Vortex::Timer timer##__LINE__(name, [&](const char* name, float time) {std::function<void>(x);})

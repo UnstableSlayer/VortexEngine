@@ -1,14 +1,16 @@
 #pragma once
-#include "Window.h"
-#include "LayerStack.h"
+#include "Core/Window.h"
+#include "Core/LayerStack.h"
 #include "Events/Event.h"
 #include "Events/WindowEvents.h"
+
+#include "ImGui/ImGuiLayer.h"
 
 #include "Renderer/Shader.h"
 #include "Renderer/Buffers.h"
 #include "Renderer/Camera.h"
 
-#include "Time.h"
+#include "Core/Time.h"
 
 namespace Vortex
 {
@@ -36,6 +38,7 @@ namespace Vortex
 
 	protected:
 		Ref<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		LayerStack m_LayerStack;
 
 		bool m_Running = true;

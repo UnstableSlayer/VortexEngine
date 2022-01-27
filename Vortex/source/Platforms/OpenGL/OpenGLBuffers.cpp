@@ -121,8 +121,6 @@ namespace Vortex
 				(const void*)element.Offset);
 
 			index++;
-
-			VORTEX_CORE_CRITICAL("TEST: {0}", glGetError());
 		}
 		m_VertexBuffers.push_back(vertexBuffer);
 

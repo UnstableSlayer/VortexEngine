@@ -1,5 +1,4 @@
 #include "vpch.h"
-
 #include "ApplicationClass.h"
 
 #include "Core/Input.h"
@@ -34,7 +33,7 @@ namespace Vortex
 
 		while (m_Running)
 		{
-			Timer timer = Timer("DeltaTime", [&](ProfileResult profileReport) {Time::Set(profileReport.Time); });
+			Timer timer = Timer("DeltaTime", [&](ProfileResult profileReport) { Time::Set(profileReport.Time); });
 			OnUpdate();
 
 			if (!m_Minimized)
@@ -58,12 +57,12 @@ namespace Vortex
 		dispatcher.Dispatch<WindowCloseEvent>(VORTEX_BIND_EVENT(ApplicationClass::OnWindowClose));
 		dispatcher.Dispatch<WindowResizeEvent>(VORTEX_BIND_EVENT(ApplicationClass::OnWindowResize));
 
-		for (auto i = m_LayerStack.end(); i != m_LayerStack.begin();)
+		for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it)
 		{
-			(*--i)->OnEvent(event);
-
 			if (event.m_Handled)
 				break;
+
+			(*it)->OnEvent(event);
 		}
 	}
 
