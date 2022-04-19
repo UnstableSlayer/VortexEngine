@@ -43,5 +43,5 @@ vec4 CalculateLighting(vec3 normal, vec3 pos, vec3 lightPos)
 
 void main()
 {
-    gl_FragColor = texture(uTexture, vTexCoord) * CalculateLighting(vNormal, vPos, LightPos);
+    FragColor = texture(uTexture, vTexCoord) * CalculateLighting(vNormal, vPos, LightPos);
 }

@@ -1,0 +1,19 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-m32",
+      "-fPIC",
+      "-g",
+      "-std=c++17",
+      "-O2",
+      "-c",
+      "-o",
+      "bin-int/Debug-linux-x86/ImGui/imgui.o",
+      "imgui.cpp"
+    ],
+    "directory": "/home/unstable/Desktop/VortexEngine/Vortex/thirdParty/imgui",
+    "file": "/home/unstable/Desktop/VortexEngine/Vortex/thirdParty/imgui/imgui.cpp",
+    "output": "/home/unstable/Desktop/VortexEngine/Vortex/thirdParty/imgui/bin-int/Debug-linux-x86/ImGui/imgui.o"
+  }
+]

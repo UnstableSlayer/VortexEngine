@@ -41,5 +41,5 @@ void main()
     if(fragColor.a < 0.001)
         discard;
 
-    gl_FragColor = fragColor;
+    FragColor = fragColor;
 }

@@ -17,21 +17,26 @@ workspace "VortexEngine"
 	outputDir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 	
 	IncludeDir = {}
-	IncludeDir["SDL2"] = "Vortex/thirdParty/SDL2"
 	IncludeDir["Glad"] = "Vortex/thirdParty/Glad/include"
 	IncludeDir["Glm"] = "Vortex/thirdParty/glm"
+	IncludeDir["ImGui"] = "Vortex/thirdParty/imgui"
 	IncludeDir["stb_image"] = "Vortex/thirdParty/stb_image"
+    IncludeDir["spdlog"] = "Vortex/thirdParty/spdlog/include"
 	IncludeDir["EnTT"] = "Vortex/thirdParty/Entt/include"
 	IncludeDir["Assimp"] = "Vortex/thirdParty/Assimp"
 	
+    filter "system:linux"
+        buildoptions {"-O2"}
+
 	include "Vortex/thirdParty/Glad"
+	include "Vortex/thirdParty/imgui"
 	include "Vortex/thirdParty/Assimp"
 	
 	project "Vortex"
 		location "Vortex"
 		kind "StaticLib"
 		language "C++"
-		cppdialect "C++20"
+		cppdialect "C++2a"
 		staticruntime "on"
 	
 		targetdir ("bin/" .. outputDir .. "/%{prj.name}")
@@ -58,64 +63,24 @@ workspace "VortexEngine"
 		includedirs
 		{
 			"%{prj.name}/source",
-			"%{prj.name}/thirdParty/spdlog/include",
+			"%{IncludeDir.spdlog}",
 			"%{IncludeDir.SDL2}/include",
 			"%{IncludeDir.Glad}",
 			"%{IncludeDir.Glm}",
+			"%{IncludeDir.ImGui}",
 			"%{IncludeDir.EnTT}",
 			"%{IncludeDir.stb_image}",
 			"%{IncludeDir.Assimp}/include"
 		}
-		
-		linkoptions { "/NODEFAULTLIB", "/FORCE:MULTIPLE"}
-		
-		filter "configurations:Debug"
-			libdirs
-			{
-				"%{IncludeDir.SDL2}/lib/%{cfg.architecture}/Debug"
-			}
-			
-			links
-			{
-				"libucrtd",
-				"libvcruntimed",
-				"libcpmtd",
-				"libcmtd",
-			
+
+		links
+        {
 				"Glad",
 				"Assimp",
+				"ImGui",
 				"opengl32.lib",
-				
-				"winmm.lib",
-				"imm32.lib",
-				"version.lib",
-				"setupapi.lib",
-				"SDL2",
-				"SDL2main"
-			}
-		filter "configurations:Release or Dist"
-			libdirs
-			{
-				"%{IncludeDir.SDL2}/lib/%{cfg.architecture}/Release"
-			}
-			links
-			{
-				"libucrt",
-				"libvcruntime",
-				"libcpmt",
-				"libcmt",
-			
-				"Glad",
-				"Assimp",
-				"opengl32.lib",
-				
-				"winmm.lib",
-				"imm32.lib",
-				"version.lib",
-				"setupapi.lib",
-				"SDL2",
-				"SDL2main"
-			}
+				"SDL2"
+        }
 	
 		filter "system:windows"
 			systemversion "latest"
@@ -123,6 +88,15 @@ workspace "VortexEngine"
 			defines
 			{
 				"VE_PLATFORM_WINDOWS",
+			}
+
+        filter "system:linux"
+			systemversion "latest"
+            buildoptions { "-fcoroutines" }
+
+			defines
+			{
+				"VE_PLATFORM_LINUX"
 			}
 	
 	
@@ -147,11 +121,11 @@ workspace "VortexEngine"
 		location "GameProject"
 		kind "ConsoleApp"
 		language "C++"
-		cppdialect "C++20"
+		cppdialect "C++2a"
 		staticruntime "on"
 	
-		targetdir ("bin\\" .. outputDir .. "\\%{prj.name}")
-		objdir ("bin-int\\" .. outputDir .. "\\%{prj.name}")
+		targetdir ("bin/" .. outputDir .. "/%{prj.name}")
+		objdir ("bin-int/" .. outputDir .. "/%{prj.name}")
 	
 		files
 		{
@@ -167,11 +141,15 @@ workspace "VortexEngine"
 			"%{IncludeDir.EnTT}"
 		}
 		
-		linkoptions { "/NODEFAULTLIB", "/FORCE:MULTIPLE"}
-
 		links 
 		{
-			"Vortex"
+            "dl",
+            "pthread",
+			"Vortex",
+			"Glad",
+            "Assimp",
+            "ImGui",
+            "SDL2"
 		}
 		
 		
@@ -182,6 +160,15 @@ workspace "VortexEngine"
 			{
 				"VE_PLATFORM_WINDOWS"
 			}	
+
+        filter "system:linux"
+			systemversion "latest"
+            buildoptions { "-fcoroutines" }
+
+			defines
+			{
+				"VE_PLATFORM_LINUX"
+			}
 	
 		filter "configurations:Debug"
 			defines "VE_DEBUG"
@@ -204,7 +191,7 @@ workspace "VortexEngine"
 		location "VortexEditor"
 		kind "ConsoleApp"
 		language "C++"
-		cppdialect "C++17"
+		cppdialect "C++20"
 		staticruntime "on"
 	
 		targetdir ("bin/" .. outputDir .. "/%{prj.name}")
@@ -223,10 +210,16 @@ workspace "VortexEngine"
 			"%{IncludeDir.Glm}",
 			"%{IncludeDir.EnTT}"
 		}
-	
+
 		links 
 		{
-			"Vortex"
+            "dl",
+            "pthread",
+			"Vortex",
+            "Glad",
+            "Assimp",
+            "ImGui",
+            "SDL2"
 		}
 	
 	
@@ -237,6 +230,15 @@ workspace "VortexEngine"
 			{
 				"VE_PLATFORM_WINDOWS"
 			}	
+
+        filter "system:linux"
+			systemversion "latest"
+            buildoptions { "-fcoroutines" }
+
+			defines
+			{
+				"VE_PLATFORM_LINUX"
+			}
 	
 		filter "configurations:Debug"
 			defines "VE_DEBUG"
