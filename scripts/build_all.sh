@@ -1,4 +1,4 @@
 cwd=$(pwd)
 cd ~/Desktop/VortexEngine/
-make
+make GCC_COMPILER=ccache gcc GXX_COMPILER=ccache g++
 cd $cwd

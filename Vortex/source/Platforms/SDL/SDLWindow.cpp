@@ -18,6 +18,7 @@ namespace Vortex
 
 	Ref<Window> Window::Create(const WindowProperties& properties)
 	{
+		VORTEX_CORE_INFO("Creating Ref<Window>!");
 		return MakeRef<SDLWindow>(properties);
 	}
 

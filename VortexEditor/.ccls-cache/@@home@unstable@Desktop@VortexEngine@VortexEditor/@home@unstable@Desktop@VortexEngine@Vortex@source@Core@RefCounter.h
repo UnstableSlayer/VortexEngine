@@ -3,6 +3,51 @@
 namespace Vortex
 {
 	template<typename T>
+	class VORTEX_API Unique
+	{
+	public:
+	    Unique()
+		{
+		    m_Ptr = nullptr;
+	    }
+	    Unique(T* ptr)
+		{
+            m_Ptr = ptr;
+        }
+		Unique(Unique<T>&& uptr)
+		{
+            m_Ptr = std::move(uptr.m_Ptr);
+            uptr.m_Ptr = nullptr;
+        }
+
+		~Unique()
+		{
+            delete m_Ptr;
+        }
+
+        inline explicit operator bool() const { return m_Ptr; }
+
+		Unique<T>& operator=(Unique<T>&& uptr)
+		{
+            if (this == uptr) return *this;
+            m_Ptr = std::move(uptr.m_Ptr);
+            uptr.m_Ptr = nullptr;
+            return *this;
+        }
+
+    public:
+		inline T* Get() const { return m_Ptr; }
+		inline T* operator ->() const { return m_Ptr; }
+		inline T& operator *() const { return *m_Ptr; }
+
+        Unique(const Unique<T>& uptr) = delete;
+        Unique<T>& operator=(const Unique<T>& uptr) = delete;
+
+	private:
+	    T* m_Ptr;
+    };
+
+	template<typename T>
 	class VORTEX_API Ref
 	{
 	public:
@@ -67,6 +112,14 @@ namespace Vortex
 		T* m_Ptr;
 		uint32_t* m_RefCount;
 	};
+
+	template<typename T, typename... Args>
+	constexpr Unique<T> MakeUnique(Args&&... args)
+	{
+		T* ptr = new T(std::forward<Args>(args)...);
+
+		return Unique<T>(ptr);
+	}
 
 	template<typename T, typename... Args>
 	constexpr Ref<T> MakeRef(Args&&... args)

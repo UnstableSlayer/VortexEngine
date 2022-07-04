@@ -25,7 +25,7 @@ namespace Vortex
 	void ApplicationClass::OnCreate()
 	{
 		Time::Init();
-		JobScheduler::Init();
+		//JobScheduler::Init();
 		RenderCommand::Init();
 		Renderer2D::Init();
 
@@ -43,7 +43,7 @@ namespace Vortex
 			}
 		}
 
-		JobScheduler::Destroy();
+		//JobScheduler::Destroy();
 	}
 
 	void ApplicationClass::OnClose()
@@ -63,7 +63,7 @@ namespace Vortex
 				break;
 
 			(*it)->OnEvent(event);
-			VORTEX_CORE_INFO("Event: {0} {1}", event.ToString(), event.m_Handled);
+			//VORTEX_CORE_INFO("Event: {0} {1}", event.ToString(), event.m_Handled);
 		}
 	}
 

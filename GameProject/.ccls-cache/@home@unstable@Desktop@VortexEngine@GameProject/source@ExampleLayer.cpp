@@ -5,8 +5,8 @@
 
 //#define TEXTURE_TEST
 //#define BALLS_TEST
-#define TRANSFORM_PARENT_TEST
-//#define TILEMAP_TEST
+//#define TRANSFORM_PARENT_TEST
+#define TILEMAP_TEST
 //#define SHIP_TEST
 
 ExampleLayer::ExampleLayer()
@@ -22,7 +22,7 @@ ExampleLayer::ExampleLayer()
 		auto& transform = m_Camera.AddComponent<Vortex::TransformComponent>();
 		Vortex::Transform::SetPosition(transform, { 0.f, 0.f, 10.f });
 
-		m_Camera.AddComponent<Vortex::CameraController>(Vortex::CameraType::Perspective, 16.f, 9.f, 0.1f, 1000.f, 55.f);
+		m_Camera.AddComponent<Vortex::CameraController>(Vortex::CameraType::Perspective, 16.f, 9.f, 0.1f, 10000.f, 55.f);
 	}
 
 #ifdef TEXTURE_TEST
@@ -31,7 +31,7 @@ ExampleLayer::ExampleLayer()
 		Vortex::Object obj = m_Scene.CreateObject();
 		obj.AddComponent<Vortex::TagComponent>("DW");
 		auto& transform = obj.AddComponent<Vortex::TransformComponent>();
-		transform.SetPosition({0.f, 0.f, 0.f});
+		Vortex::Transform::SetPosition(transform, {0.f, 0.f, 0.f});
 
 		auto& renderer2DComponent = obj.AddComponent<Vortex::SpriteComponent>();
 		renderer2DComponent.m_Texture = Vortex::Texture2D::Create("Textures/testTexture0.png", Vortex::TextureFormat::RGB16);
@@ -42,7 +42,7 @@ ExampleLayer::ExampleLayer()
 		Vortex::Object obj = m_Scene.CreateObject();
 		obj.AddComponent<Vortex::TagComponent>("SP");
 		auto& transform = obj.AddComponent<Vortex::TransformComponent>();
-		transform.SetPosition({ -1.f, 0.f, 0.f });
+		Vortex::Transform::SetPosition(transform, { -1.f, 0.f, 0.f });
 
 		auto& renderer2DComponent = obj.AddComponent<Vortex::SpriteComponent>();
 		renderer2DComponent.m_Texture = Vortex::Texture2D::Create("Textures/testTexture1.png", Vortex::TextureFormat::RGBA16);
@@ -53,7 +53,7 @@ ExampleLayer::ExampleLayer()
 		Vortex::Object obj = m_Scene.CreateObject();
 		obj.AddComponent<Vortex::TagComponent>("SK");
 		auto& transform = obj.AddComponent<Vortex::TransformComponent>();
-		transform.SetPosition({ 0.f, 1.f, 0.f });
+		Vortex::Transform::SetPosition(transform, { 0.f, 1.f, 0.f });
 
 		auto& renderer2DComponent = obj.AddComponent<Vortex::SpriteComponent>();
 		renderer2DComponent.m_Texture = Vortex::Texture2D::Create("Textures/testTexture.png", Vortex::TextureFormat::RGBA16);
@@ -64,7 +64,7 @@ ExampleLayer::ExampleLayer()
 		Vortex::Object obj = m_Scene.CreateObject();
 		obj.AddComponent<Vortex::TagComponent>("BR");
 		auto& transform = obj.AddComponent<Vortex::TransformComponent>();
-		transform.SetPosition({ 0.f, 0.f, -10.f });
+		Vortex::Transform::SetPosition(transform, { 0.f, 0.f, -10.f });
 	
 		auto& renderer2DComponent = obj.AddComponent<Vortex::SpriteComponent>();
 		renderer2DComponent.m_Texture = Vortex::Texture2D::Create("Textures/bricks.png", Vortex::TextureFormat::RGB16);
@@ -88,10 +88,10 @@ ExampleLayer::ExampleLayer()
 				Vortex::TransformComponent& transform = obj.AddComponent<Vortex::TransformComponent>();
 				float angleX = ((360.f / (count)) * x);
 				float angleY = ((360.f / (count)) * y);
-				transform.SetPosition({ radius * cosf(angleX) * sinf(angleY) + 0.001f * x,
-										radius * sinf(angleX) * sinf(angleY) + 0.001f * y,
-										radius * cosf(angleY) + 0.001f * y * x });
-				transform.SetScale({ 0.2f, 0.2f, 0.2f });
+				Vortex::Transform::SetPosition(transform, { radius * cosf(angleX) * sinf(angleY) + 0.1f * x,
+					                                        radius * sinf(angleX) * sinf(angleY) + 0.1f * y,
+										                    radius * cosf(angleY) + 0.1f * y * x });
+				Vortex::Transform::SetScale(transform, { 0.2f, 0.2f, 0.2f });
 
 				auto& renderer2DComponent = obj.AddComponent<Vortex::SpriteComponent>();
 				renderer2DComponent.m_Texture = texture;
@@ -163,12 +163,17 @@ ExampleLayer::ExampleLayer()
 		parentSprite.m_Texture = texture;
 		parentSprite.m_Tint = { 1.f, 0.f, 0.f, 1.f };
 
+		Vortex::Object temp = parentObj;
+
 		for (int i = 0; i < 10; i++)
 		{
 			auto& childObj = m_Scene.CreateObject();
 			auto& childTrans = childObj.AddComponent<Vortex::TransformComponent>();
-			Vortex::Transform::SetParent(childTrans, parentObj);
+			Vortex::Transform::SetParent(childTrans, temp);
 			Vortex::Transform::SetScale(childTrans, glm::vec3(5.f, 5.f, 5.f) * Vortex::RNG::RandFloat());
+
+			if(i % 3 == 0) temp = childObj;
+			else    temp = parentObj;
 
 			auto& childSprite = childObj.AddComponent<Vortex::SpriteComponent>();
 			childSprite.m_Texture = texture;
@@ -308,7 +313,7 @@ void ExampleLayer::OnUpdate()
 		}
 		else if (i > 1)
 		{
-			float radius = 0.5f * i * transform.m_Scale.x;
+			float radius = i + transform.m_Scale.x;
 			Vortex::Transform::RotateAround(transform, {0.f, 0.f, 0.f}, { 0.f, 0.f, 1.f }, radius, i * 10.f * Vortex::Time::GetDeltaTime());
 			Vortex::Transform::SetPosition(transform, { transform.m_Position.x, transform.m_Position.y, i});
 		}
@@ -322,11 +327,12 @@ void ExampleLayer::OnUpdate()
 	#endif
 
     #ifdef SHIP_TEST
-	auto& camera = m_Camera.GetComponent<Vortex::CameraComponent>();
+	auto& cameractrl = m_Camera.GetComponent<Vortex::CameraController>();
 	auto& cameraTransform = m_Camera.GetComponent<Vortex::TransformComponent>();
 
 	m_ShipShader->Bind();
-	m_ShipShader->SetUniformMat4("uViewProj", camera.GetViewProjectionMatrix(cameraTransform.GetPosition(), cameraTransform.GetRotation()));
+	Vortex::Camera::RecalculateViewMatrix(cameractrl.m_Camera, cameraTransform.m_Position, cameraTransform.m_Rotation);
+	m_ShipShader->SetUniformMat4("uViewProj", cameractrl.m_Camera.m_ViewProjectionMatrix);
 
 	//m_ShipTexture->Bind(1);
 	m_ShipVao->Bind();

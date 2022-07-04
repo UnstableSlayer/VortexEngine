@@ -3,7 +3,7 @@
 
 namespace Vortex
 {
-    void Transform::Move(TransformComponent &t, const glm::vec3 &deltaPos)
+    void Transform::Move(TransformComponent& t, const glm::vec3 &deltaPos)
     {
         Transform::SetPosition(t, t.m_Position + deltaPos);
     }
@@ -13,14 +13,14 @@ namespace Vortex
         Transform::SetRotation(t, deltaRot * t.m_Rotation);
     }
 
-    void Transform::Rotate(TransformComponent &t, const glm::vec3 &deltaRot)
+    void Transform::Rotate(TransformComponent& t, const glm::vec3 &deltaRot)
     {
         Transform::SetRotation(t, glm::quat(glm::radians(deltaRot)) * t.m_Rotation);
     }
 
-    void Transform::RotateAround(TransformComponent &t, const glm::vec3 &origin, const glm::vec3 &axis, const float radius, const float deltaAngle)
+    void Transform::RotateAround(TransformComponent& t, const glm::vec3 &origin, const glm::vec3 &axis, const float radius, const float deltaAngle)
     {
-        t.m_Position = origin;
+        //t.m_Position = origin;
 
 		t.m_Origin = radius * (glm::vec3(1.f) - axis);
 		Transform::Rotate(t, axis * deltaAngle);
@@ -32,7 +32,7 @@ namespace Vortex
         Transform::SetScale(t, t.m_Scale + deltaScale);
     }
 
-    void Transform::SetPosition(TransformComponent &t, const glm::vec3 &pos)
+    void Transform::SetPosition(TransformComponent& t, const glm::vec3 &pos)
     {
         if (pos == t.m_Position) return;
 
@@ -40,7 +40,7 @@ namespace Vortex
 		t.m_Updated = false;
     }
 
-    void Transform::SetRotation(TransformComponent &t, const glm::quat &rot)
+    void Transform::SetRotation(TransformComponent& t, const glm::quat &rot)
     {
         if (rot == t.m_Rotation) return;
 
@@ -59,8 +59,8 @@ namespace Vortex
     void Transform::SetParent(TransformComponent &t, Object &parentObj)
     {
         VORTEX_ASSERT(parentObj.HasComponent<TransformComponent>(), "Parent doesn't have TransformComponent!");
-		t.m_Parent = MakeRef<Object>(parentObj);
-		t.m_Parent->GetComponent<TransformComponent>().m_ChildCount++;
+		t.m_Parent = parentObj;
+		t.m_Parent.GetComponent<TransformComponent>().m_ChildCount++;
     }
 
     void Transform::SetOrigin(TransformComponent &t, const glm::vec3 &origin)
@@ -70,7 +70,8 @@ namespace Vortex
 
     void Transform::UpdateTransformMatrix(TransformComponent &t)
     {
-        if ((t.m_Updated && !t.m_Parent) || (t.m_Updated && t.m_Parent->GetComponent<TransformComponent>().m_OutdatedChildCount == 0)) return;
+        if ((t.m_Updated && !t.m_Parent) || (t.m_Updated && t.m_Parent.GetComponent<TransformComponent>().m_OutdatedChildCount == 0)) return;
+        if(t.m_Updated) return;
 
         if (t.m_OutdatedChildCount == 0) t.m_OutdatedChildCount = t.m_ChildCount;
 
@@ -83,7 +84,7 @@ namespace Vortex
 
 		if (t.m_Parent)
 		{
-			auto& parentTransform = t.m_Parent->GetComponent<TransformComponent>();
+			auto& parentTransform = t.m_Parent.GetComponent<TransformComponent>();
 			t.m_TransformMatrix = parentTransform.m_TransformMatrix * t.m_TransformMatrix;
 			parentTransform.m_OutdatedChildCount--;
 		}

@@ -3,7 +3,7 @@
 
 namespace Vortex
 {
-	SubTexture2D::SubTexture2D(Ref<Texture2D>& atlasTexture, const glm::vec2& min, const glm::vec2& max, const glm::vec2& spriteSize)
+	SubTexture2D::SubTexture2D(Ref<Texture2D> atlasTexture, const glm::vec2& min, const glm::vec2& max, const glm::vec2& spriteSize)
 		: m_AtlasTexture(atlasTexture), m_SpriteScale(spriteSize)
 	{
 		m_TexCoords[0] = { min.x, min.y };
@@ -12,7 +12,7 @@ namespace Vortex
 		m_TexCoords[3] = { min.x, max.y };
 	}
 
-	Ref<SubTexture2D> SubTexture2D::CreateFromPos(Ref<Texture2D>& atlasTexture, const glm::vec2& spritePos, const glm::vec2& cellSize, const glm::vec2& spriteScale)
+	Ref<SubTexture2D> SubTexture2D::CreateFromPos(Ref<Texture2D> atlasTexture, const glm::vec2& spritePos, const glm::vec2& cellSize, const glm::vec2& spriteScale)
 	{
 		const glm::vec2 atlasSize = atlasTexture->GetSize();
 

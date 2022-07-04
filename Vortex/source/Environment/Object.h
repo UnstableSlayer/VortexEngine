@@ -38,6 +38,7 @@ namespace Vortex
 		template<typename T, typename... Args>
 		T& AddComponent(Args&&... args)
 		{
+			//VORTEX_CORE_INFO("Entity({0}) Added componnent {1}", m_ID, typeid(T).name());
 			return m_Registry->emplace<T>((entt::entity)m_ID, std::forward<Args>(args)...);
 		}
 

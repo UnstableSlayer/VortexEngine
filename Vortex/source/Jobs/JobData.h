@@ -8,7 +8,7 @@ namespace Vortex
 	{
 		JobAddress addr;
 		uintptr_t ptr;
-		uint32_t* refCount;
+		RefCounter* refCounter;
 	};
 
 	template<typename T>
@@ -51,13 +51,13 @@ namespace Vortex
 				*value_ = std::forward<From>(from);
 			}
 
-			void SetReturnPtr(const uintptr_t addr, uint32_t* refCounter = nullptr)
+			void SetReturnPtr(const uintptr_t addr, RefCounter* refCounter = nullptr)
 			{
 				value_ = Ref<T>(reinterpret_cast<T*>(addr), refCounter);
 			}
 			JobEntry GetReturnPtr()
 			{
-				return { nullptr, reinterpret_cast<uintptr_t>(value_.Get()), value_.GetRefCount() };
+				return { nullptr, reinterpret_cast<uintptr_t>(value_.Get()), value_.GetRefCounter() };
 			}
 
 		};
@@ -70,12 +70,12 @@ namespace Vortex
 		void SetJobEntry(JobEntry entry)
 		{
 			handle = handle.from_address(entry.addr);
-			handle.promise().SetReturnPtr(entry.ptr, entry.refCount);
+			handle.promise().SetReturnPtr(entry.ptr, entry.refCounter);
 		}
 		const JobEntry GetJobEntry() const
 		{
 			JobEntry promiseEntry = handle.promise().GetReturnPtr();
-			return { handle.address(), promiseEntry.ptr, promiseEntry.refCount };
+			return { handle.address(), promiseEntry.ptr, promiseEntry.refCounter };
 		}
 
 		constexpr bool await_ready() noexcept { return isDone(); }
