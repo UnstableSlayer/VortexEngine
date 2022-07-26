@@ -4,12 +4,12 @@
 [submodule "VortexEngine/thirdParty/glm"]
 	path = Vortex/thirdParty/glm
 	url = https://github.com/g-truc/glm
-[submodule "Vortex/thirdParty/glad"]
-	path = Vortex/thirdParty/glad
-	url = https://github.com/UnstableSlayer/glad.git
 [submodule "Vortex/thirdParty/Assimp"]
 	path = Vortex/thirdParty/Assimp
 	url = https://github.com/UnstableSlayer/Assimp.git
 [submodule "Vortex/thirdParty/imgui"]
 	path = Vortex/thirdParty/imgui
 	url = https://github.com/UnstableSlayer/imgui.git
+[submodule "Vortex/thirdParty/glad"]
+	path = Vortex/thirdParty/glad
+	url = https://github.com/UnstableSlayer/glad
