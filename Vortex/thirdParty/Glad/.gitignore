@@ -9,6 +9,7 @@
 *.user
 *.userosscache
 *.sln.docstates
+*.sln
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -33,8 +34,6 @@ bld/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
-.ccls-cache/
-compile_commands.json
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -106,7 +105,6 @@ ipch/
 
 # Visual Studio Trace Files
 *.e2e
-*.diagsession
 
 # NuGet Packages
 *.nupkg
@@ -138,8 +136,7 @@ ClientBin/
 *.pfx
 *.publishsettings
 orleans.codegen.cs
-*.kdev4
-imgui.ini
+Makefile
 
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
