@@ -1,6 +1,7 @@
 #include "vpch.h"
-#include "Core/Input.h"
+#include "Input/Input.h"
 #include "Core/ApplicationClass.h"
+#include "Events/WindowEvents.h"
 
 #include <SDL2/SDL.h>
 
@@ -8,16 +9,12 @@ namespace Vortex
 {
     bool Input::IsKeyPressed(int keycode)
     {
-        auto window = static_cast<SDL_Window*>(ApplicationClass::Get().GetWindow().GetAPIWindow());
-
         const uint8_t* sdlKeyStateArray = SDL_GetKeyboardState(NULL);
         auto state = sdlKeyStateArray[SDL_GetScancodeFromKey(keycode)];
         return state;
     }
     bool Input::IsControllerButtonPressed(int keycode, int controllerIndex)
     {
-        auto window = static_cast<SDL_Window*>(ApplicationClass::Get().GetWindow().GetAPIWindow());
-        
         auto a = SDL_GameControllerOpen(controllerIndex);
         const bool state = SDL_GameControllerGetButton(a, (SDL_GameControllerButton)keycode);
         return state;
@@ -25,8 +22,6 @@ namespace Vortex
 
     bool Input::IsMouseButtonPressed(int button)
     {
-        auto window = static_cast<SDL_Window*>(ApplicationClass::Get().GetWindow().GetAPIWindow());
-        
         const uint32_t mouseStateArray = SDL_GetMouseState(NULL, NULL);
         auto state = (mouseStateArray & SDL_BUTTON(button));
 

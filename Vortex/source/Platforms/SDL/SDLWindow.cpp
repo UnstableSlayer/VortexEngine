@@ -9,9 +9,6 @@
 
 #include "Core/ApplicationClass.h"
 
-#include "imgui.h"
-#include "backends/imgui_impl_sdl.h"
-
 namespace Vortex
 {
 	static bool b_SDLInitialized = false;
@@ -187,9 +184,6 @@ namespace Vortex
 	{
 		SDL_Event event;
 		SDL_PollEvent(&event);
-
-        if(ApplicationClass::Get().GetImGuiLayer() && ApplicationClass::Get().GetImGuiLayer()->IsBlockingEvents())
-			ImGui_ImplSDL2_ProcessEvent(&event);
 
 		m_Context->SwapBuffers();
 	}

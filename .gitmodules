@@ -1,6 +1,3 @@
-[submodule "Vortex/thirdParty/Assimp"]
-	path = Vortex/thirdParty/Assimp
-	url = https://github.com/UnstableSlayer/Assimp.git
 [submodule "Vortex/thirdParty/glad"]
 	path = Vortex/thirdParty/glad
 	url = https://github.com/UnstableSlayer/glad
@@ -13,3 +10,9 @@
 [submodule "Vortex/thirdParty/imgui"]
 	path = Vortex/thirdParty/imgui
 	url = https://github.com/UnstableSlayer/imgui.git
+[submodule "Vortex/thirdParty/assimp"]
+	path = Vortex/thirdParty/assimp
+	url = https://github.com/assimp/assimp
+[submodule "Vortex/thirdParty/SDL2"]
+	path = Vortex/thirdParty/SDL2
+	url = https://github.com/libsdl-org/SDL

@@ -25,6 +25,7 @@ ExampleLayer::ExampleLayer()
 		m_Camera.AddComponent<Vortex::CameraController>(Vortex::CameraType::Perspective, 16.f, 9.f, 0.1f, 10000.f, 55.f);
 	}
 
+	Vortex::InputManager mngr;
 #ifdef TEXTURE_TEST
 	//Doom Wall
 	{
@@ -237,8 +238,6 @@ ExampleLayer::ExampleLayer()
 		m_ShipShader->Bind();
 		m_ShipShader->SetUniformTexHandle("uTexture", m_ShipTexture->GetBindlessHandle());
 	}
-
-	//VORTEX_APP_INFO("DeltaTime: {0}", Vortex::Time::GetDeltaTime());
 #endif
 
     VORTEX_APP_INFO("LayerInit done!");
@@ -264,7 +263,7 @@ void ExampleLayer::Input()
 	if (Vortex::Input::IsKeyPressed(Vortex::Key::E)) velocity.y =  10.f * Vortex::Time::GetDeltaTime();
 
 	if (Vortex::Input::IsKeyPressed(Vortex::Key::ESC)) Vortex::ApplicationClass::Get().GetWindow().LockCursor(false);
-	if (Vortex::Input::IsMouseButtonPressed(Vortex::Mouse::L)) Vortex::ApplicationClass::Get().GetWindow().LockCursor(true);
+	if (Vortex::Input::IsMouseButtonPressed(Vortex::MouseKey::L)) Vortex::ApplicationClass::Get().GetWindow().LockCursor(true);
 
 	{
 		auto [mouseDeltaX, mouseDeltaY] = Vortex::Input::GetMouseDelta();
@@ -272,8 +271,8 @@ void ExampleLayer::Input()
 			float deltaX = mouseDeltaY;
 			float deltaY = mouseDeltaX;
 
-			angularVelocity.x = 0.1f * deltaX;// * Vortex::Time::GetDeltaTime();
-			angularVelocity.y = 0.1f * deltaY;// * Vortex::Time::GetDeltaTime();
+			angularVelocity.x = deltaX;
+			angularVelocity.y = deltaY;
 		}
 	}
 
@@ -340,9 +339,18 @@ void ExampleLayer::OnUpdate()
     #endif
 
 	Vortex::Renderer2D::EndScene();
+    
+	//VORTEX_APP_INFO("DeltaTime: {0}, FPS:{1}", Vortex::Time::GetDeltaTime(), 1.f / Vortex::Time::GetDeltaTime());
 }
 
 void ExampleLayer::OnEvent(Vortex::Event& event)
 {
 	m_Camera.GetComponent<Vortex::CameraController>().OnEvent(event);
+
+
+	VORTEX_APP_INFO("EVENT: {0}", event.ToString());
+	//if(event.  Vortex::EventType::MouseMoved
+	//{
+	//	(Vortex::MouseEvent)
+	//}
 } 

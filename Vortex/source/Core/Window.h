@@ -30,6 +30,7 @@ namespace Vortex
 		virtual const uint32_t GetWindowHeight() const = 0;
 		virtual const uint32_t GetFramebufferWidth() const = 0;
 		virtual const uint32_t GetFramebufferHeight() const = 0;
+		//virtual const EventCallback& GetEventCallback() const = 0;
 
 		virtual void SetWindowTitle(const std::string& title) = 0;
 		virtual void SetEventCallback(const EventCallback& callback) = 0;

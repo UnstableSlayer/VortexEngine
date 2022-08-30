@@ -44,7 +44,7 @@ namespace Vortex
 				              priority == JobPriority::High && m_HighJobs.size();
 						 
 			if (!isNotEmpty)
-				return JobEntry(nullptr);
+				return JobEntry();
 
 			JobEntry job;
 			switch (priority)

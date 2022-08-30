@@ -1,6 +1,10 @@
 #pragma once
 
+//-----------------------------------------
 //----for use in game application----------
+//-----------------------------------------
+
+
 #include "Core/Core.h"
 #include "Core/Assert.h"
 #include "Core/RefCounter.h"
@@ -8,8 +12,10 @@
 
 #include "Core/ApplicationClass.h"
 #include "Core/Layer.h"
+#include "Core/Time.h"
 
-#include "Core/Input.h"
+#include "Input/Input.h"
+#include "Input/InputManager.h"
 #include "Events/KeyCodes.h"
 #include "Events/MouseCodes.h"
 
@@ -39,7 +45,6 @@
 
 #include "Renderer/Framebuffer.h"
 
-#include "Core/Time.h"
 //----Job System----------------------------
 
 #include "Jobs/JobData.h"

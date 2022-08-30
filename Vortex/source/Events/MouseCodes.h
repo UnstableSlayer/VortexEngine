@@ -1,18 +1,20 @@
 #pragma once
 
+#define KeyCodeDef(name, code) name = code
+#define MOUSEKEYDEFS_H
+
 namespace Vortex
 {
-	using MouseCode = unsigned short;
+	using MouseCode = int8_t;
 
-	namespace Mouse
+	namespace MouseKey
 	{
 		enum : MouseCode
 		{
-			L = 1,
-			Mid = 2,
-			R = 3,
-			Bck = 4,
-			Frwd = 5
+			#include "Input/MouseKeyDefs.h"
 		};
 	}
 }
+
+#undef KeyCodeDef
+#undef MOUSEKEYDEFS_H

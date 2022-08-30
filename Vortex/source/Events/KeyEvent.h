@@ -9,7 +9,7 @@ namespace Vortex {
 	public:
 		KeyCode GetKeyCode() const { return m_KeyCode; }
 
-		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
+		EVENT_CLASS_CATEGORY(EventCategory::Keyboard | EventCategory::Input)
 	protected:
 		KeyEvent(const KeyCode keycode)
 			: m_KeyCode(keycode) {}
@@ -32,7 +32,7 @@ namespace Vortex {
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(KeyPressed)
+		EVENT_CLASS_TYPE(EventType::KeyPressed)
 	private:
 		uint16_t m_RepeatCount;
 	};
@@ -50,7 +50,7 @@ namespace Vortex {
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(KeyReleased)
+		EVENT_CLASS_TYPE(EventType::KeyReleased)
 	};
 
 	class KeyTypedEvent : public KeyEvent
@@ -66,6 +66,6 @@ namespace Vortex {
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(KeyTyped)
+		EVENT_CLASS_TYPE(EventType::KeyTyped)
 	};
 }

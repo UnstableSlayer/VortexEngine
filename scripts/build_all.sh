@@ -1,4 +1,12 @@
 cwd=$(pwd)
-cd ~/Desktop/VortexEngine/
-make GCC_COMPILER=ccache gcc GXX_COMPILER=ccache g++
+mkdir build
+cd build
+
+export CC=clang
+export CXX=clang++
+
+cmake ..
+
+make -j8
+
 cd $cwd

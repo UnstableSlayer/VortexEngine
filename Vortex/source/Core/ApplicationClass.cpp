@@ -1,7 +1,7 @@
 #include "vpch.h"
 #include "ApplicationClass.h"
 
-#include "Core/Input.h"
+#include "Input/Input.h"
 #include "Core/Logger.h"
 
 #include "Renderer/RenderCommand.h"

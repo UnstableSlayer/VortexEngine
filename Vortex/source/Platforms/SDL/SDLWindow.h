@@ -19,6 +19,7 @@ namespace Vortex
 		inline const uint32_t GetWindowHeight() const override { return m_Data.height; }
 		inline const uint32_t GetFramebufferWidth() const override { return m_Data.fbWidth; }
 		inline const uint32_t GetFramebufferHeight() const override { return m_Data.fbHeight; }
+		//inline const EventCallback& GetEventCallback() const override { return m_Data.eventCallback; }
 
 
 		inline void SetWindowTitle(const std::string& title) override 

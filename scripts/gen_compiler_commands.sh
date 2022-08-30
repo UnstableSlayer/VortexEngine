@@ -1,7 +1,1 @@
-(cd Vortex/thirdParty/Glad; bear -- make)
-(cd Vortex/thirdParty/imgui; bear -- make)
-(cd Vortex/thirdParty/Assimp; bear -- make)
-
-(cd Vortex; bear -- make)
-(cd GameProject; bear -- make)
-(cd VortexEditor; bear -- make)
+(mkdir build; cd build; cmake -H. -BDebug -DCMAKE_BUILD_TYPE=Debug -DCMAKE_EXPORT_COMPILE_COMMANDS=YES; ln -s compile_commands.json .. )
