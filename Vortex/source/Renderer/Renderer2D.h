@@ -1,6 +1,5 @@
 #pragma once
 #include "Renderer/Texture.h"
-#include "Renderer/SubTexture2D.h"
 #include "Environment/Object.h"
 #include "Environment/Components.h"
 #include "Environment/ComponentModifiers.h"
@@ -15,17 +14,17 @@ namespace Vortex
 		static void Init();
 		static void Destroy();
 
-		static void BeginScene(Object& cameraObj);
+		static void BeginScene(CameraComponent& camera, TransformComponent& transform);
 		static void EndScene();
 		static void EndSceneAndRenderToFramebuffer(Ref<Framebuffer>& targetFB);
 		static void Flush();
 
-		static const Ref<Framebuffer>& GetRendererFramebuffer();
+		static Ref<Framebuffer>& GetRendererFramebuffer();
 
 		static void DrawQuad(TransformComponent& transform, const glm::vec4& color);
 		static void DrawQuad(TransformComponent& transform, const SpriteComponent& sprite, const glm::vec4& tint = glm::vec4(1.f));
-		static void DrawSubQuad(TransformComponent& transform, const Ref<SubTexture2D>& spriteAtlas, const glm::vec4& tint = glm::vec4(1.f));
-		static void DrawFromTileMap(const char* tileMap, const uint32_t& mapWidth, const std::unordered_map<char, Ref<SubTexture2D>>& textureMap, const glm::vec4& tint = glm::vec4(1.f));
+		static void DrawSubQuad(TransformComponent& transform, SubSpriteComponent& subSprite, const glm::vec4& tint = glm::vec4(1.f));
+		//static void DrawFromTileMap(TransformComponent& transform, TileMapComponent& tileMap, const glm::vec4& tint = glm::vec4(1.f));
 
 	private:
 		static void FlushAndReset();

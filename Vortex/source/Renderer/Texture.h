@@ -62,7 +62,7 @@ namespace Vortex
 	{
 	public:
 		static Ref<Texture2D> Create(const uint32_t id);
-		static Ref<Texture2D> Create(const uint32_t width, const uint32_t height);
+		static Ref<Texture2D> Create(const uint32_t width, const uint32_t height, TextureFormat format = TextureFormat::AUTO, TextureWrap wrap = TextureWrap::REPEAT, TextureFilter filter = TextureFilter::NEAREST);
 		static Ref<Texture2D> Create(const std::string& path, TextureFormat format = TextureFormat::AUTO, TextureWrap wrap = TextureWrap::REPEAT, TextureFilter filter = TextureFilter::NEAREST);
 	};
 

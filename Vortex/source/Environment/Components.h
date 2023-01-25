@@ -6,7 +6,6 @@
 
 #include "Object.h"
 #include "Renderer/Texture.h"
-#include "Renderer/SubTexture2D.h"
 
 namespace Vortex
 {
@@ -30,6 +29,12 @@ namespace Vortex
 		uint32_t m_OutdatedChildCount = 0;
 	};
 
+	enum class CameraType
+    {
+        Orthographic,
+        Perspective
+    };
+
 	struct CameraComponent
 	{
 		glm::mat4 m_ProjectionMatrix = glm::mat4(1.f);
@@ -41,6 +46,7 @@ namespace Vortex
 		float m_AspectRatio;
 		float m_Zoom;
 		float m_FOV;
+		CameraType m_CameraType;
 	};
 
 	struct SpriteComponent
@@ -54,10 +60,23 @@ namespace Vortex
 
 	struct SubSpriteComponent
 	{
-		Ref<SubTexture2D> m_Sprite;
+		//Ref<Texture2D> m_AtlasTexture;
+
+		glm::vec2 m_TexCoords[4];
+		glm::vec2 m_TexSize = glm::vec2(1.f);
 		glm::vec4 m_Tint = glm::vec4(1.f);
 
 		bool IsVisible = true;
+	};
+
+	struct TileMapData
+	{
+		std::unordered_map<char, SubSpriteComponent> m_TileDictionary;
+		std::string m_TileMap;
+
+		Ref<Texture2D> m_AtlasTexture;
+
+		uint32_t m_MapWidth;
 	};
 
 }

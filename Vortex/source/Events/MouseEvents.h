@@ -58,7 +58,7 @@ namespace Vortex {
 		MouseButtonEvent(const MouseCode button)
 			: m_Button(button) {}
 
-		MouseCode m_Button;
+		MouseCode m_Button = -1;
 	};
 
 	class MouseButtonPressedEvent : public MouseButtonEvent

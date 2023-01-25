@@ -4,13 +4,14 @@
 //----for use in game application----------
 //-----------------------------------------
 
-
+//#include "Core/Allocator.h"
 #include "Core/Core.h"
-#include "Core/Assert.h"
-#include "Core/RefCounter.h"
 #include "Core/Logger.h"
+#include "Core/Assert.h"
 
-#include "Core/ApplicationClass.h"
+#include "Core/RefCounter.h"
+
+#include "Core/App.h"
 #include "Core/Layer.h"
 #include "Core/Time.h"
 
@@ -27,7 +28,6 @@
 #include "Environment/Scene.h"
 #include "Environment/Components.h"
 #include "Environment/ComponentModifiers.h"
-#include "Environment/CameraController.h"
 
 //----ImGui--------------------------------
 #include "../thirdParty/imgui/imgui.h"
@@ -40,7 +40,6 @@
 #include "Renderer/Buffers.h"
 #include "Renderer/Shader.h"
 #include "Renderer/Texture.h"
-#include "Renderer/SubTexture2D.h"
 #include "Renderer/Mesh.h"
 
 #include "Renderer/Framebuffer.h"

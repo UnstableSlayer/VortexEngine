@@ -6,8 +6,7 @@
 #include "Renderer/Shader.h"
 #include "Core/Time.h"
 
-#include "Core/ApplicationClass.h"
-#include "Environment/CameraController.h"
+#include "Core/App.h"
 
 #include <glm/gtc/type_ptr.hpp>
 
@@ -31,7 +30,6 @@ namespace Vortex
 		static const uint32_t MaxTextureSlots = 32;
 
         Ref<Framebuffer> RendererFB;
-		Ref<Texture2D> FBColorTexture;
         Ref<Shader> PostEffectsShader;
         Ref<VertexArray> RendererFBQuad;
 
@@ -59,12 +57,10 @@ namespace Vortex
 		//Renderer framebuffer and renderer quad init
         {
 			FramebufferParams fbParams;
-			fbParams.Width = ApplicationClass::Get().GetWindow().GetFramebufferWidth();
-			fbParams.Height = ApplicationClass::Get().GetWindow().GetFramebufferHeight();
+			fbParams.Width = App::Get().GetWindow().GetWindowWidth() / App::Get().GetWindow().GetPixelWidth();
+			fbParams.Height = App::Get().GetWindow().GetWindowHeight() / App::Get().GetWindow().GetPixelHeight();
 
 			s_Data.RendererFB = Framebuffer::Create(fbParams);
-			s_Data.FBColorTexture = Texture2D::Create(s_Data.RendererFB->GetColorAttachmentID());
-
 			s_Data.RendererFBQuad = VertexArray::Create();
 
 			float* vertices = new float[]{
@@ -158,23 +154,18 @@ namespace Vortex
 		delete s_Data.CameraPos;
 	}
 
-	const Ref<Framebuffer>& Renderer2D::GetRendererFramebuffer() { return s_Data.RendererFB; }
+	Ref<Framebuffer>& Renderer2D::GetRendererFramebuffer() { return s_Data.RendererFB; }
 
-	void Renderer2D::BeginScene(Object& cameraObj)
+	void Renderer2D::BeginScene(CameraComponent& camera, TransformComponent& transform)
 	{
-		VORTEX_ASSERT(cameraObj.HasComponent<TransformComponent>(), "Camera Object doesn't have TransformComponent");
-		VORTEX_ASSERT(cameraObj.HasComponent<CameraController>(), "Camera Object doesn't have CameraComponent");
-
-		auto& transform = cameraObj.GetComponent<TransformComponent>();
-		auto& cameraController = cameraObj.GetComponent<CameraController>();
-		Camera::RecalculateViewMatrix(cameraController.m_Camera, transform.m_Position, transform.m_Rotation);
+		Camera::RecalculateViewMatrix(camera, transform.m_Position, transform.m_Rotation);
 
 		s_Data.CameraPos = &transform.m_Position;
 
         s_Data.RendererFB->Bind();
 
 		s_Data.DefaultShader->Bind();
-		s_Data.DefaultShader->SetUniformMat4("uViewProj", cameraController.m_Camera.m_ViewProjectionMatrix);
+		s_Data.DefaultShader->SetUniformMat4("uViewProj", camera.m_ViewProjectionMatrix);
 
 		s_Data.QuadIndexCount = 0;
 		s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;
@@ -194,12 +185,12 @@ namespace Vortex
 
 		auto params = s_Data.RendererFB->GetParams();
 		RenderCommand::SetViewport(0, 0,
-								   ApplicationClass::Get().GetWindow().GetWindowWidth(),
-								   ApplicationClass::Get().GetWindow().GetWindowHeight());
+								   App::Get().GetWindow().GetWindowWidth(),
+								   App::Get().GetWindow().GetWindowHeight());
 		RenderCommand::Clear();
 
 		s_Data.PostEffectsShader->Bind();
-		s_Data.FBColorTexture->Bind();
+		Texture2D::Create(s_Data.RendererFB->GetColorAttachmentID())->Bind();
 
 		s_Data.RendererFBQuad->Bind();
 		RenderCommand::DrawIndexed(s_Data.RendererFBQuad);
@@ -217,12 +208,12 @@ namespace Vortex
 		targetFB->Bind();
 		auto params = s_Data.RendererFB->GetParams();
 		RenderCommand::SetViewport(0, 0,
-								   ApplicationClass::Get().GetWindow().GetWindowWidth(),
-								   ApplicationClass::Get().GetWindow().GetWindowHeight());
+								   App::Get().GetWindow().GetWindowWidth(),
+								   App::Get().GetWindow().GetWindowHeight());
 		RenderCommand::Clear();
 
 		s_Data.PostEffectsShader->Bind();
-		s_Data.FBColorTexture->Bind();
+		Texture2D::Create(s_Data.RendererFB->GetColorAttachmentID())->Bind();
 
 		s_Data.RendererFBQuad->Bind();
 		RenderCommand::DrawIndexed(s_Data.RendererFBQuad);
@@ -234,7 +225,7 @@ namespace Vortex
 	void Renderer2D::Flush()
 	{
 		s_Data.DefaultShader->Bind();
-		for (uint32_t i = 1; i < s_Data.TextureSlotIndex; i++)
+		for (uint32_t i = 0; i < s_Data.TextureSlotIndex; i++)
 			s_Data.Textures[i]->Bind(i);
 
 		s_Data.QuadVertexArray->Bind();
@@ -315,17 +306,20 @@ namespace Vortex
 		glm::vec3 position;
 
 		Transform::UpdateTransformMatrix(transform);
+		glm::vec2 spriteSize = sprite.m_Texture->GetSize();
+		glm::vec2 spriteScale = spriteSize.x > spriteSize.y ? spriteSize / spriteSize.x : spriteSize / spriteSize.y;
+		auto finalTransformMatrix = glm::scale(transform.m_TransformMatrix, {spriteScale, 1.f});
 
-		position = transform.m_TransformMatrix * glm::vec4(-0.5f, -0.5f, 0.f, 1.f);
+		position = finalTransformMatrix * glm::vec4(-0.5f, -0.5f, 0.f, 1.f);
 		Renderer2D::AppendSingleVertexData(position, tint, { 0.f, 0.f }, sprite.m_TextureTiling, textureIndex);
 
-		position = transform.m_TransformMatrix * glm::vec4(0.5f, -0.5f, 0.f, 1.f);
+		position = finalTransformMatrix * glm::vec4(0.5f, -0.5f, 0.f, 1.f);
 		Renderer2D::AppendSingleVertexData(position, tint, { 1.f, 0.f }, sprite.m_TextureTiling, textureIndex);
 
-		position = transform.m_TransformMatrix * glm::vec4(0.5f, 0.5f, 0.f, 1.f);
+		position = finalTransformMatrix * glm::vec4(0.5f, 0.5f, 0.f, 1.f);
 		Renderer2D::AppendSingleVertexData(position, tint, { 1.f, 1.f }, sprite.m_TextureTiling, textureIndex);
 
-		position = transform.m_TransformMatrix * glm::vec4(-0.5f, 0.5f, 0.f, 1.f);
+		position = finalTransformMatrix * glm::vec4(-0.5f, 0.5f, 0.f, 1.f);
 		Renderer2D::AppendSingleVertexData(position, tint, { 0.f, 1.f }, sprite.m_TextureTiling, textureIndex);
 
 		s_Data.QuadIndexCount += 6;
@@ -333,15 +327,15 @@ namespace Vortex
 		s_Data.Stats.QuadCount++;
 	}
 
-	void Renderer2D::DrawSubQuad(TransformComponent& transform, const Ref<SubTexture2D>& subTexture, const glm::vec4& tint)
+	void Renderer2D::DrawSubQuad(TransformComponent& transform, SubSpriteComponent& subSprite, const glm::vec4& tint)
 	{
-		if (s_Data.QuadIndexCount >= s_Data.MaxIndices)
+		/*if (s_Data.QuadIndexCount >= s_Data.MaxIndices)
 			FlushAndReset();
 
 		float textureIndex = 0.f;
 		for (size_t i = 0; i < s_Data.TextureSlotIndex; i++)
 		{
-			if (s_Data.Textures[i]->GetID() == subTexture->GetAtlasTexture()->GetID())
+			if (s_Data.Textures[i]->GetID() == subSprite.m_AtlasTexture->GetID())
 			{
 				textureIndex = (float)i;
 				break;
@@ -352,53 +346,52 @@ namespace Vortex
 		{
 			textureIndex = (float)s_Data.TextureSlotIndex;
 
-			s_Data.Textures[s_Data.TextureSlotIndex] = subTexture->GetAtlasTexture();
+			s_Data.Textures[s_Data.TextureSlotIndex] = subSprite.m_AtlasTexture;
 			s_Data.TextureSlotIndex++;
 		}
 
 		glm::vec3 position;
-		const glm::vec2* texCoords = subTexture->GetTexCoords();
 
 		Transform::UpdateTransformMatrix(transform);
 
 		position = transform.m_TransformMatrix * glm::vec4(-0.5f, -0.5f, 0.f, 1.f);
-		Renderer2D::AppendSingleVertexData(position, tint, *(texCoords + 0), { 1.f, 1.f }, textureIndex);
+		Renderer2D::AppendSingleVertexData(position, tint, subSprite.m_TexCoords[0], { 1.f, 1.f }, textureIndex);
 
 		position = transform.m_TransformMatrix * glm::vec4(0.5f, -0.5f, 0.f, 1.f);
-		Renderer2D::AppendSingleVertexData(position, tint, *(texCoords + 1), { 1.f, 1.f }, textureIndex);
+		Renderer2D::AppendSingleVertexData(position, tint, subSprite.m_TexCoords[1], { 1.f, 1.f }, textureIndex);
 
 		position = transform.m_TransformMatrix * glm::vec4(0.5f, 0.5f, 0.f, 1.f);
-		Renderer2D::AppendSingleVertexData(position, tint, *(texCoords + 2), { 1.f, 1.f }, textureIndex);
+		Renderer2D::AppendSingleVertexData(position, tint, subSprite.m_TexCoords[2], { 1.f, 1.f }, textureIndex);
 
 		position = transform.m_TransformMatrix * glm::vec4(-0.5f, 0.5f, 0.f, 1.f);
-		Renderer2D::AppendSingleVertexData(position, tint, *(texCoords + 3), { 1.f, 1.f }, textureIndex);
+		Renderer2D::AppendSingleVertexData(position, tint, subSprite.m_TexCoords[3], { 1.f, 1.f }, textureIndex);
 
 		s_Data.QuadIndexCount += 6;
 
-		s_Data.Stats.QuadCount++;
+		s_Data.Stats.QuadCount++;*/
 	}
 
-	void Renderer2D::DrawFromTileMap(const char* tileMap, const uint32_t& mapWidth, const std::unordered_map<char, Ref<SubTexture2D>>& textureMap, const glm::vec4& tint)
+	/*void Renderer2D::DrawFromTileMap(TileMapComponent& tileMap, const glm::vec4& tint)
 	{
-		const uint32_t mapHeight = strlen(tileMap) / mapWidth;
+		const uint32_t mapHeight = tileMap.m_TileMap->length() / tileMap.m_MapWidth;
 		for (size_t y = 0; y < mapHeight; y++)
 		{
-			for (size_t x = 0; x < mapWidth; x++)
+			for (size_t x = 0; x < tileMap.m_MapWidth; x++)
 			{
-				const char tileCode = *(tileMap + (x + y * mapWidth));
+				const char tileCode = tileMap.m_TileMap->at(x + y * tileMap.m_MapWidth);
 
 				TransformComponent transform = TransformComponent();
 				Transform::SetPosition(transform, { x, mapHeight - y, 0.f });
 
-				if (textureMap.find(tileCode) != textureMap.end())
+				if (tileMap.m_TileDictionary->find(tileCode) != tileMap.m_TileDictionary->end())
 				{
-					glm::vec2 scale = textureMap.at(tileCode)->GetSpriteScale();
+					glm::vec2 scale = tileMap.m_TileDictionary->at(tileCode)->m_TexSize;
 					Transform::SetScale(transform, { scale.x, scale.y, 1.f });
-					DrawSubQuad(transform, textureMap.at(tileCode), tint);
+					//DrawSubQuad(transform, tileMap.m_TileDictionary->at(tileCode), tint);
 				}
 			}
 		}
-	}
+	}*/
 
 	void Renderer2D::ResetStats()
 	{

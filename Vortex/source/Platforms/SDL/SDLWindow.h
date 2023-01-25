@@ -15,12 +15,12 @@ namespace Vortex
 		void OnUpdate() override;
 
 		inline const std::string& GetWindowTitle() const override { return m_Data.title; }
-		inline const uint32_t GetWindowWidth() const override { return m_Data.width; }
-		inline const uint32_t GetWindowHeight() const override { return m_Data.height; }
-		inline const uint32_t GetFramebufferWidth() const override { return m_Data.fbWidth; }
-		inline const uint32_t GetFramebufferHeight() const override { return m_Data.fbHeight; }
-		//inline const EventCallback& GetEventCallback() const override { return m_Data.eventCallback; }
-
+		inline uint32_t GetWindowWidth() const override { return m_Data.width; }
+		inline uint32_t GetWindowHeight() const override { return m_Data.height; }
+		inline uint32_t GetPixelWidth() const override { return m_Data.pixelWidth; }
+		inline uint32_t GetPixelHeight() const override { return m_Data.pixelHeight; }
+		inline int GetPositionX() const override;
+		inline int GetPositionY() const override;
 
 		inline void SetWindowTitle(const std::string& title) override 
 		{ 
@@ -50,7 +50,7 @@ namespace Vortex
 		{
 			std::string title;
 			uint32_t width, height;
-			uint32_t fbWidth, fbHeight;
+			uint32_t pixelWidth, pixelHeight;
 			bool vSync;
 
 			EventCallback eventCallback;

@@ -1,13 +1,16 @@
 #include "vpch.h"
-
 #include "SDLWindow.h"
+
+#include "Core/App.h"
+
 #include "Events/WindowEvents.h"
 #include "Events/MouseEvents.h"
 #include "Events/KeyEvent.h"
 
 #include "Platforms/OpenGL/OpenGLContext.h"
 
-#include "Core/ApplicationClass.h"
+#include "SDL_video.h"
+#include "backends/imgui_impl_sdl.h"
 
 namespace Vortex
 {
@@ -15,7 +18,6 @@ namespace Vortex
 
 	Ref<Window> Window::Create(const WindowProperties& properties)
 	{
-		VORTEX_CORE_INFO("Creating Ref<Window>!");
 		return MakeRef<SDLWindow>(properties);
 	}
 
@@ -31,8 +33,10 @@ namespace Vortex
 		m_Data.title = properties.title;
 		m_Data.width = properties.width;
 		m_Data.height = properties.height;
-		m_Data.fbWidth = properties.fbWidth;
-		m_Data.fbHeight = properties.fbHeight;
+		m_Data.pixelWidth = properties.pixelWidth;
+		m_Data.pixelHeight = properties.pixelHeight;
+
+		VORTEX_ASSERT(properties.pixelWidth != 0, "Window pixel width or height can't be 0")
 
 		VORTEX_CORE_TRACE("Creating window '{0}' {1}x{2}", properties.title, properties.width, properties.height);
 
@@ -183,7 +187,10 @@ namespace Vortex
 	void SDLWindow::OnUpdate()
 	{
 		SDL_Event event;
-		SDL_PollEvent(&event);
+
+		while(SDL_PollEvent(&event))
+			if(App::Get().GetImGuiLayer())
+				ImGui_ImplSDL2_ProcessEvent(&event);
 
 		m_Context->SwapBuffers();
 	}
@@ -205,5 +212,19 @@ namespace Vortex
 		int result = SDL_SetRelativeMouseMode((SDL_bool)enable);
 
 		VORTEX_ASSERT(result == 0, "SDL couldn't set relative mouse mode: {0}", SDL_GetError());
+	}
+
+	int SDLWindow::GetPositionX() const {
+		int posX;
+		SDL_GetWindowPosition(m_Window, &posX, nullptr);
+
+		return posX;
+	}
+
+	int SDLWindow::GetPositionY() const {
+		int posY;
+		SDL_GetWindowPosition(m_Window, nullptr, &posY);
+
+		return posY;
 	}
 }

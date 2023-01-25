@@ -1,6 +1,6 @@
 #include "vpch.h"
 #include "Input/Input.h"
-#include "Core/ApplicationClass.h"
+#include "Core/App.h"
 #include "Events/WindowEvents.h"
 
 #include <SDL2/SDL.h>
@@ -37,7 +37,7 @@ namespace Vortex
     }
     std::pair<float, float> Input::GetMousePosition()
     {
-        auto window = static_cast<SDL_Window*>(ApplicationClass::Get().GetWindow().GetAPIWindow());
+        auto window = static_cast<SDL_Window*>(App::Get().GetWindow().GetAPIWindow());
 
         int xPos, yPos;
         SDL_GetGlobalMouseState(&xPos, &yPos);

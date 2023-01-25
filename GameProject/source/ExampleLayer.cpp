@@ -3,10 +3,10 @@
 
 #include <glm/gtc/type_ptr.hpp>
 
-//#define TEXTURE_TEST
+#define TEXTURE_TEST
 //#define BALLS_TEST
 //#define TRANSFORM_PARENT_TEST
-#define TILEMAP_TEST
+//#define TILEMAP_TEST
 //#define SHIP_TEST
 
 ExampleLayer::ExampleLayer()
@@ -35,7 +35,7 @@ ExampleLayer::ExampleLayer()
 		Vortex::Transform::SetPosition(transform, {0.f, 0.f, 0.f});
 
 		auto& renderer2DComponent = obj.AddComponent<Vortex::SpriteComponent>();
-		renderer2DComponent.m_Texture = Vortex::Texture2D::Create("Textures/testTexture0.png", Vortex::TextureFormat::RGB16);
+		renderer2DComponent.m_Texture = Vortex::Texture2D::Create("Textures/testTexture0.png", Vortex::TextureFormat::RGB8);
 	}
 
 	//Spiderman
@@ -46,7 +46,7 @@ ExampleLayer::ExampleLayer()
 		Vortex::Transform::SetPosition(transform, { -1.f, 0.f, 0.f });
 
 		auto& renderer2DComponent = obj.AddComponent<Vortex::SpriteComponent>();
-		renderer2DComponent.m_Texture = Vortex::Texture2D::Create("Textures/testTexture1.png", Vortex::TextureFormat::RGBA16);
+		renderer2DComponent.m_Texture = Vortex::Texture2D::Create("Textures/testTexture1.png", Vortex::TextureFormat::RGBA8);
 	}
 
 	//Skull
@@ -57,7 +57,7 @@ ExampleLayer::ExampleLayer()
 		Vortex::Transform::SetPosition(transform, { 0.f, 1.f, 0.f });
 
 		auto& renderer2DComponent = obj.AddComponent<Vortex::SpriteComponent>();
-		renderer2DComponent.m_Texture = Vortex::Texture2D::Create("Textures/testTexture.png", Vortex::TextureFormat::RGBA16);
+		renderer2DComponent.m_Texture = Vortex::Texture2D::Create("Textures/testTexture.png", Vortex::TextureFormat::RGBA8);
 	}
 
 	//Bricks
@@ -68,7 +68,7 @@ ExampleLayer::ExampleLayer()
 		Vortex::Transform::SetPosition(transform, { 0.f, 0.f, -10.f });
 	
 		auto& renderer2DComponent = obj.AddComponent<Vortex::SpriteComponent>();
-		renderer2DComponent.m_Texture = Vortex::Texture2D::Create("Textures/bricks.png", Vortex::TextureFormat::RGB16);
+		renderer2DComponent.m_Texture = Vortex::Texture2D::Create("Textures/bricks.png", Vortex::TextureFormat::RGB8);
 	}
 
 #endif
@@ -314,7 +314,7 @@ void ExampleLayer::OnUpdate()
 		{
 			float radius = i + transform.m_Scale.x;
 			Vortex::Transform::RotateAround(transform, {0.f, 0.f, 0.f}, { 0.f, 0.f, 1.f }, radius, i * 10.f * Vortex::Time::GetDeltaTime());
-			Vortex::Transform::SetPosition(transform, { transform.m_Position.x, transform.m_Position.y, i});
+			Vortex::Transform::SetPosition(transform, { transform.m_Position.x, transform.m_Position.y, i / 10.f});
 		}
 	}
 	#endif

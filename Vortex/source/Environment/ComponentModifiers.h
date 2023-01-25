@@ -1,36 +1,47 @@
 #pragma once
 #include "Components.h"
+#include "Events/WindowEvents.h"
 
 namespace Vortex
 {
-    class VORTEX_API Transform
+    namespace Transform
     {
-        public:
-        static void Move(TransformComponent& t, const glm::vec3& deltaPos);
-        static void Rotate(TransformComponent& t, const glm::quat& deltaRot);
-        static void Rotate(TransformComponent& t, const glm::vec3& deltaRot);
-        static void RotateAround(TransformComponent& t, const glm::vec3& origin, const glm::vec3& axis, const float radius, const float deltaAngle);
-        static void Scale(TransformComponent& t, const glm::vec3& deltaScale);
-        static void SetPosition(TransformComponent& t, const glm::vec3& pos);
-        static void SetRotation(TransformComponent& t, const glm::quat& rot);
-        static void SetScale(TransformComponent& t, const glm::vec3& scale);
-        static void SetParent(TransformComponent& t, Object& parentObj);
-        static void SetOrigin(TransformComponent& t, const glm::vec3& origin);
-        static void UpdateTransformMatrix(TransformComponent& t);
-        static void Reset(TransformComponent& t);
-    };
+        extern void Move(TransformComponent& t, const glm::vec3& deltaPos);
+        extern void Rotate(TransformComponent& t, const glm::quat& deltaRot);
+        extern void Rotate(TransformComponent& t, const glm::vec3& deltaRot);
+        extern void RotateAround(TransformComponent& t, const glm::vec3& origin, const glm::vec3& axis, const float radius, const float deltaAngle);
+        extern void Scale(TransformComponent& t, const glm::vec3& deltaScale);
+        extern void SetPosition(TransformComponent& t, const glm::vec3& pos);
+        extern void SetRotation(TransformComponent& t, const glm::quat& rot);
+        extern void SetScale(TransformComponent& t, const glm::vec3& scale);
+        extern void SetParent(TransformComponent& t, Object& parentObj);
+        extern void SetOrigin(TransformComponent& t, const glm::vec3& origin);
+        extern void UpdateTransformMatrix(TransformComponent& t);
+        extern void Reset(TransformComponent& t);
+    }
 
-    class VORTEX_API Camera
+    namespace Camera
     {
-    public:
-        static void OrthographicInit(CameraComponent& camera, float width, float height, float zNear, float zFar, float fov);
-        static void OrthographicZoom(CameraComponent& camera, const float zoom);
-        static void OrthographicResize(CameraComponent& camera, const float width, const float height);
+        extern void Init(CameraComponent& camera, const CameraType type, const float width, const float height, const float zNear = 0.1f, const float zFar = 1000.f, const float fov = 60.f);
+        extern void OrthographicZoom(CameraComponent& camera, const float zoom);
+        extern void OrthographicResize(CameraComponent& camera, const float width, const float height);
 
-        static void PerspectiveInit(CameraComponent& camera, float width, float height, float zNear, float zFar, float fov);
-        static void PerspectiveZoom(CameraComponent& camera, const float zoom);
-        static void PerspectiveResize(CameraComponent& camera, const float width, const float height);
+        extern void PerspectiveInit(CameraComponent& camera, const float width, const float height, const float zNear, const float zFar, const float fov);
+        extern void PerspectiveZoom(CameraComponent& camera, const float zoom);
+        extern void PerspectiveResize(CameraComponent& camera, const float width, const float height);
 
-        static void RecalculateViewMatrix(CameraComponent& camera, const glm::vec3& position, const glm::quat& rotation);
-    };
+        extern void RecalculateViewMatrix(CameraComponent& camera, const glm::vec3& position, const glm::quat& rotation);
+        extern bool OnWindowResize(WindowResizeEvent& e, CameraComponent& camera);
+    }
+
+    namespace SubSprite
+    {
+        extern void Create(SubSpriteComponent& subSprite, Ref<Texture2D> atlasTexture, const glm::vec2& min, const glm::vec2& max);
+        extern void CreateWithCells(SubSpriteComponent& subSprite, Ref<Texture2D> atlasTexture, const glm::vec2& spritePos, const glm::vec2& cellSize, const glm::vec2& spriteScale);
+    }
+
+    namespace TileMap
+    {
+        extern SpriteComponent GenUnifiedTileMap(TileMapData& data);
+    }
 }

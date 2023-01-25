@@ -53,4 +53,16 @@ namespace Vortex
         VORTEX_ASSERT(false, "Unknown Renderer API!");
         return nullptr;
     }
+
+    Ref<PixelBuffer> PixelBuffer::Create(uint32_t width, uint32_t height)
+    {
+        switch (RendererAPI::GetAPI())
+        {
+            case RendererAPI::API::None: VORTEX_ASSERT(false, "No API Selected!"); return nullptr;
+            case RendererAPI::API::OpenGL: return MakeRef<OpenGLPixelBuffer>(width, height);
+        }
+
+        VORTEX_ASSERT(false, "Unknown Renderer API!");
+        return nullptr;
+    }
 }

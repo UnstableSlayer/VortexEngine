@@ -1,9 +1,15 @@
+#include "Core/Logger.h"
+#include "Events/Event.h"
+#include "Events/MouseEvents.h"
+#include "Events/WindowEvents.h"
+#include "Input/MouseKeyDefs.h"
 #include "vpch.h"
 #include "ImGuiLayer.h"
 
-#include "Core/ApplicationClass.h"
+#include "Core/App.h"
 
 #include "imgui.h"
+#include <SDL2/SDL_video.h>
 
 #define IMGUI_IMPL_API
 #include "backends/imgui_impl_sdl.h"
@@ -50,8 +56,7 @@ namespace Vortex
 
 		SetDarkThemeColors();
 
-		ApplicationClass& app = ApplicationClass::Get();
-		SDL_Window* window = static_cast<SDL_Window*>(app.GetWindow().GetAPIWindow());
+		SDL_Window* window = static_cast<SDL_Window*>(App::Get().GetWindow().GetAPIWindow());
 
 		// Setup Platform/Renderer bindings
 		ImGui_ImplSDL2_InitForOpenGL(window, SDL_GL_GetCurrentContext());
@@ -85,7 +90,7 @@ namespace Vortex
 	void ImGuiLayer::End()
 	{
 		ImGuiIO& io = ImGui::GetIO();
-		ApplicationClass& app = ApplicationClass::Get();
+		App& app = App::Get();
 	    //SDL_Window* window = SDL_GL_GetCurrentWindow();
 		io.DisplaySize = ImVec2((float)app.GetWindow().GetWindowWidth(), (float)app.GetWindow().GetWindowHeight());
 		io.DeltaTime = Time::GetDeltaTime();

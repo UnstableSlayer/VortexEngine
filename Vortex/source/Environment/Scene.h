@@ -9,7 +9,7 @@ namespace Vortex
 	class VORTEX_API Scene
 	{
 	public:
-		virtual void Update(const glm::vec3& cameraPos, const float DeltaTime) = 0;
+		virtual void Update(const glm::vec3& cameraPos, const float DeltaTime) {}
 
 		Object& CreateObject()
 		{
@@ -17,6 +17,22 @@ namespace Vortex
 			Object* obj = new Object(id, &m_Registry);
 			return *obj;
 		}
+		template<typename... Args>
+		Object GetObjectWithComponents()
+		{
+			//VORTEX_CORE_INFO("Entity({0}) Added componnent {1}", m_ID, typeid(T).name());
+			auto view = m_Registry.view<Args...>();
+			Object obj = view.size() > 0 ? Object((uint32_t)view[0], &m_Registry) : Object(entt::null, &m_Registry);
+			return obj;
+		}
+		template<typename... Args>
+		entt::basic_view<Args...> GetObjectsWithComponents()
+		{
+			//VORTEX_CORE_INFO("Entity({0}) Added componnent {1}", m_ID, typeid(T).name());
+			return m_Registry.view<Args...>();
+		}
+
+
 		void RemoveObject(uint32_t objectID)
 		{
 			m_Registry.destroy((entt::entity)objectID);

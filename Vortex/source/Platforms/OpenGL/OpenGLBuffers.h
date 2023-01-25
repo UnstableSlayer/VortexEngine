@@ -60,4 +60,22 @@ namespace Vortex
 		std::vector<Ref<VertexBuffer>> m_VertexBuffers;
 		Ref<IndexBuffer> m_IndexBuffer;
 	};
+
+	class VORTEX_API OpenGLPixelBuffer : public PixelBuffer
+	{
+	public:
+		OpenGLPixelBuffer(uint32_t width, uint32_t height);
+		virtual ~OpenGLPixelBuffer();
+
+		virtual void Bind() const override;
+		virtual void UnBind() const override;
+
+		virtual uint32_t* ReadPixelData(uint32_t textureID) const override;
+		virtual void WritePixelData(uint32_t* data, uint32_t size);
+
+	private:
+		uint32_t m_ID;
+		uint32_t* m_PixelData;
+
+	};
 }

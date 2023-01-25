@@ -8,7 +8,7 @@ namespace Vortex
 	{
 	public:
 		OpenGLTexture2D(const uint32_t id);
-		OpenGLTexture2D(const uint32_t width, const uint32_t height);
+		OpenGLTexture2D(const uint32_t width, const uint32_t height, TextureFormat format, TextureWrap wrap, TextureFilter filter);
 		OpenGLTexture2D(const std::string& path, TextureFormat format, TextureWrap wrap, TextureFilter filter);
 		virtual ~OpenGLTexture2D();
 
@@ -22,7 +22,7 @@ namespace Vortex
 		virtual void MakeHandleResident() const override;
 		virtual void MakeHandleNonResident() const override;
 		virtual void SetData(void* data, uint32_t size) override;
-		virtual unsigned int* GetData() override;
+		virtual uint32_t* GetData() override;
 
 	private:
 		std::string m_Path;

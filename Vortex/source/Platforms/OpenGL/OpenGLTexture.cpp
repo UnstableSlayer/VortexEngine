@@ -13,19 +13,23 @@ namespace Vortex
 	}
 
 
-	OpenGLTexture2D::OpenGLTexture2D(const uint32_t width, const uint32_t height) : m_Width(width), m_Height(height)
+	OpenGLTexture2D::OpenGLTexture2D(const uint32_t width, const uint32_t height, TextureFormat format, TextureWrap wrap, TextureFilter filter) : m_Width(width), m_Height(height)
 	{
-		m_InternalFormat = GL_RGBA8;
-		m_DataFormat	 = GL_RGBA;
+		m_InternalFormat = TextureFormatToAPIEnum(format).first;
+		m_DataFormat	 = TextureFormatToAPIEnum(format).second;
 
 		glCreateTextures(GL_TEXTURE_2D, 1, &m_ID);
 		glTextureStorage2D(m_ID, 1, m_InternalFormat, m_Width, m_Height);
 
-		glTextureParameteri(m_ID, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTextureParameteri(m_ID, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glGenerateTextureMipmap(m_ID);
 
-		glTextureParameteri(m_ID, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		glTextureParameteri(m_ID, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		GLenum texfilter = TextureFilterToAPIEnum(filter);
+		glTextureParameteri(m_ID, GL_TEXTURE_MIN_FILTER, texfilter);
+		glTextureParameteri(m_ID, GL_TEXTURE_MAG_FILTER, texfilter);
+
+		GLenum texwrap = TextureWrapToApiEnum(wrap);
+		glTextureParameteri(m_ID, GL_TEXTURE_WRAP_S, texwrap);
+		glTextureParameteri(m_ID, GL_TEXTURE_WRAP_T, texwrap);
 	}
 
 	OpenGLTexture2D::OpenGLTexture2D(const std::string& path, TextureFormat format, TextureWrap wrap, TextureFilter filter)
@@ -102,11 +106,20 @@ namespace Vortex
 		VORTEX_ASSERT(size == m_Width * m_Height * bpp, "Data must be entire texture!");
 		glTextureSubImage2D(m_ID, 0, 0, 0, m_Width, m_Height, m_DataFormat, GL_UNSIGNED_BYTE, data);
 	}
-	unsigned int* OpenGLTexture2D::GetData()
+	uint32_t* OpenGLTexture2D::GetData()
 	{
-		unsigned int* buffer = nullptr;
-		glGetTextureSubImage(m_ID, 0, 0, 0, 0, m_Width, m_Height, 0, m_DataFormat, GL_UNSIGNED_INT, m_Width * m_Height * sizeof(unsigned int), buffer);
+		uint32_t* outBuffer = new uint32_t[m_Width * m_Height];
 
-		return buffer;
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, m_ID);
+		glGetTexImage(GL_TEXTURE_2D, 0, m_DataFormat, GL_UNSIGNED_BYTE, outBuffer);
+		//glBindTexture(GL_TEXTURE_2D, 0);
+		//glActiveTexture(0);
+		//glActiveTexture(GL_TEXTURE0);
+		//glBindTexture(GL_TEXTURE_2D, m_ID);
+		//glGetTextureImage(m_ID, 0, m_DataFormat, GL_UNSIGNED_INT, m_Width * m_Height * sizeof(uint32_t), buffer);
+		//glGetTextureSubImage(GL_TEXTURE_2D, 0, 0, 0, 0, m_Width, m_Height, 0, m_DataFormat, GL_UNSIGNED_INT, m_Width * m_Height * sizeof(uint32_t), buffer);
+
+		return outBuffer;
 	}
 }

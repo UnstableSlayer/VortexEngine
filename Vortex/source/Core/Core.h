@@ -1,7 +1,5 @@
 #pragma once
 
-#include <memory>
-
 #define VORTEX_API
 
 /*#ifdef VE_PLATFORM_WINDOWS

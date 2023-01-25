@@ -6,15 +6,13 @@ namespace Vortex
 	struct WindowProperties
 	{
 		std::string title;
-		uint32_t width;
-		uint32_t height;
-		uint32_t fbWidth;
-		uint32_t fbHeight;
+		uint32_t width, height;
+		uint32_t pixelWidth, pixelHeight;
 
 		WindowProperties(const std::string& Title = "VortexEngine Example Window",
-						 uint32_t Width = 320, uint32_t Height = 240,
-						 uint32_t FbWidth = 320, uint32_t FbHeight = 240)
-			: title(Title), width(Width), height(Height), fbWidth(FbWidth), fbHeight(FbHeight) {}
+						 uint32_t Width = 640, uint32_t Height = 360,
+						 uint32_t PixelWidth = 1, uint32_t PixelHeight = 1)
+			: title(Title), width(Width), height(Height), pixelWidth(PixelWidth), pixelHeight(PixelHeight) {}
 	};
 
 	class VORTEX_API Window
@@ -26,11 +24,12 @@ namespace Vortex
 
 		virtual void OnUpdate() = 0;
 		virtual const std::string& GetWindowTitle() const = 0;
-		virtual const uint32_t GetWindowWidth() const = 0;
-		virtual const uint32_t GetWindowHeight() const = 0;
-		virtual const uint32_t GetFramebufferWidth() const = 0;
-		virtual const uint32_t GetFramebufferHeight() const = 0;
-		//virtual const EventCallback& GetEventCallback() const = 0;
+		virtual uint32_t GetWindowWidth() const = 0;
+		virtual uint32_t GetWindowHeight() const = 0;
+		virtual uint32_t GetPixelWidth() const = 0;
+		virtual uint32_t GetPixelHeight() const = 0;
+		virtual int GetPositionX() const = 0;
+		virtual int GetPositionY() const = 0;
 
 		virtual void SetWindowTitle(const std::string& title) = 0;
 		virtual void SetEventCallback(const EventCallback& callback) = 0;

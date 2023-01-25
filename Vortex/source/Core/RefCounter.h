@@ -2,7 +2,7 @@
 #include "Assert.h"
 #include "Logger.h"
 
-//#define REF_COUNTER_DEBUG;
+//#define REF_COUNTER_DEBUG
 
 namespace Vortex
 {
@@ -74,13 +74,14 @@ namespace Vortex
 			m_Ptr = ptr;
 			m_RefCounter = refCounter;
 
+			if(!m_RefCounter) m_RefCounter = new RefCounter();
 			++m_RefCounter->m_RefCount;
 		}
 
 		Ref(const Ref<T>& ref)
 		{
 			*this = ref;
-			++m_RefCounter->m_RefCount;
+			if(m_RefCounter) ++m_RefCounter->m_RefCount;
 
 			#ifdef REF_COUNTER_DEBUG
 			VORTEX_APP_INFO("Ref<{0}> Assign: {1}", typeid(T).name(), m_RefCounter->m_RefCount);
@@ -91,7 +92,7 @@ namespace Vortex
 		Ref(const Ref<From>& ref)
 		{
             *this = ref;
-			++m_RefCounter->m_RefCount;
+			if(m_RefCounter) ++m_RefCounter->m_RefCount;
 
 			#ifdef REF_COUNTER_DEBUG
 			VORTEX_APP_INFO("Ref<{0}> Assign Derived: {1}", typeid(T).name(), m_RefCounter->m_RefCount);
@@ -129,7 +130,7 @@ namespace Vortex
 
 			this->m_Ptr = other.Get();
 			this->m_RefCounter = other.GetRefCounter();
-			++this->m_RefCounter->m_RefCount;
+			if(this->m_RefCounter) ++this->m_RefCounter->m_RefCount;
 
 			#ifdef REF_COUNTER_DEBUG
 			VORTEX_APP_INFO("Ref<{0}> Copy: {1}", typeid(From).name(), m_RefCounter->m_RefCount);
@@ -148,7 +149,7 @@ namespace Vortex
 			this->m_Ptr = other.Get();
 			this->m_RefCounter = other.GetRefCounter();
 
-			++this->m_RefCounter->m_RefCount;
+			if(this->m_RefCounter) ++this->m_RefCounter->m_RefCount;
 
 			#ifdef REF_COUNTER_DEBUG
 			VORTEX_APP_INFO("Ref<{0}> Move: {1}", typeid(From).name(), m_RefCounter->m_RefCount);

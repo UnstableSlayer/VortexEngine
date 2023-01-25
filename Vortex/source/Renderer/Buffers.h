@@ -133,4 +133,20 @@ namespace Vortex
 		virtual const std::vector<Ref<VertexBuffer>>& GetVertexBuffers() const = 0;
 		virtual const Ref<IndexBuffer>& GetIndexBuffer() const = 0;
 	};
+
+	/// Pixel Buffer ////////////////////////////////////
+
+	class VORTEX_API PixelBuffer
+	{
+	public:
+	    virtual ~PixelBuffer() = default;
+
+		virtual void Bind() const = 0;
+		virtual void UnBind() const = 0;
+
+		virtual uint32_t* ReadPixelData(uint32_t textureID) const = 0;
+		virtual void WritePixelData(uint32_t* data, uint32_t size) = 0;
+
+		static Ref<PixelBuffer> Create(uint32_t width, uint32_t height);
+    };
 }

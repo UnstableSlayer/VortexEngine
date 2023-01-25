@@ -1,4 +1,5 @@
 #pragma once
+#include <bits/utility.h>
 #include <entt/entt.hpp>
 #include <tuple>
 
@@ -27,12 +28,11 @@ namespace Vortex
 		}
 
 		template<typename... T>
-		std::tuple<>& GetComponents()
+		const std::tuple<T...>& GetComponents()
 		{
 			//if (!HasComponent<T...>()) return *(T*)nullptr;
 
-			auto& [Components] = m_Registry->get<T...>((entt::entity)m_ID);
-			return std::make_tuple<T...>(Components);
+			return m_Registry->get<T...>((entt::entity)m_ID);
 		}
 
 		template<typename T, typename... Args>
@@ -40,6 +40,11 @@ namespace Vortex
 		{
 			//VORTEX_CORE_INFO("Entity({0}) Added componnent {1}", m_ID, typeid(T).name());
 			return m_Registry->emplace<T>((entt::entity)m_ID, std::forward<Args>(args)...);
+		}
+
+		template<typename T, typename... Args>
+		void ReplaceComponent(Args&&... args){
+			m_Registry->replace<T>((entt::entity)m_ID, args...);
 		}
 
 		template<typename T>

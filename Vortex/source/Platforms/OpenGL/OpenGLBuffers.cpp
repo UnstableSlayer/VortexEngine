@@ -137,4 +137,49 @@ namespace Vortex
 
 		glBindVertexArray(0);
 	}
+
+	OpenGLPixelBuffer::OpenGLPixelBuffer(uint32_t width, uint32_t height)
+	{
+		glCreateBuffers(1, &m_ID);
+		glBindBuffer(GL_PIXEL_PACK_BUFFER, m_ID);
+		//glBufferData(GL_PIXEL_PACK_BUFFER, width * height * sizeof(uint32_t), m_PixelData, GL_STREAM_READ);
+	}
+
+	OpenGLPixelBuffer::~OpenGLPixelBuffer()
+	{
+		glDeleteBuffers(1, &m_ID);
+		delete m_PixelData;
+	}
+
+	void OpenGLPixelBuffer::Bind() const
+	{
+		glBindBuffer(GL_PIXEL_PACK_BUFFER, m_ID);
+	}
+
+	void OpenGLPixelBuffer::UnBind() const
+	{
+		glBindBuffer(GL_PIXEL_PACK_BUFFER, 0);
+	}
+
+	uint32_t* OpenGLPixelBuffer::ReadPixelData(uint32_t textureID) const
+	{
+		glBindTexture(GL_TEXTURE_2D, textureID);
+		glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_RGBA16, 0);
+		uint32_t* data = (uint32_t*)glMapBuffer(GL_PIXEL_PACK_BUFFER, GL_READ_ONLY);
+
+		//VORTEX_ASSERT(data != nullptr, "glMapBuffer failed!");
+		if(data == nullptr)
+			VORTEX_CORE_ERROR("WHY");
+
+		for (int i = 0; i < 10; i++) {
+			VORTEX_CORE_INFO("Data {0}: {1}", i, *(data + i));
+		}
+
+		return data;
+	}
+
+	void OpenGLPixelBuffer::WritePixelData(uint32_t *data, uint32_t size)
+	{
+
+	}
 }

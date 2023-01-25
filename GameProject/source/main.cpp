@@ -6,12 +6,11 @@ class GameApplication : public Vortex::ApplicationClass
 public:
 	GameApplication()
 	{
-		m_Window = Vortex::Window::Create(Vortex::WindowProperties("Vortex Engine Example Window", 640, 360, 320, 180));
+		m_Window = Vortex::Window::Create(Vortex::WindowProperties("Vortex Engine Example Window", 640, 360));
 		m_Window->SetEventCallback(VORTEX_BIND_EVENT(ApplicationClass::OnEvent));
 		
-        m_Window->SetVSync(false);
+        m_Window->SetVSync(true);
 		m_Window->LockCursor(true);
-		m_Window->SetWindowTitle("Testing Setting");
         VORTEX_APP_INFO("Window done!");
 		PushLayer(new ExampleLayer());
 	}

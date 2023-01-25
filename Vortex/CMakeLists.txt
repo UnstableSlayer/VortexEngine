@@ -1,10 +1,10 @@
 # glad
 add_subdirectory(thirdParty/glad)
 
-#SDL2
+# SDL2
 add_subdirectory(thirdParty/SDL2)
 
-#imgui
+# imgui
 add_subdirectory(thirdParty/imgui)
 
 # assimp

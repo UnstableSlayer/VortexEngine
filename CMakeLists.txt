@@ -10,5 +10,8 @@ endif()
 set(${PROJ_NAME}_PATH_INSTALL     "/opt/project"                     CACHE PATH "This directory contains installation Path")
 set(CMAKE_DEBUG_POSTFIX "d")
 
+add_definitions(-w)
+
 add_subdirectory(Vortex)
 add_subdirectory(GameProject)
+add_subdirectory(TestGame)

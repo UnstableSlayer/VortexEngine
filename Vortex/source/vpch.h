@@ -6,6 +6,11 @@
 #include <algorithm>
 #include <functional>
 
+//#include "Core/Allocator.h"
+
+//#define malloc(x) Vortex::Allocator::vmalloc(x)
+//#define free(x) Vortex::Allocator::vfree(x)
+
 #include <string>
 #include <sstream>
 #include <vector>
@@ -18,6 +23,10 @@
 #ifdef VE_PLATFORM_WINDOWS
 	#include <Windows.h>
 #endif
+
+
+//#define malloc(x) Vortex::Allocator::vmalloc(x)
+//#define free(x) Vortex::Allocator::vfree(x)
 
 #include "Core/Core.h"
 #include "Core/RefCounter.h"
