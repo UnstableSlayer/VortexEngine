@@ -16,7 +16,7 @@ namespace Vortex
 			return m2;
 		}
 
-		static uint32_t RandRange(uint32_t min, uint32_t max)
+		static int32_t RandRange(int32_t min, int32_t max)
 		{
 			return min + Rand() % ((max + 1) - min);
 		}

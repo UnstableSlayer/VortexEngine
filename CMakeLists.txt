@@ -13,5 +13,5 @@ set(CMAKE_DEBUG_POSTFIX "d")
 add_definitions(-w)
 
 add_subdirectory(Vortex)
-add_subdirectory(GameProject)
+add_subdirectory(VortexEditor)
 add_subdirectory(TestGame)

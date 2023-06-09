@@ -30,7 +30,7 @@ namespace Vortex
         extern void PerspectiveZoom(CameraComponent& camera, const float zoom);
         extern void PerspectiveResize(CameraComponent& camera, const float width, const float height);
 
-        extern void RecalculateViewMatrix(CameraComponent& camera, const glm::vec3& position, const glm::quat& rotation);
+        extern void RecalculateViewMatrix(CameraComponent& camera, TransformComponent& transform);
         extern bool OnWindowResize(WindowResizeEvent& e, CameraComponent& camera);
     }
 
@@ -43,5 +43,16 @@ namespace Vortex
     namespace TileMap
     {
         extern SpriteComponent GenUnifiedTileMap(TileMapData& data);
+    }
+
+    namespace Mesh
+    {
+        extern void LoadMeshData(MeshData& meshData, const char* path);
+        extern void GenPlaneMesh(MeshData& meshData, float width, float height, float uvScaleX, float uvScaleY);
+        extern void GenPlaneMeshFromPoints(MeshData& meshData, glm::vec3 v0, glm::vec3 v1, glm::vec3 v2, glm::vec3 v3, uint32_t subdivision);
+        extern void GenCubeMesh(MeshData& meshData);
+        //extern void GenUVSphereMesh(MeshData& meshData, const char* path);
+        //extern void GenCubeSphereMesh(MeshData& meshData, const char* path);
+        //extern void GenIsoSphereMesh(MeshData& meshData, const char* path);
     }
 }

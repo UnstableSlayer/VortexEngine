@@ -1,11 +1,28 @@
 # glad
+enable_language(CXX)
 add_subdirectory(thirdParty/glad)
 
 # SDL2
 add_subdirectory(thirdParty/SDL2)
 
 # imgui
-add_subdirectory(thirdParty/imgui)
+enable_language(CXX)
+
+set(IMGUI_SRCS
+        thirdParty/imgui/imconfig.h
+		thirdParty/imgui/imgui.h
+		thirdParty/imgui/imgui.cpp
+		thirdParty/imgui/imgui_draw.cpp
+		thirdParty/imgui/imgui_internal.h
+		thirdParty/imgui/imgui_widgets.cpp
+		thirdParty/imgui/imstb_rectpack.h
+		thirdParty/imgui/imstb_textedit.h
+		thirdParty/imgui/imstb_truetype.h
+		thirdParty/imgui/imgui_demo.cpp
+		thirdParty/imgui/imgui_tables.cpp
+)
+
+add_library(imgui STATIC ${IMGUI_SRCS})
 
 # assimp
 set(BUILD_SHARED_LIBS OFF)
@@ -22,8 +39,8 @@ add_subdirectory(thirdParty/assimp)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
-
-add_compile_options(-Wunused-result -Wint-to-pointer-cast -Wswitch)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+#add_compile_options(-Wunused-result -Wint-to-pointer-cast -Wswitch)
 
 if(CMAKE_C_COMPILER_ID EQUAL GNU)
     add_compile_options(-fcoroutines -O2)
@@ -52,4 +69,4 @@ include_directories(Vortex
 
 add_library(Vortex STATIC ${VORTEX_SRCS})
 target_precompile_headers(Vortex PRIVATE source/vpch.h)
-target_link_libraries(Vortex glad SDL2::SDL2 assimp imgui)
+target_link_libraries(Vortex glad SDL2::SDL2-static assimp imgui)

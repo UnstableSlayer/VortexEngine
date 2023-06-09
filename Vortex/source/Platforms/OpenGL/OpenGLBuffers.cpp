@@ -1,3 +1,4 @@
+#include "Renderer/Shader.h"
 #include "vpch.h"
 #include "OpenGLBuffers.h"
 
@@ -113,7 +114,15 @@ namespace Vortex
 		for (const auto& element : layout)
 		{
 			glEnableVertexAttribArray(index);
-			glVertexAttribPointer(index,
+			
+            if(element.Type == ShaderDataType::UInt) 
+                glVertexAttribIPointer(index,
+				element.GetComponentCount(),
+				ShaderDataTypeToOpenGLBaseType(element.Type),
+				vertexBuffer->GetLayout().GetStride(),
+				(const void*)element.Offset);
+            else
+                glVertexAttribPointer(index,
 				element.GetComponentCount(),
 				ShaderDataTypeToOpenGLBaseType(element.Type),
 				element.Normalized ? GL_TRUE : GL_FALSE,

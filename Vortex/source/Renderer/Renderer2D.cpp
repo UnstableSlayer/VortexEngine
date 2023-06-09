@@ -1,15 +1,13 @@
 #include "vpch.h"
 #include "Renderer2D.h"
-#include "Renderer/RenderCommand.h"
-
-#include "Renderer/Buffers.h"
-#include "Renderer/Shader.h"
-#include "Core/Time.h"
 
 #include "Core/App.h"
 
-#include <glm/gtc/type_ptr.hpp>
+#include "Renderer/RenderCommand.h"
+#include "Renderer/Buffers.h"
+#include "Renderer/Shader.h"
 
+#include "Environment/ComponentModifiers.h"
 
 namespace Vortex
 {
@@ -19,7 +17,7 @@ namespace Vortex
 		glm::vec4 Color;
 		glm::vec2 TexCoord;
 		glm::vec2 TexTiling = glm::vec2(1.0f);
-		float TexIndex = 0.f;
+        uint32_t TexIndex = 0;
 	};
 
 	struct Renderer2DData
@@ -101,7 +99,7 @@ namespace Vortex
     			{ ShaderDataType::Vec4f, "aColor" },
     			{ ShaderDataType::Vec2f, "aTexCoord" },
     			{ ShaderDataType::Vec2f, "aTexTiling" },
-    			{ ShaderDataType::Float, "aTexIndex" }
+    			{ ShaderDataType::UInt, "aTexIndex" }
 		  	});
     		s_Data.QuadVertexArray->AddVertexBuffer(s_Data.QuadVertexBuffer);
 
@@ -131,8 +129,8 @@ namespace Vortex
     		s_Data.DefaultTexture = Texture2D::Create(1, 1);
     		s_Data.DefaultTexture->SetData(&textureData, sizeof(uint32_t));
 
-    		int32_t samplers[s_Data.MaxTextureSlots - 1];
-    		for (uint32_t i = 0; i < s_Data.MaxTextureSlots - 1; i++)
+    		int32_t samplers[s_Data.MaxTextureSlots];
+    		for (uint32_t i = 0; i < s_Data.MaxTextureSlots; i++)
     		{
     			samplers[i] = i;
     		}
@@ -158,7 +156,8 @@ namespace Vortex
 
 	void Renderer2D::BeginScene(CameraComponent& camera, TransformComponent& transform)
 	{
-		Camera::RecalculateViewMatrix(camera, transform.m_Position, transform.m_Rotation);
+		Transform::UpdateTransformMatrix(transform);
+		Camera::RecalculateViewMatrix(camera, transform);
 
 		s_Data.CameraPos = &transform.m_Position;
 
@@ -166,7 +165,7 @@ namespace Vortex
 
 		s_Data.DefaultShader->Bind();
 		s_Data.DefaultShader->SetUniformMat4("uViewProj", camera.m_ViewProjectionMatrix);
-
+ 
 		s_Data.QuadIndexCount = 0;
 		s_Data.QuadVertexBufferPtr = s_Data.QuadVertexBufferBase;
 
@@ -243,7 +242,7 @@ namespace Vortex
 		s_Data.TextureSlotIndex = 1;
 	}
 
-	void Renderer2D::AppendSingleVertexData(const glm::vec3& position, const glm::vec4& color, const glm::vec2& texCoord, const glm::vec2& texTiling, const float& textureIndex)
+	void Renderer2D::AppendSingleVertexData(const glm::vec3& position, const glm::vec4& color, const glm::vec2& texCoord, const glm::vec2& texTiling, int textureIndex)
 	{
 		s_Data.QuadVertexBufferPtr->Position = position;
 		s_Data.QuadVertexBufferPtr->Color = color;
@@ -285,19 +284,19 @@ namespace Vortex
 		if (s_Data.QuadIndexCount >= s_Data.MaxIndices)
 			FlushAndReset();
 
-		float textureIndex = 0.f;
+		int textureIndex = 0;
 		for (size_t i = 0; i < s_Data.TextureSlotIndex; i++)
 		{
 			if (s_Data.Textures[i]->GetID() == sprite.m_Texture->GetID())
 			{
-				textureIndex = (float)i;
+				textureIndex = i;
 				break;
 			}
 		}
 
-		if (textureIndex == 0.f)
+		if (textureIndex == 0)
 		{
-			textureIndex = (float)s_Data.TextureSlotIndex;
+			textureIndex = s_Data.TextureSlotIndex;
 
 			s_Data.Textures[s_Data.TextureSlotIndex] = sprite.m_Texture;
 			s_Data.TextureSlotIndex++;

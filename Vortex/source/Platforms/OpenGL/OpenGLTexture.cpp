@@ -52,7 +52,8 @@ namespace Vortex
 		m_DataFormat = dataFormat;
 
 		glCreateTextures(GL_TEXTURE_2D, 1, &m_ID);
-		glTextureStorage2D(m_ID, 1, m_InternalFormat, m_Width, m_Height);
+        glBindTexture(GL_TEXTURE_2D, m_ID);		
+        glTextureStorage2D(m_ID, 1, m_InternalFormat, m_Width, m_Height);
 		#pragma endregion
 
 		#pragma region TextureFilter

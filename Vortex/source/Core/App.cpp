@@ -6,6 +6,7 @@
 
 #include "Renderer/RenderCommand.h"
 #include "Renderer/Renderer2D.h"
+#include "Renderer/Renderer3D.h"
 #include "Jobs/JobScheduler.h"
 
 namespace Vortex
@@ -25,9 +26,10 @@ namespace Vortex
 	void App::OnCreate()
 	{
 		Time::Init();
-		//JobScheduler::Init();
+		JobScheduler::Init();
 		RenderCommand::Init();
 		Renderer2D::Init();
+		Renderer3D::Init();
 
 		OnStart();
 
@@ -43,7 +45,7 @@ namespace Vortex
 			}
 		}
 
-		//JobScheduler::Destroy();
+		JobScheduler::Destroy();
 	}
 
 	void App::OnClose()

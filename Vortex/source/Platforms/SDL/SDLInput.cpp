@@ -3,7 +3,7 @@
 #include "Core/App.h"
 #include "Events/WindowEvents.h"
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 
 namespace Vortex
 {

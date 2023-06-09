@@ -16,3 +16,6 @@
 [submodule "Vortex/thirdParty/SDL2"]
 	path = Vortex/thirdParty/SDL2
 	url = https://github.com/libsdl-org/SDL
+[submodule "Vortex/thirdParty/implot"]
+	path = Vortex/thirdParty/implot
+	url = https://github.com/epezent/implot

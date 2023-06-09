@@ -1,7 +1,7 @@
 #include "vpch.h"
 #include "JobScheduler.h"
 
-#include "SDL2/SDL.h"
+#include "SDL.h"
 #include "Core/Time.h"
 
 namespace Vortex

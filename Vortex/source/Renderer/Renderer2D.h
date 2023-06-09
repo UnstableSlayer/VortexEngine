@@ -1,10 +1,7 @@
 #pragma once
 #include "Renderer/Texture.h"
-#include "Environment/Object.h"
-#include "Environment/Components.h"
-#include "Environment/ComponentModifiers.h"
-#include "Renderer/Mesh.h"
 #include "Renderer/Framebuffer.h"
+#include "Environment/Components.h"
 
 namespace Vortex
 {
@@ -28,7 +25,7 @@ namespace Vortex
 
 	private:
 		static void FlushAndReset();
-		static void AppendSingleVertexData(const glm::vec3& position, const glm::vec4& color, const glm::vec2& texCoord, const glm::vec2& texTiling, const float& textureIndex);
+		static void AppendSingleVertexData(const glm::vec3& position, const glm::vec4& color, const glm::vec2& texCoord, const glm::vec2& texTiling, int textureIndex);
 
 	public:
 		struct Statistics

@@ -10,12 +10,16 @@
 
 TestGame::TestGame()
 {
-    m_Window = Vortex::Window::Create(Vortex::WindowProperties("Vortex Engine Example Window", 1280, 720, 1, 1));
+    m_Window = Vortex::Window::Create(Vortex::WindowProperties("Vortex Engine Example Window", 1920, 1080, 1, 1));
     m_Window->SetEventCallback(VORTEX_BIND_EVENT(App::OnEvent));
 
-    m_Window->SetVSync(false);
+    m_Window->SetVSync(true);
 	m_Window->LockCursor(false);
+}
 
+TestGame::~TestGame() {}
+
+void TestGame::OnStart() { 
 	m_Scene = Vortex::MakeRef<CustomScene>();
 
 	// Camera
@@ -25,7 +29,7 @@ TestGame::TestGame()
         Vortex::Transform::SetPosition(transform, {0.f, 0.f, 10.f});
 
         auto &camera = m_Camera.AddComponent<Vortex::CameraComponent>();
-        Vortex::Camera::Init(camera, Vortex::CameraType::Orthographic, 16.f, 9.f, 1.f, 10000.f, 55.f);
+        Vortex::Camera::Init(camera, Vortex::CameraType::Perspective, 16.f, 9.f, 1.f, 10000.f, 55.f);
         VORTEX_APP_INFO("Camera Initialized!");
     }
 
@@ -36,14 +40,8 @@ TestGame::TestGame()
     PushOverlay(m_ImGuiLayer);
 }
 
-TestGame::~TestGame() {}
-
-void TestGame::OnStart() {}
-
 void TestGame::OnUpdate()
 {
-    //VORTEX_APP_INFO("Memory allocated: {0} KB", (float)(Vortex::Allocator::m_MemoryHead - Vortex::Allocator::m_Memory) / 1024);
-
     for (Vortex::Layer* layer : m_LayerStack)
 		layer->OnUpdate();
 

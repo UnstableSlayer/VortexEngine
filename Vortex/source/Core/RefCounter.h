@@ -144,7 +144,7 @@ namespace Vortex
 		Ref<T>& operator=(const Ref<From>&& other)
 		{
 		    if(*this == other)
-			return *this;
+				return *this;
 
 			this->m_Ptr = other.Get();
 			this->m_RefCounter = other.GetRefCounter();

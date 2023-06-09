@@ -9,6 +9,11 @@ namespace TestGameComponents
         glm::vec2 acceleration;
         glm::vec2 drag;
         float health;
+
+        Vortex::SpriteComponent tankBody;
+
+        Vortex::TransformComponent headTransform;
+        Vortex::SpriteComponent tankHead;
     };
 
 }

@@ -14,10 +14,11 @@ namespace Vortex
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        	glEnable(GL_DEPTH_TEST);
+        glEnable(GL_DEPTH_TEST);
 		glDepthMask(GL_TRUE);
-        	glDepthFunc(GL_LESS);
+        glDepthFunc(GL_LESS);
 
+        glEnable(GL_TEXTURE_2D);
 		//glEnable(GL_CULL_FACE);
 		//glCullFace(GL_BACK);
 		//glFrontFace(GL_CCW);
@@ -37,7 +38,6 @@ namespace Vortex
 	{
 		uint32_t count = indexCount ? indexCount : vertexArray->GetIndexBuffer()->GetCount();
 		glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_INT, nullptr);
-		
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 }

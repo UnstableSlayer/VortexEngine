@@ -4,8 +4,9 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/quaternion.hpp>
 
-#include "Object.h"
+#include "Environment/Object.h"
 #include "Renderer/Texture.h"
+#include "Renderer/Buffers.h"
 
 namespace Vortex
 {
@@ -60,8 +61,6 @@ namespace Vortex
 
 	struct SubSpriteComponent
 	{
-		//Ref<Texture2D> m_AtlasTexture;
-
 		glm::vec2 m_TexCoords[4];
 		glm::vec2 m_TexSize = glm::vec2(1.f);
 		glm::vec4 m_Tint = glm::vec4(1.f);
@@ -77,6 +76,24 @@ namespace Vortex
 		Ref<Texture2D> m_AtlasTexture;
 
 		uint32_t m_MapWidth;
+	};
+
+	struct MeshData 
+	{
+		Ref<VertexArray>* m_Data;
+		size_t m_Count;
+	};
+
+	struct MaterialData 
+	{
+		Ref<Shader> m_Shader;
+		Ref<Texture> m_Texture;
+	};
+
+	struct StaticMeshComponent
+	{
+		MeshData mesh;
+		MaterialData material;
 	};
 
 }
