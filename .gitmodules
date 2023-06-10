@@ -7,9 +7,6 @@
 [submodule "Vortex/thirdParty/spdlog"]
 	path = Vortex/thirdParty/spdlog
 	url = https://github.com/gabime/spdlog.git
-[submodule "Vortex/thirdParty/imgui"]
-	path = Vortex/thirdParty/imgui
-	url = https://github.com/UnstableSlayer/imgui.git
 [submodule "Vortex/thirdParty/assimp"]
 	path = Vortex/thirdParty/assimp
 	url = https://github.com/assimp/assimp
