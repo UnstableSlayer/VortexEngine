@@ -16,3 +16,6 @@
 [submodule "Vortex/thirdParty/implot"]
 	path = Vortex/thirdParty/implot
 	url = https://github.com/epezent/implot
+[submodule "Vortex/thirdParty/imgui"]
+	path = Vortex/thirdParty/imgui
+	url = https://github.com/ocornut/imgui
