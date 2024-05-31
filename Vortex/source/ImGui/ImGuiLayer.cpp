@@ -12,7 +12,7 @@
 #include <SDL_video.h>
 
 #define IMGUI_IMPL_API
-#include "backends/imgui_impl_sdl.h"
+#include "backends/imgui_impl_sdl2.h"
 #include "backends/imgui_impl_opengl3.h"
 
 #include <glad/gl.h>

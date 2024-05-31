@@ -7,10 +7,11 @@ layout (location = 2) in vec2 aTexCoord;
 out vec2 vTexCoord;
 
 uniform mat4 uViewProj;
+uniform mat4 uTransformMatrix;
 void main()
 {
-    vPos = aPos;
-    gl_Position = uViewProj * vec4(aPos, 1.0);
+    vTexCoord = aTexCoord;
+    gl_Position = uViewProj * uTransformMatrix * vec4(aPos, 1.0);
 }
 
 #type fragment
@@ -23,5 +24,5 @@ uniform sampler2D uTexture;
 
 void main()
 {
-    FragColor = texture(uTexture, vTexCoord);
+    FragColor = vec4(vTexCoord, 0.f, 0.5f) + texture(uTexture, vTexCoord * 2.f);
 }

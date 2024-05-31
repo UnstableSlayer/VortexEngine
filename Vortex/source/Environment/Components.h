@@ -94,6 +94,8 @@ namespace Vortex
 	{
 		MeshData mesh;
 		MaterialData material;
+
+        bool IsVisible = true;
 	};
 
 }

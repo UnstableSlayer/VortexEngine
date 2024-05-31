@@ -90,6 +90,6 @@ void PlayerLayer::OnImGuiRender(){
     ImGui::InputFloat3("Position", (float*)&transform.m_Position);
     auto& camera = cameraObj.GetComponent<Vortex::CameraComponent>();
     ImGui::InputFloat("Zoom", &camera.m_Zoom);
-    Vortex::Camera::PerspectiveZoom(camera, camera.m_Zoom);
+    Vortex::Camera::OrthographicZoom(camera, camera.m_Zoom);
     ImGui::End();
 }

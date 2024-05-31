@@ -10,7 +10,7 @@
 #include "Platforms/OpenGL/OpenGLContext.h"
 
 #include "SDL_video.h"
-#include "backends/imgui_impl_sdl.h"
+#include "backends/imgui_impl_sdl2.h"
 
 namespace Vortex
 {

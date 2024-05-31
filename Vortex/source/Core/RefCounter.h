@@ -74,14 +74,17 @@ namespace Vortex
 			m_Ptr = ptr;
 			m_RefCounter = refCounter;
 
-			if(!m_RefCounter) m_RefCounter = new RefCounter();
+            //VORTEX_ASSERT(refCounter, "RefCounter was null!");
+			m_RefCounter = new RefCounter();
 			++m_RefCounter->m_RefCount;
 		}
 
 		Ref(const Ref<T>& ref)
 		{
 			*this = ref;
-			if(m_RefCounter) ++m_RefCounter->m_RefCount;
+            //VORTEX_ASSERT(m_RefCounter, "RefCounter was null!");
+			if(!m_RefCounter) m_RefCounter = new RefCounter(); 
+            ++m_RefCounter->m_RefCount;
 
 			#ifdef REF_COUNTER_DEBUG
 			VORTEX_APP_INFO("Ref<{0}> Assign: {1}", typeid(T).name(), m_RefCounter->m_RefCount);
@@ -103,8 +106,8 @@ namespace Vortex
 		{
 			if(!m_Ptr && !m_RefCounter)
 				return;
-
-			if(!--m_RefCounter->m_RefCount)
+			
+            if(!--m_RefCounter->m_RefCount)
 			{
 				delete m_Ptr;
 
@@ -119,7 +122,7 @@ namespace Vortex
 			#endif
 		}
 
-		inline explicit operator bool() const { return m_Ptr; }
+		inline explicit operator bool() const { return m_Ptr != nullptr; }
 
 		//Copy operator
 		template<std::derived_from<T> From>

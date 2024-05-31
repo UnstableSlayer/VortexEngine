@@ -149,9 +149,9 @@ namespace Vortex
 
 	OpenGLPixelBuffer::OpenGLPixelBuffer(uint32_t width, uint32_t height)
 	{
-		glCreateBuffers(1, &m_ID);
-		glBindBuffer(GL_PIXEL_PACK_BUFFER, m_ID);
-		//glBufferData(GL_PIXEL_PACK_BUFFER, width * height * sizeof(uint32_t), m_PixelData, GL_STREAM_READ);
+		glGenBuffers(1, &m_ID);
+		glBindBuffer(GL_PIXEL_UNPACK_BUFFER, m_ID);
+		glBufferData(GL_PIXEL_UNPACK_BUFFER, width * height * sizeof(uint32_t), nullptr, GL_DYNAMIC_DRAW);
 	}
 
 	OpenGLPixelBuffer::~OpenGLPixelBuffer()
@@ -162,12 +162,12 @@ namespace Vortex
 
 	void OpenGLPixelBuffer::Bind() const
 	{
-		glBindBuffer(GL_PIXEL_PACK_BUFFER, m_ID);
+		glBindBuffer(GL_PIXEL_UNPACK_BUFFER, m_ID);
 	}
 
 	void OpenGLPixelBuffer::UnBind() const
 	{
-		glBindBuffer(GL_PIXEL_PACK_BUFFER, 0);
+		glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0);
 	}
 
 	uint32_t* OpenGLPixelBuffer::ReadPixelData(uint32_t textureID) const
@@ -187,8 +187,12 @@ namespace Vortex
 		return data;
 	}
 
-	void OpenGLPixelBuffer::WritePixelData(uint32_t *data, uint32_t size)
+	void OpenGLPixelBuffer::WritePixelData(uint32_t *data, uint32_t texId)
 	{
-
+        uint32_t *ptr = (uint32_t *)glMapBuffer(GL_PIXEL_UNPACK_BUFFER, GL_WRITE_ONLY);
+        *ptr=*data;
+        glUnmapBuffer(GL_PIXEL_UNPACK_BUFFER);
+        glBindTexture(GL_TEXTURE_2D, texId);
+        glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 1024, 1024, GL_RGBA8, GL_UNSIGNED_INT, (void *) 0);
 	}
 }

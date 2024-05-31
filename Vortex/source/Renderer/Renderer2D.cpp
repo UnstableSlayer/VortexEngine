@@ -1,3 +1,5 @@
+#include "Platforms/OpenGL/OpenGLBuffers.h"
+#include "Platforms/OpenGL/OpenGLShader.h"
 #include "vpch.h"
 #include "Renderer2D.h"
 
@@ -18,7 +20,7 @@ namespace Vortex
 		glm::vec2 TexCoord;
 		glm::vec2 TexTiling = glm::vec2(1.0f);
         uint32_t TexIndex = 0;
-	};
+    };
 
 	struct Renderer2DData
 	{
