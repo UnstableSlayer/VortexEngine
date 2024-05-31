@@ -3,9 +3,6 @@
 #include "Core/Layer.h"
 #include "CustomScene.h"
 
-#include "ImGui/ImGuiLayer.h"
-#include "Layers/PlayerLayer.h"
-#include "Layers/RenderLayer.h"
 #include "Layers/WorldLayer.h"
 
 TestGame::TestGame()
@@ -29,27 +26,17 @@ void TestGame::OnStart() {
         Vortex::Transform::SetPosition(transform, {0.f, 0.f, 10.f});
 
         auto &camera = m_Camera.AddComponent<Vortex::CameraComponent>();
-        Vortex::Camera::Init(camera, Vortex::CameraType::Perspective, 16.f, 9.f, 1.f, 10000.f, 55.f);
+        Vortex::Camera::Init(camera, Vortex::CameraType::Orthographic, 16.f, 9.f, 1.f, 10000.f, 55.f);
         VORTEX_APP_INFO("Camera Initialized!");
     }
 
-    PushLayer(new PlayerLayer());
     PushLayer(new WorldLayer());
-    PushLayer(new RenderLayer());
-    m_ImGuiLayer = new Vortex::ImGuiLayer();
-    PushOverlay(m_ImGuiLayer);
 }
 
 void TestGame::OnUpdate()
 {
     for (Vortex::Layer* layer : m_LayerStack)
 		layer->OnUpdate();
-
-    m_ImGuiLayer->Begin();
-
-	for (Vortex::Layer* layer : m_LayerStack)
-        layer->OnImGuiRender();
-	m_ImGuiLayer->End();
 
 	m_Window->OnUpdate();
 }

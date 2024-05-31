@@ -34,7 +34,7 @@ namespace Vortex
         extern bool OnWindowResize(WindowResizeEvent& e, CameraComponent& camera);
     }
 
-    namespace SubSprite
+/*    namespace SubSprite
     {
         extern void Create(SubSpriteComponent& subSprite, Ref<Texture2D> atlasTexture, const glm::vec2& min, const glm::vec2& max);
         extern void CreateWithCells(SubSpriteComponent& subSprite, Ref<Texture2D> atlasTexture, const glm::vec2& spritePos, const glm::vec2& cellSize, const glm::vec2& spriteScale);
@@ -55,4 +55,5 @@ namespace Vortex
         //extern void GenCubeSphereMesh(MeshData& meshData, const char* path);
         //extern void GenIsoSphereMesh(MeshData& meshData, const char* path);
     }
+*/
 }

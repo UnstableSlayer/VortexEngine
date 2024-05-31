@@ -4,9 +4,9 @@
 #include "Input/Input.h"
 #include "Core/Logger.h"
 
-#include "Renderer/RenderCommand.h"
-#include "Renderer/Renderer2D.h"
-#include "Renderer/Renderer3D.h"
+//#include "Renderer/RenderCommand.h"
+//#include "Renderer/Renderer2D.h"
+//#include "Renderer/Renderer3D.h"
 #include "Jobs/JobScheduler.h"
 
 namespace Vortex
@@ -27,9 +27,9 @@ namespace Vortex
 	{
 		Time::Init();
 		JobScheduler::Init();
-		RenderCommand::Init();
-		Renderer2D::Init();
-		Renderer3D::Init();
+		//RenderCommand::Init();
+		//Renderer2D::Init();
+		//Renderer3D::Init();
 
 		OnStart();
 
@@ -94,8 +94,8 @@ namespace Vortex
 		}
 		m_Minimized = false;
 
-		RenderCommand::SetViewport(0, 0, event.GetWidth(), event.GetHeight());
-		Renderer2D::GetRendererFramebuffer()->Resize({event.GetWidth() / m_Window->GetPixelWidth(), event.GetHeight() / m_Window->GetPixelHeight()});
+		//RenderCommand::SetViewport(0, 0, event.GetWidth(), event.GetHeight());
+		//Renderer2D::GetRendererFramebuffer()->Resize({event.GetWidth() / m_Window->GetPixelWidth(), event.GetHeight() / m_Window->GetPixelHeight()});
 
 		return false;
 	}

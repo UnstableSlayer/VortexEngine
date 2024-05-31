@@ -1,6 +1,6 @@
-# glad
+# vulkan
 enable_language(CXX)
-add_subdirectory(thirdParty/glad)
+find_package(Vulkan REQUIRED)
 
 # SDL2
 add_subdirectory(thirdParty/SDL2)
@@ -59,7 +59,6 @@ include_directories(Vortex
 		source
         thirdParty/SDL2/include
         thirdParty/assimp/include
-        thirdParty/glad/include
 	    thirdParty/glm
 	    thirdParty/imgui
 	    thirdParty/stb_image
@@ -69,4 +68,4 @@ include_directories(Vortex
 
 add_library(Vortex STATIC ${VORTEX_SRCS})
 target_precompile_headers(Vortex PRIVATE source/vpch.h)
-target_link_libraries(Vortex glad SDL2::SDL2-static assimp imgui)
+target_link_libraries(Vortex Vulkan::Vulkan SDL2::SDL2-static assimp imgui)

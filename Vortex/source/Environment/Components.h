@@ -5,8 +5,8 @@
 #include <glm/gtx/quaternion.hpp>
 
 #include "Environment/Object.h"
-#include "Renderer/Texture.h"
-#include "Renderer/Buffers.h"
+//#include "Renderer/Texture.h"
+//#include "Renderer/Buffers.h"
 
 namespace Vortex
 {
@@ -49,7 +49,7 @@ namespace Vortex
 		float m_FOV;
 		CameraType m_CameraType;
 	};
-
+/*
 	struct SpriteComponent
 	{
 		Ref<Texture2D> m_Texture;
@@ -94,8 +94,6 @@ namespace Vortex
 	{
 		MeshData mesh;
 		MaterialData material;
-
-        bool IsVisible = true;
 	};
-
+*/
 }

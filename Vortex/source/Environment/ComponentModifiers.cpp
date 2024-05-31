@@ -3,7 +3,7 @@
 #include "vpch.h"
 #include "ComponentModifiers.h"
 
-#include "Renderer/Buffers.h"
+//#include "Renderer/Buffers.h"
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
@@ -186,7 +186,7 @@ namespace Vortex
 
     /// SubSprite ////////////////////////////////////////
 
-    extern void SubSprite::Create(SubSpriteComponent &subSprite, Ref<Texture2D> atlasTexture, const glm::vec2 &min, const glm::vec2 &max)
+/*    extern void SubSprite::Create(SubSpriteComponent &subSprite, Ref<Texture2D> atlasTexture, const glm::vec2 &min, const glm::vec2 &max)
     {
         //subSprite.m_AtlasTexture = atlasTexture;
         subSprite.m_TexSize = (max - min) * atlasTexture->GetSize();
@@ -481,6 +481,6 @@ namespace Vortex
     }
 
 
-
+*/
     //////////////////////////////////////////////////////
 }

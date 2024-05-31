@@ -3,6 +3,7 @@
 #include "Events/MouseEvents.h"
 #include "Events/WindowEvents.h"
 #include "Input/MouseKeyDefs.h"
+#include "backends/imgui_impl_vulkan.h"
 #include "vpch.h"
 #include "ImGuiLayer.h"
 
@@ -13,9 +14,9 @@
 
 #define IMGUI_IMPL_API
 #include "backends/imgui_impl_sdl2.h"
-#include "backends/imgui_impl_opengl3.h"
+#include "backends/imgui_impl_vulkan.h"
 
-#include <glad/gl.h>
+#include <vulkan/vulkan.h>
 #include <SDL.h>
 
 namespace Vortex
@@ -59,13 +60,13 @@ namespace Vortex
 		SDL_Window* window = static_cast<SDL_Window*>(App::Get().GetWindow().GetAPIWindow());
 
 		// Setup Platform/Renderer bindings
-		ImGui_ImplSDL2_InitForOpenGL(window, SDL_GL_GetCurrentContext());
-		ImGui_ImplOpenGL3_Init("#version 410");
+		//ImGui_implSDL2_InitForVulkan(window, SDL_GL_GetCurrentContext());
+	    //ImGui_ImplVulkan_Init();
 	}
 
 	void ImGuiLayer::OnDetach()
 	{
-		ImGui_ImplOpenGL3_Shutdown();
+		ImGui_ImplVulkan_Shutdown();
 		ImGui_ImplSDL2_Shutdown();
 		ImGui::DestroyContext();
 	}
@@ -82,7 +83,7 @@ namespace Vortex
 
 	void ImGuiLayer::Begin()
 	{
-		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplVulkan_NewFrame();
 		ImGui_ImplSDL2_NewFrame();
 		ImGui::NewFrame();
 	}
@@ -97,7 +98,7 @@ namespace Vortex
 		// Rendering
 
 	    ImGui::Render();
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+	    //ImGui_ImplVulkan_RenderDrawData(ImGui::GetDrawData());
 
 		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 		{

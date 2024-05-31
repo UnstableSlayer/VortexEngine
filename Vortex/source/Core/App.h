@@ -4,14 +4,9 @@
 #include "Events/Event.h"
 #include "Events/WindowEvents.h"
 
-#include "ImGui/ImGuiLayer.h"
-
-#include "Renderer/Shader.h"
-#include "Renderer/Buffers.h"
+//#include "ImGui/ImGuiLayer.h"
 
 #include "Environment/Scene.h"
-
-#include "Core/Time.h"
 
 namespace Vortex
 {
@@ -36,14 +31,14 @@ namespace Vortex
 		inline static App& Get() { return *s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
 		inline Ref<Scene>& GetScene() { return m_Scene; };
-		inline ImGuiLayer* GetImGuiLayer() { return  m_ImGuiLayer; }
+		//inline ImGuiLayer* GetImGuiLayer() { return  m_ImGuiLayer; }
 		
 		virtual bool OnWindowClose(WindowCloseEvent& event);
 		virtual bool OnWindowResize(WindowResizeEvent& event);
 
 	protected:
 		Ref<Window> m_Window;
-		ImGuiLayer* m_ImGuiLayer;
+		//ImGuiLayer* m_ImGuiLayer;
 		LayerStack m_LayerStack;
 
 		Ref<Scene> m_Scene;

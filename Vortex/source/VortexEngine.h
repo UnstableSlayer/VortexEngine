@@ -34,7 +34,7 @@
 #include "ImGui/ImGuiLayer.h"
 
 //----Rendering----------------------------
-#include "Renderer/Renderer2D.h"
+/*#include "Renderer/Renderer2D.h"
 #include "Renderer/Renderer3D.h"
 #include "Renderer/RenderCommand.h"
 
@@ -43,7 +43,7 @@
 #include "Renderer/Texture.h"
 
 #include "Renderer/Framebuffer.h"
-
+*/
 //----Job System----------------------------
 
 #include "Jobs/JobData.h"
